@@ -1,0 +1,17 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Button
+        android:id="@+id/custom_button_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:text="Button Title"
+        android:textAllCaps="false"
+        android:textColor="@color/on_primary"
+        android:background="@drawable/primary_button"
+        app:backgroundTint="@color/primary" />
+
+</FrameLayout>
