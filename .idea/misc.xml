@@ -13,7 +13,7 @@
         <entry key="app/src/main/res/layout-w1240dp/activity_login_screen.xml" value="0.1813922356091031" />
         <entry key="app/src/main/res/layout/activity_bottom_tab.xml" value="0.31612723530202674" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.28229166666666666" />
-        <entry key="app/src/main/res/layout/activity_login_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login_screen.xml" value="0.3341461181640625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_product_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/border.xml" value="0.2682291666666667" />
@@ -27,6 +27,7 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1068840579710145" />
         <entry key="app/src/main/res/layout/preview_component.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/sample_custom_button.xml" value="0.2682291666666667" />
+        <entry key="app/src/main/res/layout/sample_search_input.xml" value="0.2682291666666667" />
         <entry key="app/src/main/res/menu/bottom_tab.xml" value="0.28125" />
       </map>
     </option>

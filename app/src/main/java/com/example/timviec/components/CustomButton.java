@@ -33,7 +33,7 @@ public class CustomButton extends FrameLayout {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        inflate(getContext(),R.layout.sample_custom_button,this);
+        inflate(getContext(), R.layout.sample_custom_button, this);
 
         // Load attributes
         final TypedArray a = getContext().obtainStyledAttributes(
@@ -59,21 +59,10 @@ public class CustomButton extends FrameLayout {
         });
     }
 
-    /**
-     * Gets the example string attribute value.
-     *
-     * @return The example string attribute value.
-     */
     public String getText() {
         return mText;
     }
 
-    /**
-     * Sets the view"s example string attribute value. In the example view, this string
-     * is the text to draw.
-     *
-     * @param exampleString The example string attribute value to use.
-     */
     public void setText(String exampleString) {
         mText = exampleString;
     }
