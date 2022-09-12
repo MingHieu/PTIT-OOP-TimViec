@@ -1,5 +1,6 @@
 package com.example.timviec.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,14 +9,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 
 import com.example.timviec.R;
+import com.example.timviec.Utils;
 import com.example.timviec.components.NonScrollListView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class UserFragment extends Fragment {
+public class UserFragment extends Utils.BaseFragment {
     ArrayList<EducationItem> educationItems;
     EducationListViewAdapter educationListViewAdapter;
     NonScrollListView educationListView;
@@ -45,8 +49,11 @@ public class UserFragment extends Fragment {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                educationItems.add(new EducationItem("Học Viện Công Nghệ Bưu Chính Viễn Thông ( Phía Bắc )", "Công nghệ thông tin", "10/2020", "Hiện tại"));
-                educationListViewAdapter.notifyDataSetChanged();
+//                educationItems.add(new EducationItem("Học Viện Công Nghệ Bưu Chính Viễn Thông ( Phía Bắc )", "Công nghệ thông tin", "10/2020", "Hiện tại"));
+//                educationListViewAdapter.notifyDataSetChanged();
+                Intent i = new Intent(getActivity(), EducationScreen.class);
+                i.putExtra("educationItems",new Gson().toJson(educationItems));
+                startActivity(i);
             }
         });
         return view;
@@ -54,10 +61,20 @@ public class UserFragment extends Fragment {
 }
 
 class EducationListViewAdapter extends BaseAdapter {
-    final ArrayList<EducationItem> listItems;
+    private final ArrayList<EducationItem> listItems;
+    private int padding;
+    private float radius;
+    private Intent intentNavigateTo;
 
     public EducationListViewAdapter(ArrayList<EducationItem> listItems) {
         this.listItems = listItems;
+    }
+
+    public EducationListViewAdapter(ArrayList<EducationItem> listItems, @Nullable int padding, @Nullable float radius, @Nullable Intent intentNavigateTo) {
+        this.listItems = listItems;
+        this.padding = padding;
+        this.radius = radius;
+        this.intentNavigateTo = intentNavigateTo;
     }
 
     @Override
@@ -78,6 +95,20 @@ class EducationListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View itemView = view != null ? view : View.inflate(viewGroup.getContext(), R.layout.education_item, null);
+        if (padding > 0) {
+            itemView.findViewById(R.id.education_item_wrapper).setPadding(padding, padding, padding, padding);
+        }
+        if (radius > 0) {
+            ((CardView) itemView.findViewById(R.id.education_item)).setRadius(radius);
+        }
+        if (intentNavigateTo != null) {
+            itemView.findViewById(R.id.education_item_wrapper).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    view.getContext().startActivity(intentNavigateTo);
+                }
+            });
+        }
         EducationItem item = getItem(i);
         ((TextView) itemView.findViewById(R.id.education_item_name)).setText(item.getName());
         ((TextView) itemView.findViewById(R.id.education_item_major)).setText(item.getMajor());
@@ -129,5 +160,15 @@ class EducationItem {
 
     public void setToDate(String toDate) {
         this.toDate = toDate;
+    }
+
+    @Override
+    public String toString() {
+        return "EducationItem{" +
+                "name='" + name + '\'' +
+                ", major='" + major + '\'' +
+                ", fromDate='" + fromDate + '\'' +
+                ", toDate='" + toDate + '\'' +
+                '}';
     }
 }

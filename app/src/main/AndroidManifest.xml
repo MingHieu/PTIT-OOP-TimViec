@@ -17,15 +17,20 @@
         android:theme="@style/Theme.MyApp.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".views.EducationScreen"
+            android:exported="false" />
+        <activity
+            android:name=".views.EducationEditScreen"
+            android:exported="false" />
         <activity
             android:name="com.example.timviec.router.BottomTab"
             android:exported="false" />
         <activity
-            android:name="com.example.timviec.views.LoginScreen"
+            android:name=".views.LoginScreen"
             android:exported="false" />
         <activity
-            android:name="com.example.timviec.views.MainActivity"
+            android:name=".views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -6,6 +6,8 @@
         <attr name="custom_input_type" format="enum">
             <enum name="text" value="0" />
             <enum name="password" value="1" />
+            <enum name="textMultiLine" value="2" />
         </attr>
+        <attr name="custom_input_required" format="boolean" />
     </declare-styleable>
 </resources>

@@ -3,14 +3,13 @@ package com.example.timviec.views;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.timviec.R;
+import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
 import com.example.timviec.components.CustomInput;
 import com.example.timviec.router.BottomTab;
 
-public class LoginScreen extends AppCompatActivity {
+public class LoginScreen extends Utils.BaseActivity {
     private CustomInput mUsernameInput;
     private CustomInput mPasswordInput;
     private CustomButton mLoginButton;

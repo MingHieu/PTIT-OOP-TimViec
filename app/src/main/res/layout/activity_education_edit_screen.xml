@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".views.EducationEditScreen">
+
+    <include layout="@layout/custom_action_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
+
+        <com.example.timviec.components.CustomInput
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:custom_input_placeholder="Nhập thông tin"
+            app:custom_input_required="true"
+            app:custom_input_text="Trường"
+            app:custom_input_type="text" />
+
+        <com.example.timviec.components.CustomInput
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:custom_input_placeholder="Nhập thông tin"
+            app:custom_input_required="true"
+            app:custom_input_text="Chuyên ngành"
+            app:custom_input_type="text" />
+
+        <com.example.timviec.components.CustomInput
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:custom_input_placeholder="Mô tả chi tiết quá trình học tập của bạn để nhà tuyển dụng có thể hiểu bạn hơn"
+            app:custom_input_text="Mô tả chi tiết"
+            app:custom_input_type="textMultiLine" />
+
+    </LinearLayout>
+</LinearLayout>

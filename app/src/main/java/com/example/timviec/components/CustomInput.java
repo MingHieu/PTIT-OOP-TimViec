@@ -6,13 +6,19 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.timviec.R;
+import com.example.timviec.Utils;
 
 /**
  * TODO: document your custom view class.
@@ -43,20 +49,29 @@ public class CustomInput extends FrameLayout {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.CustomInput, defStyle, 0);
 
-        TextView labelView = findViewById(R.id.custom_input_label);
-        labelView.setText(a.getString(R.styleable.CustomInput_custom_input_text));
+        // Input Label
+        ((TextView) findViewById(R.id.custom_input_label)).setText(a.getString(R.styleable.CustomInput_custom_input_text));
 
+        // Input Required
+        if (a.getBoolean(R.styleable.CustomInput_custom_input_required, false) == false) {
+            Log.i(null, "" + a.getBoolean(R.styleable.CustomInput_custom_input_required, false));
+            ((TextView) findViewById(R.id.custom_input_required)).setVisibility(View.GONE);
+        }
+
+        // Input Right Icon
         int iconResource = a.getResourceId(R.styleable.CustomInput_custom_input_icon, -1);
         mIcon = findViewById(R.id.custom_input_icon);
         if (iconResource != -1) {
             mIcon.setImageResource(iconResource);
         } else {
             mIcon.setVisibility(View.GONE);
-
         }
 
+        // Actual Input
         EditText input = findViewById(R.id.custom_input_input);
+        // Input Placeholder
         input.setHint(a.getString(R.styleable.CustomInput_custom_input_placeholder));
+        // Input type
         switch (a.getString(R.styleable.CustomInput_custom_input_type)) {
             case "0":
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -64,9 +79,17 @@ public class CustomInput extends FrameLayout {
             case "1":
                 input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 break;
+            case "2":
+                input.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                input.setGravity(Gravity.TOP);
+                input.setSingleLine(false);
+                input.setPadding(0, (int) Utils.convertDpToPixel(10, getContext()), 0, (int) Utils.convertDpToPixel(10, getContext()));
+                ((CardView) findViewById(R.id.custom_input_wrapper)).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300));
+                break;
             default:
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
         }
+        // Catch event when text changed
         input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -99,5 +122,4 @@ public class CustomInput extends FrameLayout {
     public String getmText() {
         return mText;
     }
-
 }

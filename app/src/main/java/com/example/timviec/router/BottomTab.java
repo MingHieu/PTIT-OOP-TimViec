@@ -13,6 +13,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.timviec.R;
+import com.example.timviec.Utils;
 import com.example.timviec.views.HistoryFragment;
 import com.example.timviec.views.HomeFragment;
 import com.example.timviec.views.NotificationFragment;
@@ -20,7 +21,7 @@ import com.example.timviec.views.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class BottomTab extends AppCompatActivity {
+public class BottomTab extends Utils.BaseActivity {
 
     private BottomNavigationView mBottomNav;
     private ViewPager2 mViewerPage;
