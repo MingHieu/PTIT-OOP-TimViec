@@ -25,7 +25,7 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/login_image" />
+                android:src="@drawable/img_login" />
         </RelativeLayout>
 
         <LinearLayout
@@ -35,59 +35,29 @@
             android:orientation="vertical"
             android:paddingHorizontal="20dp">
 
-            <LinearLayout
+            <com.example.timviec.components.CustomInput
+                android:id="@+id/login_screen_username_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:custom_input_placeholder="Nhập số điện thoại"
+                app:custom_input_text="Số điện thoại"
+                app:custom_input_type="text" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:labelFor="@+id/phoneNumber"
-                    android:text="Phone number"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/phoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/border"
-                    android:hint="+84999999999"
-                    android:inputType="phone"
-                    android:padding="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.example.timviec.components.CustomInput
+                android:id="@+id/login_screen_password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:labelFor="@+id/password"
-                    android:text="Password"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/border"
-                    android:hint="**********"
-                    android:inputType="textPassword"
-                    android:padding="10dp" />
-            </LinearLayout>
+                app:custom_input_icon="@drawable/ic_eye"
+                app:custom_input_placeholder="Nhập mật khẩu"
+                app:custom_input_text="Mật khẩu"
+                app:custom_input_type="password" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="10dp"
-                android:text="Forgot Password"
+                android:text="Quên mật khẩu"
                 android:textColor="@color/primary" />
 
             <com.example.timviec.components.CustomButton
@@ -95,12 +65,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:text="Login" />
+                app:custom_button_text="Đăng nhập" />
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:paddingBottom="20dp">
 
             <LinearLayout
@@ -112,12 +82,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No Account? " />
+                    android:text="Không có tài khoản? " />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign up"
+                    android:text="Đăng kí"
                     android:textColor="@color/primary" />
             </LinearLayout>
         </RelativeLayout>

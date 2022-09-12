@@ -1,14 +1,22 @@
 package com.example.timviec.router;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.timviec.R;
+import com.example.timviec.views.HistoryFragment;
+import com.example.timviec.views.HomeFragment;
+import com.example.timviec.views.NotificationFragment;
+import com.example.timviec.views.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -24,13 +32,17 @@ public class BottomTab extends AppCompatActivity {
 
         mBottomNav = findViewById(R.id.bottom_tab);
         mViewerPage = findViewById(R.id.view_pager);
-
+        // Make content not stretch horizontally when over scroll
+        View child = mViewerPage.getChildAt(0);
+        if (child instanceof RecyclerView) {
+            child.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        }
         setUpNavigation();
     }
 
     public void setUpNavigation() {
-        ViewerPageAdapter viewerPageAdapter = new ViewerPageAdapter(BottomTab.this);
-        mViewerPage.setAdapter(viewerPageAdapter);
+        BottomTabAdapter bottomTabAdapter = new BottomTabAdapter(BottomTab.this);
+        mViewerPage.setAdapter(bottomTabAdapter);
 
         mBottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -40,13 +52,13 @@ public class BottomTab extends AppCompatActivity {
                     case R.id.home_screen:
                         mViewerPage.setCurrentItem(0);
                         break;
-                    case R.id.order_screen:
+                    case R.id.history_screen:
                         mViewerPage.setCurrentItem(1);
                         break;
                     case R.id.notification_screen:
                         mViewerPage.setCurrentItem(2);
                         break;
-                    case R.id.setting_screen:
+                    case R.id.user_screen:
                         mViewerPage.setCurrentItem(3);
                         break;
                 }
@@ -63,16 +75,51 @@ public class BottomTab extends AppCompatActivity {
                         mBottomNav.getMenu().findItem(R.id.home_screen).setChecked(true);
                         break;
                     case 1:
-                        mBottomNav.getMenu().findItem(R.id.order_screen).setChecked(true);
+                        mBottomNav.getMenu().findItem(R.id.history_screen).setChecked(true);
                         break;
                     case 2:
                         mBottomNav.getMenu().findItem(R.id.notification_screen).setChecked(true);
                         break;
                     case 3:
-                        mBottomNav.getMenu().findItem(R.id.setting_screen).setChecked(true);
+                        mBottomNav.getMenu().findItem(R.id.user_screen).setChecked(true);
                         break;
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0, R.anim.slide_out_right);
+    }
+}
+
+
+class BottomTabAdapter extends FragmentStateAdapter {
+    public BottomTabAdapter(@NonNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
+    }
+
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
+        switch (position) {
+            case 0:
+                return new HomeFragment();
+            case 1:
+                return new HistoryFragment();
+            case 2:
+                return new NotificationFragment();
+            case 3:
+                return new UserFragment();
+            default:
+                return new HomeFragment();
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return 4;
     }
 }

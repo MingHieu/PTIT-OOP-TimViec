@@ -4,8 +4,9 @@ import com.example.timviec.model.User;
 
 public class StateManagerService {
     private User user;
+    private String authToken;
 
-     public StateManagerService() {
+    public StateManagerService() {
         user = new User();
     }
 
@@ -15,5 +16,13 @@ public class StateManagerService {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }

@@ -2,19 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home_screen"
-        android:icon="@drawable/ic_home"
-        android:title="@string/home_screen_title"
-        />
+        android:icon="@drawable/ic_job"
+        android:title="@string/home_screen_title" />
     <item
-        android:id="@+id/order_screen"
-        android:icon="@drawable/ic_order"
-        android:title="@string/order_screen_title" />
+        android:id="@+id/history_screen"
+        android:icon="@drawable/ic_history"
+        android:title="@string/history_screen_title" />
     <item
         android:id="@+id/notification_screen"
         android:icon="@drawable/ic_bell"
         android:title="@string/notification_screen_title" />
     <item
-        android:id="@+id/setting_screen"
-        android:icon="@drawable/ic_setting"
-        android:title="@string/setting_screen_title" />
+        android:id="@+id/user_screen"
+        android:icon="@drawable/ic_user"
+        android:title="@string/user_screen_title" />
 </menu>

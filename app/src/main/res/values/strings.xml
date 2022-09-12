@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">MyApp</string>
-    <string name="home_screen_title">Home</string>
-    <string name="notification_screen_title">Notification</string>
-    <string name="order_screen_title">Orders</string>
-    <string name="setting_screen_title">Setting</string>
-    <string name="title_activity_product_screen">ProductScreen</string>
+    <string name="home_screen_title">Việc làm</string>
+    <string name="notification_screen_title">Thông báo</string>
+    <string name="history_screen_title">Lịch sử</string>
+    <string name="user_screen_title">Hồ sơ</string>
 </resources>

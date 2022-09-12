@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.timviec.R;
 
@@ -14,8 +14,7 @@ import com.example.timviec.R;
  * TODO: document your custom view class.
  */
 public class CustomButton extends FrameLayout {
-    private String mText;
-    private Button mBtn;
+    private TextView mBtn;
 
     public CustomButton(Context context) {
         super(context);
@@ -39,15 +38,11 @@ public class CustomButton extends FrameLayout {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.CustomButton, defStyle, 0);
 
-        mText = a.getString(
-                R.styleable.CustomButton_text);
-
         mBtn = findViewById(R.id.custom_button_button);
-        mBtn.setText(mText);
+        mBtn.setText(a.getString(
+                R.styleable.CustomButton_custom_button_text));
 
         a.recycle();
-
-
     }
 
     public void setHandleOnClick(Runnable handleOnClick) {
@@ -57,13 +52,5 @@ public class CustomButton extends FrameLayout {
                 handleOnClick.run();
             }
         });
-    }
-
-    public String getText() {
-        return mText;
-    }
-
-    public void setText(String exampleString) {
-        mText = exampleString;
     }
 }

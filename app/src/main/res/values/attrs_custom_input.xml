@@ -1,0 +1,11 @@
+<resources>
+    <declare-styleable name="CustomInput">
+        <attr name="custom_input_text" format="string" />
+        <attr name="custom_input_icon" format="reference" />
+        <attr name="custom_input_placeholder" format="string" />
+        <attr name="custom_input_type" format="enum">
+            <enum name="text" value="0" />
+            <enum name="password" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
