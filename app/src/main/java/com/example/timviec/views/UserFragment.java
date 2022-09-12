@@ -52,7 +52,7 @@ public class UserFragment extends Utils.BaseFragment {
 //                educationItems.add(new EducationItem("Học Viện Công Nghệ Bưu Chính Viễn Thông ( Phía Bắc )", "Công nghệ thông tin", "10/2020", "Hiện tại"));
 //                educationListViewAdapter.notifyDataSetChanged();
                 Intent i = new Intent(getActivity(), EducationScreen.class);
-                i.putExtra("educationItems",new Gson().toJson(educationItems));
+                i.putExtra("educationItems", new Gson().toJson(educationItems));
                 startActivity(i);
             }
         });

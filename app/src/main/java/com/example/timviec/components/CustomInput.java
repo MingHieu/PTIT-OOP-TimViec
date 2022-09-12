@@ -1,5 +1,6 @@
 package com.example.timviec.components;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
@@ -9,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,12 +22,16 @@ import androidx.cardview.widget.CardView;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * TODO: document your custom view class.
  */
 public class CustomInput extends FrameLayout {
     private ImageView mIcon;
     private String mText;
+    private EditText mInput;
 
 
     public CustomInput(Context context) {
@@ -68,29 +74,49 @@ public class CustomInput extends FrameLayout {
         }
 
         // Actual Input
-        EditText input = findViewById(R.id.custom_input_input);
+        mInput = findViewById(R.id.custom_input_input);
         // Input Placeholder
-        input.setHint(a.getString(R.styleable.CustomInput_custom_input_placeholder));
+        mInput.setHint(a.getString(R.styleable.CustomInput_custom_input_placeholder));
         // Input type
         switch (a.getString(R.styleable.CustomInput_custom_input_type)) {
             case "0":
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                mInput.setInputType(InputType.TYPE_CLASS_TEXT);
                 break;
             case "1":
-                input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                mInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 break;
             case "2":
-                input.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                input.setGravity(Gravity.TOP);
-                input.setSingleLine(false);
-                input.setPadding(0, (int) Utils.convertDpToPixel(10, getContext()), 0, (int) Utils.convertDpToPixel(10, getContext()));
+                mInput.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                mInput.setSingleLine(false);
+                mInput.setGravity(Gravity.TOP);
+                mInput.setPadding(0, (int) Utils.convertDpToPixel(10, getContext()), 0, (int) Utils.convertDpToPixel(10, getContext()));
                 ((CardView) findViewById(R.id.custom_input_wrapper)).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300));
                 break;
+            case "3":
+                Calendar calendar = Calendar.getInstance();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        // i - year, i1 - month, i2 - day
+                        calendar.set(i, i1, i2);
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        setmText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+                datePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                mInput.setInputType(InputType.TYPE_NULL);
+                mInput.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        datePickerDialog.show();
+                    }
+                });
+                break;
             default:
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                mInput.setInputType(InputType.TYPE_CLASS_TEXT);
         }
         // Catch event when text changed
-        input.addTextChangedListener(new TextWatcher() {
+        mInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -98,7 +124,7 @@ public class CustomInput extends FrameLayout {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mText = input.getText().toString();
+                mText = mInput.getText().toString();
             }
 
             @Override
@@ -121,5 +147,10 @@ public class CustomInput extends FrameLayout {
 
     public String getmText() {
         return mText;
+    }
+
+    public void setmText(String mText) {
+        this.mText = mText;
+        mInput.setText(mText);
     }
 }
