@@ -112,7 +112,7 @@ class EducationListViewAdapter extends BaseAdapter {
         EducationItem item = getItem(i);
         ((TextView) itemView.findViewById(R.id.education_item_name)).setText(item.getName());
         ((TextView) itemView.findViewById(R.id.education_item_major)).setText(item.getMajor());
-        ((TextView) itemView.findViewById(R.id.education_item_time)).setText(item.getFromDate() + " " + item.getToDate());
+        ((TextView) itemView.findViewById(R.id.education_item_time)).setText(item.getFromDate() + " - " + item.getToDate());
         return itemView;
     }
 }
