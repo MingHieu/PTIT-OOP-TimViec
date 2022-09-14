@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".views.SelectRoleScreen"
+            android:exported="false" />
+        <activity
             android:name=".views.EducationScreen"
             android:exported="false" />
         <activity

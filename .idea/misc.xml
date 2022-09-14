@@ -13,15 +13,17 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.218" />
         <entry key="app/src/main/res/drawable/login_image.xml" value="0.1655" />
         <entry key="app/src/main/res/drawable/primary_button.xml" value="0.1655" />
+        <entry key="app/src/main/res/drawable/ripple_effect.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/round.xml" value="0.1655" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login_screen.xml" value="0.1813922356091031" />
         <entry key="app/src/main/res/layout/activity_bottom_tab.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_education_edit_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_education_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.28229166666666666" />
-        <entry key="app/src/main/res/layout/activity_login_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_product_screen.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_select_role_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/border.xml" value="0.2682291666666667" />
         <entry key="app/src/main/res/layout/component_sample.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/content_product_screen.xml" value="0.28229166666666666" />

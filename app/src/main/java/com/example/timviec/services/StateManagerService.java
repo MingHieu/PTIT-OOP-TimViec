@@ -7,7 +7,7 @@ public class StateManagerService {
     private String authToken;
 
     public StateManagerService() {
-        user = new User();
+        user = new User(10, null, null, null);
     }
 
     public User getUser() {

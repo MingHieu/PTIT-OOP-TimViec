@@ -1,56 +1,61 @@
 package com.example.timviec.model;
 
 public class User {
-    private String uid, name, phoneNumber;
+    Freelancer freelancer;
+    Enterprise enterprise;
+    private int roleId;
+    private String username;
 
     public User() {
-        this.uid = "";
-        this.name = "";
-        this.phoneNumber = "";
     }
 
-    public User(String uid, String name, String phoneNumber, String username, String password) {
-        this.uid = uid;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+    public User(int roleId, String username, Freelancer freelancer, Enterprise enterprise) {
+        this.roleId = roleId;
+        this.username = username;
+        this.freelancer = freelancer;
+        this.enterprise = enterprise;
     }
 
-    public User(String uid, String name, String phoneNumber) {
-        this.uid = uid;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public String getUid() {
-        return uid;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public String getUsername() {
+        return username;
     }
 
-    public String getName() {
-        return name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Freelancer getFreelancer() {
+        return freelancer;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setFreelancer(Freelancer freelancer) {
+        this.freelancer = freelancer;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "uid='" + uid + '\'' +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                "roleId=" + roleId +
+                ", username='" + username + '\'' +
+                ", freelancer=" + freelancer +
+                ", enterprise=" + enterprise +
                 '}';
     }
 }
+

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,19 +70,41 @@ public class Utils {
         }
 
         public void setUpScreen(String screenTitle) {
-            TextView screenTitleView = findViewById(R.id.screen_title);
-            if (screenTitleView != null) {
-                screenTitleView.setText("Học vấn");
+            TextView actionBarTitle = findViewById(R.id.action_bar_title);
+            if (actionBarTitle != null) {
+                actionBarTitle.setText("Học vấn");
             }
 
-            ImageView screenBackButton = findViewById(R.id.screen_back_button);
-            if (screenBackButton != null) {
-                screenBackButton.setOnClickListener(new View.OnClickListener() {
+            ImageView actionBarBackButton = findViewById(R.id.action_bar_back_button);
+            if (actionBarBackButton != null) {
+                actionBarBackButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         onBackPressed();
                     }
                 });
+            }
+        }
+
+        public void setUpScreen() {
+            TextView actionBarTitle = findViewById(R.id.action_bar_title);
+            if(actionBarTitle != null){
+                actionBarTitle.setVisibility(View.GONE);
+            }
+
+            ImageView actionBarBackButton = findViewById(R.id.action_bar_back_button);
+            if (actionBarBackButton != null) {
+                actionBarBackButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onBackPressed();
+                    }
+                });
+            }
+
+            LinearLayout actionBarBorder = findViewById(R.id.action_bar_border);
+            if(actionBarBorder != null){
+                actionBarBorder.setVisibility(View.GONE);
             }
         }
     }

@@ -1,98 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".views.LoginScreen">
 
+    <include layout="@layout/custom_action_bar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="Đăng nhập"
+        android:textColor="@color/on_background"
+        android:textSize="32dp"
+        android:textStyle="bold" />
+
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingHorizontal="20dp">
 
-        <RelativeLayout
+        <com.example.timviec.components.CustomInput
+            android:id="@+id/login_screen_username_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp">
+            app:custom_input_placeholder="Nhập số điện thoại"
+            app:custom_input_text="Số điện thoại"
+            app:custom_input_type="text" />
 
-            <ImageView
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/img_login" />
-        </RelativeLayout>
+        <com.example.timviec.components.CustomInput
+            android:id="@+id/login_screen_password_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:custom_input_icon="@drawable/ic_eye"
+            app:custom_input_placeholder="Nhập mật khẩu"
+            app:custom_input_text="Mật khẩu"
+            app:custom_input_type="password" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:text="Quên mật khẩu"
+            android:textColor="@color/primary" />
+
+        <com.example.timviec.components.CustomButton
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:custom_button_text="Đăng nhập" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp">
-
-            <com.example.timviec.components.CustomInput
-                android:id="@+id/login_screen_username_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:custom_input_placeholder="Nhập số điện thoại"
-                app:custom_input_text="Số điện thoại"
-                app:custom_input_type="text" />
-
-            <com.example.timviec.components.CustomInput
-                android:id="@+id/login_screen_password_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:custom_input_icon="@drawable/ic_eye"
-                app:custom_input_placeholder="Nhập mật khẩu"
-                app:custom_input_text="Mật khẩu"
-                app:custom_input_type="password" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="10dp"
-                android:text="Quên mật khẩu"
-                android:textColor="@color/primary" />
+                android:text="Không có tài khoản? " />
 
-            <com.example.timviec.components.CustomButton
-                android:id="@+id/loginBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:custom_button_text="Đăng nhập" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="20dp">
-
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Không có tài khoản? " />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Đăng kí"
-                    android:textColor="@color/primary" />
-            </LinearLayout>
-        </RelativeLayout>
-
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="Đăng kí"
+                android:textColor="@color/primary" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

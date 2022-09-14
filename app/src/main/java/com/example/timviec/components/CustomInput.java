@@ -17,10 +17,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.kal.rackmonthpicker.RackMonthPicker;
+import com.kal.rackmonthpicker.listener.DateMonthDialogListener;
+import com.kal.rackmonthpicker.listener.OnCancelMonthDialogListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -109,6 +113,26 @@ public class CustomInput extends FrameLayout {
                     @Override
                     public void onClick(View view) {
                         datePickerDialog.show();
+                    }
+                });
+                break;
+            case "4":
+                RackMonthPicker rackMonthPicker = new RackMonthPicker(getContext()).setPositiveButton(new DateMonthDialogListener() {
+                    @Override
+                    public void onDateMonth(int month, int startDate, int endDate, int year, String monthLabel) {
+                        setmText(month + "/" + year);
+                    }
+                }).setNegativeButton(new OnCancelMonthDialogListener() {
+                    @Override
+                    public void onCancel(AlertDialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                mInput.setInputType(InputType.TYPE_NULL);
+                mInput.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rackMonthPicker.show();
                     }
                 });
                 break;

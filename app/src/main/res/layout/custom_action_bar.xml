@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -12,14 +13,14 @@
         android:paddingVertical="10dp">
 
         <ImageView
-            android:id="@+id/screen_back_button"
+            android:id="@+id/action_bar_back_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_arrow_left" />
 
         <TextView
-            android:id="@+id/screen_title"
+            android:id="@+id/action_bar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -30,7 +31,9 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/action_bar_border"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_400" />
+        android:background="@color/gray_400"
+        tools:ignore="Orientation" />
 </LinearLayout>

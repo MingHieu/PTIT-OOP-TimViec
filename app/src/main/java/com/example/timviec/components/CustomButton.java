@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.timviec.R;
 
 
@@ -15,6 +17,7 @@ import com.example.timviec.R;
  */
 public class CustomButton extends FrameLayout {
     private TextView mBtn;
+    private String mText;
 
     public CustomButton(Context context) {
         super(context);
@@ -38,9 +41,16 @@ public class CustomButton extends FrameLayout {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.CustomButton, defStyle, 0);
 
+        mText = a.getString(R.styleable.CustomButton_custom_button_text);
         mBtn = findViewById(R.id.custom_button_button);
-        mBtn.setText(a.getString(
-                R.styleable.CustomButton_custom_button_text));
+        mBtn.setText(mText);
+
+        int color = a.getColor(R.styleable.CustomButton_custom_button_color, getResources().getColor(R.color.primary));
+        mBtn.setBackgroundColor(color);
+
+        if (a.getBoolean(R.styleable.CustomButton_custom_button_round, false)) {
+            ((CardView) findViewById(R.id.custom_button_wrapper)).setRadius(99999);
+        }
 
         a.recycle();
     }
@@ -52,5 +62,10 @@ public class CustomButton extends FrameLayout {
                 handleOnClick.run();
             }
         });
+    }
+
+    public void setmText(String mText) {
+        this.mText = mText;
+        mBtn.setText(mText);
     }
 }

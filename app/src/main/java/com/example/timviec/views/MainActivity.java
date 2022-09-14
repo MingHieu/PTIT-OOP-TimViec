@@ -21,7 +21,7 @@ public class MainActivity extends Utils.BaseActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Intent i = new Intent(MainActivity.this, LoginScreen.class);
+                Intent i = new Intent(MainActivity.this, SelectRoleScreen.class);
                 startActivity(i);
             }
         }, 2000);

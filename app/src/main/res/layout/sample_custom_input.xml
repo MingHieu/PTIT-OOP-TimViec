@@ -15,7 +15,8 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/custom_input_input"
             android:text="Input Label"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/custom_input_required"

@@ -4,6 +4,7 @@
     android:layout_height="50dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/custom_button_wrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/primary"
@@ -13,7 +14,9 @@
             android:id="@+id/custom_button_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primary"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:gravity="center"
             android:text="Button Title"
             android:textColor="@color/on_primary"

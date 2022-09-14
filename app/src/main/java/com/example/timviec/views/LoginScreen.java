@@ -19,6 +19,8 @@ public class LoginScreen extends Utils.BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
+        setUpScreen();
+
         mUsernameInput = findViewById(R.id.login_screen_username_input);
         mPasswordInput = findViewById(R.id.login_screen_password_input);
         mLoginButton = findViewById(R.id.loginBtn);
@@ -34,7 +36,7 @@ public class LoginScreen extends Utils.BaseActivity {
     private void login() {
         Intent i = new Intent(this, BottomTab.class);
         startActivity(i);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+
 
 //        ApiService.apiService.hello().enqueue(new Callback<User>() {
 //            @Override
@@ -49,8 +51,5 @@ public class LoginScreen extends Utils.BaseActivity {
 //        });
     }
 
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
+
 }
