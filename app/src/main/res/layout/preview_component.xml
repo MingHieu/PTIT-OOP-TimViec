@@ -4,10 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <com.example.timviec.components.SettingSelection
+    <com.example.timviec.components.JobCard
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:setting_selection_text="Cài đặt" />
+        app:job_card_job_address="sdgvbdjsjdfhd"
+        app:job_card_job_name="bjvbclkzdbkfx"
+        app:job_card_job_company="vhljvk.j"
+        app:job_card_job_money="1000"
+        app:job_card_job_time="50 ngay"/>
 
 </LinearLayout>
