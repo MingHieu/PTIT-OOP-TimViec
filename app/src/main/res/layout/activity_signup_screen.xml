@@ -18,8 +18,7 @@
         android:text="Đăng ký"
         android:textColor="@color/on_background"
         android:textSize="32sp"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,8 +33,7 @@
             android:paddingEnd="8dp"
             app:custom_input_placeholder="Nhập Họ"
             app:custom_input_text="Họ"
-            app:custom_input_type="text"
-            tools:ignore="RtlSymmetry" />
+            app:custom_input_type="text" />
 
         <com.example.timviec.components.CustomInput
             android:id="@+id/sign_up_last_name"
@@ -79,8 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="false"
-        android:text="Tôi đồng ý với các Điều khoản dịch vụ và Chính sác bảo mật"
-        tools:ignore="HardcodedText" />
+        android:text="Tôi đồng ý với các Điều khoản dịch vụ và Chính sác bảo mật" />
 
 
     <com.example.timviec.components.CustomButton

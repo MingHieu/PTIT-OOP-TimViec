@@ -7,11 +7,12 @@ import android.os.Bundle;
 import android.widget.CheckBox;
 
 import com.example.timviec.R;
+import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
 import com.example.timviec.components.CustomInput;
 import com.example.timviec.router.BottomTab;
 
-public class SignupScreen extends AppCompatActivity {
+public class SignupScreen extends Utils.BaseActivity {
 
     private CustomInput mFirstName;
     private CustomInput mLastName;
@@ -26,7 +27,7 @@ public class SignupScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_screen);
 
-//        setUpScreen();
+        setUpScreen();
 
         mEmail = findViewById(R.id.sign_up_email);
         mPassword = findViewById(R.id.sign_up_password);
@@ -34,12 +35,12 @@ public class SignupScreen extends AppCompatActivity {
         mCheckboxCondition = findViewById(R.id.sign_up_checkbox_condition);
         mSignupButton = findViewById(R.id.sign_up_button);
 
-//        mSignupButton.setHandleOnClick(new Runnable() {
-//            @Override
-//            public void run() {
-//                signup();
-//            }
-//        });
+        mSignupButton.setHandleOnClick(new Runnable() {
+            @Override
+            public void run() {
+                signup();
+            }
+        });
 
     }
 
