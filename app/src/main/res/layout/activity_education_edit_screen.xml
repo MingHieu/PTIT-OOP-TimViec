@@ -69,13 +69,12 @@
 
             <CheckBox
                 android:id="@+id/education_edit_checkbox"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:buttonTint="@color/primary"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
-                android:paddingStart="0dp"
                 android:text="Tôi đang học ở đây"
                 android:translationX="-5dp" />
 

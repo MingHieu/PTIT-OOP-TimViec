@@ -2,6 +2,8 @@ package com.example.timviec.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.timviec.R;
 import com.example.timviec.Utils;
@@ -13,6 +15,7 @@ public class LoginScreen extends Utils.BaseActivity {
     private CustomInput mUsernameInput;
     private CustomInput mPasswordInput;
     private CustomButton mLoginButton;
+    private TextView mSignupButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +26,20 @@ public class LoginScreen extends Utils.BaseActivity {
 
         mUsernameInput = findViewById(R.id.login_screen_username_input);
         mPasswordInput = findViewById(R.id.login_screen_password_input);
-        mLoginButton = findViewById(R.id.loginBtn);
+        mLoginButton = findViewById(R.id.login_screen_login_btn);
+        mSignupButton = findViewById(R.id.login_screen_signup_btn);
 
         mLoginButton.setHandleOnClick(new Runnable() {
             @Override
             public void run() {
                 login();
+            }
+        });
+
+        mSignupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSignup();
             }
         });
     }
@@ -51,5 +62,12 @@ public class LoginScreen extends Utils.BaseActivity {
 //        });
     }
 
+    private void goToSignup() {
+        Bundle extras = getIntent().getExtras();
+        int roleId = extras.getInt("roleId");
+        Intent i = new Intent(this, SignupScreen.class);
+        i.putExtra("roleId",roleId);
+        startActivity(i);
+    }
 
 }

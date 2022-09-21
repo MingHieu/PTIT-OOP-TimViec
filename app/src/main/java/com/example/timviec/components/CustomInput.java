@@ -33,10 +33,9 @@ import java.util.Calendar;
  * TODO: document your custom view class.
  */
 public class CustomInput extends FrameLayout {
-    private ImageView mIcon;
     private String mText;
     private EditText mInput;
-
+    private Boolean showPass = false;
 
     public CustomInput(Context context) {
         super(context);
@@ -68,13 +67,12 @@ public class CustomInput extends FrameLayout {
             ((TextView) findViewById(R.id.custom_input_required)).setVisibility(View.GONE);
         }
 
-        // Input Right Icon
-        int iconResource = a.getResourceId(R.styleable.CustomInput_custom_input_icon, -1);
-        mIcon = findViewById(R.id.custom_input_icon);
-        if (iconResource != -1) {
-            mIcon.setImageResource(iconResource);
+        // Show password icon
+        ImageView showPassBtn = findViewById(R.id.custom_input_icon);
+        if (a.getString(R.styleable.CustomInput_custom_input_type).equals("1")) {
+            showPassBtn.setImageResource(R.drawable.ic_eye);
         } else {
-            mIcon.setVisibility(View.GONE);
+            showPassBtn.setVisibility(View.GONE);
         }
 
         // Actual Input
@@ -87,7 +85,21 @@ public class CustomInput extends FrameLayout {
                 mInput.setInputType(InputType.TYPE_CLASS_TEXT);
                 break;
             case "1":
-                mInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                mInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                showPassBtn.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (showPass) {
+                            showPass = false;
+                            showPassBtn.setImageResource(R.drawable.ic_eye);
+                            mInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        } else {
+                            showPass = true;
+                            showPassBtn.setImageResource(R.drawable.ic_eye_close);
+                            mInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                        }
+                    }
+                });
                 break;
             case "2":
                 mInput.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -158,15 +170,6 @@ public class CustomInput extends FrameLayout {
         });
 
         a.recycle();
-    }
-
-    public void setHandleOnClickIcon(Runnable handleOnClickIcon) {
-        mIcon.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handleOnClickIcon.run();
-            }
-        });
     }
 
     public String getmText() {
