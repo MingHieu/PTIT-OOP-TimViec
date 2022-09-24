@@ -30,28 +30,28 @@ public class Freelancer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "dob")
     private String dob;
 
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     private Integer gender;
 
     @Column(name = "address")
     private String address;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false)
     private String phone_number;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "introduction")
     private String introduction;
 
-    @Column(name = "level")
+    @Column(name = "level",nullable = false)
     private Integer level;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

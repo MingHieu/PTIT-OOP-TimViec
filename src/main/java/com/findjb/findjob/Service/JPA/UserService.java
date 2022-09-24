@@ -92,4 +92,5 @@ public class UserService implements UserServiceInterface {
                 .build();
         freelancerRepository.save(freelancer);
     }
+    
 }
