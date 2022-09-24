@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context=".views.SettingScreen">
+
+    <include layout="@layout/custom_action_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/setting_ic_change_password"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_lock" />
+
+        <TextView
+            android:id="@+id/setting_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:text="Đổi mật khẩu"
+            android:textColor="@color/on_surface"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/setting_ic_secuity"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_shield" />
+
+        <TextView
+            android:id="@+id/setting_cecurity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:text="Cài đặt bảo mật"
+            android:textColor="@color/on_surface"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/setting_ic_notification"
+            android:src="@drawable/ic_bell" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/setting_notification"
+            android:text="Cài đặt thông báo"
+            android:textSize="20dp"
+            android:textColor="@color/on_surface"
+            android:paddingLeft="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_400"
+        android:layout_marginHorizontal="10dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/settig_ic_app_review"
+            android:src="@drawable/ic_star" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/setting_app_review"
+            android:text="Đánh giá ứng dụng"
+            android:textSize="20dp"
+            android:textColor="@color/on_surface"
+            android:paddingLeft="10dp" />
+
+    </LinearLayout>
+
+    <com.example.timviec.components.CustomButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="100dp"
+        app:custom_button_text="Đăng xuất"
+        android:layout_gravity="center"
+        android:id="@+id/setting_log_out_button" />
+
+</LinearLayout>
