@@ -44,16 +44,16 @@ public class EducationEditScreen extends Utils.BaseActivity {
         }
 
         CustomInput nameView = findViewById(R.id.education_edit_name);
-        nameView.setmText(mEducation.getName());
+        nameView.setValue(mEducation.getName());
 
         CustomInput majorView = findViewById(R.id.education_edit_major);
-        majorView.setmText(mEducation.getMajor());
+        majorView.setValue(mEducation.getMajor());
 
         CustomInput fromDateView = findViewById(R.id.education_edit_from_date);
-        fromDateView.setmText(mEducation.getFrom());
+        fromDateView.setValue(mEducation.getFrom());
 
         CustomInput toDateView = findViewById(R.id.education_edit_to_date);
-        toDateView.setmText(mEducation.getTo());
+        toDateView.setValue(mEducation.getTo());
 
         CheckBox checkBox = findViewById(R.id.education_edit_checkbox);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -68,11 +68,11 @@ public class EducationEditScreen extends Utils.BaseActivity {
         });
         if (mEducation.getTo().equals("Hiện tại")) {
             checkBox.setChecked(true);
-            toDateView.setmText("");
+            toDateView.setValue("");
         }
 
-        CustomInput detailView = findViewById(R.id.education_edit_detail);
-        detailView.setmText(mEducation.getDetail());
+        CustomInput detailView = findViewById(R.id.education_edit_description);
+        detailView.setValue(mEducation.getDescription());
 
 
         deleteButton.setHandleOnClick(new Runnable() {

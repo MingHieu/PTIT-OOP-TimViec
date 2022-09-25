@@ -5,17 +5,17 @@ public class Education {
     private String major = "";
     private String from = "";
     private String to = "";
-    private String detail = "";
+    private String description = "";
 
     public Education() {
     }
 
-    public Education(String name, String major, String from, String to, String detail) {
+    public Education(String name, String major, String from, String to, String description) {
         this.name = name;
         this.major = major;
         this.from = from;
         this.to = to;
-        this.detail = detail;
+        this.description = description;
     }
 
     public String getName() {
@@ -50,11 +50,11 @@ public class Education {
         this.to = to;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

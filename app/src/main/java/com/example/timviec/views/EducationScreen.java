@@ -106,6 +106,11 @@ class EducationListViewAdapter extends BaseAdapter {
         ((TextView) itemView.findViewById(R.id.education_item_name)).setText(item.getName());
         ((TextView) itemView.findViewById(R.id.education_item_major)).setText(item.getMajor());
         ((TextView) itemView.findViewById(R.id.education_item_time)).setText(item.getFrom() + " - " + item.getTo());
+        if (item.getDescription() != null && item.getDescription().length() > 0) {
+            ((TextView) itemView.findViewById(R.id.education_item_description)).setText(item.getDescription());
+        } else {
+            ((TextView) itemView.findViewById(R.id.education_item_description)).setVisibility(View.GONE);
+        }
 
         if (padding > 0) {
             itemView.findViewById(R.id.education_item_wrapper).setPadding(padding, padding, padding, padding);
@@ -121,6 +126,7 @@ class EducationListViewAdapter extends BaseAdapter {
                     intentNavigateTo.putExtra("major", item.getMajor());
                     intentNavigateTo.putExtra("from", item.getFrom());
                     intentNavigateTo.putExtra("to", item.getTo());
+                    intentNavigateTo.putExtra("description", item.getDescription());
                     view.getContext().startActivity(intentNavigateTo);
                 }
             });

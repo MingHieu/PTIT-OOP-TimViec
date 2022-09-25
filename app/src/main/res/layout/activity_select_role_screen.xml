@@ -56,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:custom_button_round="true"
-            app:custom_button_text="Bạn là người ứng tuyển" />
+            app:custom_button_text="Bạn là người ứng tuyển"
+            app:custom_button_type="secondary"/>
 
         <com.example.timviec.components.CustomButton
             android:id="@+id/select_role_enterprise_button"

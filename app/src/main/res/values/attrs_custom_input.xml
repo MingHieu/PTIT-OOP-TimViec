@@ -10,5 +10,7 @@
             <enum name="month_year" value="4" />
         </attr>
         <attr name="custom_input_required" format="boolean" />
+        <attr name="custom_input_radius" format="boolean" />
+        <attr name="custom_input_border_color" format="reference" />
     </declare-styleable>
 </resources>

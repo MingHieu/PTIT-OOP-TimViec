@@ -65,9 +65,13 @@ public class LoginScreen extends Utils.BaseActivity {
     private void goToSignup() {
         Bundle extras = getIntent().getExtras();
         int roleId = extras.getInt("roleId");
-        Intent i = new Intent(this, SignupScreen.class);
-        i.putExtra("roleId",roleId);
-        startActivity(i);
+        if (roleId == 1) {
+            Intent i = new Intent(this, SignupUserScreen.class);
+            startActivity(i);
+        }
+        if (roleId == 2) {
+            Intent i = new Intent(this, SignupEnterpriseScreen.class);
+            startActivity(i);
+        }
     }
-
 }

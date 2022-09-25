@@ -34,13 +34,16 @@
         android:layout_height="52dp"
         android:layout_marginTop="4dp"
         app:cardBackgroundColor="@color/black"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="6dp"
+        app:cardElevation="0dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/custom_input_inner_wrapper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="1dp"
-            app:cardCornerRadius="6dp">
+            app:cardCornerRadius="6dp"
+            app:cardElevation="0dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"

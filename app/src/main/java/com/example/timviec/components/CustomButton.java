@@ -16,8 +16,10 @@ import com.example.timviec.R;
  * TODO: document your custom view class.
  */
 public class CustomButton extends FrameLayout {
-    private TextView mBtn;
     private String mText;
+    private CardView mBtn;
+    private CardView mBtnInner;
+    private TextView mBtnText;
 
     public CustomButton(Context context) {
         super(context);
@@ -42,16 +44,30 @@ public class CustomButton extends FrameLayout {
                 attrs, R.styleable.CustomButton, defStyle, 0);
 
         mText = a.getString(R.styleable.CustomButton_custom_button_text);
-        mBtn = findViewById(R.id.custom_button_button);
-        mBtn.setText(mText);
+        mBtn = findViewById(R.id.custom_button_wrapper);
+        mBtnInner = findViewById(R.id.custom_button_inner_wrapper);
+        mBtnText = findViewById(R.id.custom_button_text);
+        mBtnText.setText(mText);
 
         int color = a.getColor(R.styleable.CustomButton_custom_button_color, getResources().getColor(R.color.primary));
-        mBtn.setBackgroundColor(color);
+        mBtn.setCardBackgroundColor(color);
+        mBtnInner.setCardBackgroundColor(color);
 
         if (a.getBoolean(R.styleable.CustomButton_custom_button_round, false)) {
-            ((CardView) findViewById(R.id.custom_button_wrapper)).setRadius(99999);
+            mBtn.setRadius(99999);
+            mBtnInner.setRadius(99999);
         }
 
+        String type = a.getString(R.styleable.CustomButton_custom_button_type);
+        if (type == null) type = "0";
+        switch (type) {
+            case "0":
+                break;
+            case "1":
+                mBtnInner.setCardBackgroundColor(getResources().getColor(R.color.white));
+                mBtnText.setTextColor(getResources().getColor(R.color.primary));
+                break;
+        }
         a.recycle();
     }
 
@@ -66,6 +82,6 @@ public class CustomButton extends FrameLayout {
 
     public void setmText(String mText) {
         this.mText = mText;
-        mBtn.setText(mText);
+        mBtnText.setText(mText);
     }
 }

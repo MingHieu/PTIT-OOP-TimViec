@@ -75,15 +75,21 @@ public class CustomInput extends FrameLayout {
             showPassBtn.setVisibility(View.GONE);
         }
 
+        // Border radius
+        if (!a.getBoolean(R.styleable.CustomInput_custom_input_radius, true)) {
+            ((CardView) findViewById(R.id.custom_input_wrapper)).setRadius(0);
+            ((CardView) findViewById(R.id.custom_input_inner_wrapper)).setRadius(0);
+
+        }
+
+        // Border color
+        int borderColor = a.getInt(R.styleable.CustomInput_custom_input_border_color, getResources().getColor(R.color.black));
+        ((CardView) findViewById(R.id.custom_input_wrapper)).setCardBackgroundColor(borderColor);
+
         // Actual Input
         mInput = findViewById(R.id.custom_input_input);
-        // Input Placeholder
         mInput.setHint(a.getString(R.styleable.CustomInput_custom_input_placeholder));
-        // Input type
         switch (a.getString(R.styleable.CustomInput_custom_input_type)) {
-            case "0":
-                mInput.setInputType(InputType.TYPE_CLASS_TEXT);
-                break;
             case "1":
                 mInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 showPassBtn.setOnClickListener(new OnClickListener() {
@@ -116,7 +122,7 @@ public class CustomInput extends FrameLayout {
                         // i - year, i1 - month, i2 - day
                         calendar.set(i, i1, i2);
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        setmText(simpleDateFormat.format(calendar.getTime()));
+                        setValue(simpleDateFormat.format(calendar.getTime()));
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
                 datePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -132,7 +138,7 @@ public class CustomInput extends FrameLayout {
                 RackMonthPicker rackMonthPicker = new RackMonthPicker(getContext()).setPositiveButton(new DateMonthDialogListener() {
                     @Override
                     public void onDateMonth(int month, int startDate, int endDate, int year, String monthLabel) {
-                        setmText(month + "/" + year);
+                        setValue(month + "/" + year);
                     }
                 }).setNegativeButton(new OnCancelMonthDialogListener() {
                     @Override
@@ -172,11 +178,11 @@ public class CustomInput extends FrameLayout {
         a.recycle();
     }
 
-    public String getmText() {
+    public String getValue() {
         return mText;
     }
 
-    public void setmText(String mText) {
+    public void setValue(String mText) {
         this.mText = mText;
         mInput.setText(mText);
     }
