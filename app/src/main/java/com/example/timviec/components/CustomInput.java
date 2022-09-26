@@ -126,6 +126,7 @@ public class CustomInput extends FrameLayout {
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
                 mInput.setInputType(InputType.TYPE_NULL);
+                mInput.setFocusableInTouchMode(false);
                 mInput.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -146,6 +147,7 @@ public class CustomInput extends FrameLayout {
                     }
                 });
                 mInput.setInputType(InputType.TYPE_NULL);
+                mInput.setFocusableInTouchMode(false);
                 mInput.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
