@@ -135,6 +135,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
+                            android:id="@+id/edit_user_gender_male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -144,6 +145,7 @@
                             android:text="Nam" />
 
                         <RadioButton
+                            android:id="@+id/edit_user_gender_female"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/primary"
@@ -192,7 +194,6 @@
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_placeholder="Thêm mô tả bản thân để nhà tuyển dụng có thể hiểu hơn về bạn"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Mô tả"
                     app:custom_input_type="textMultiLine" />
             </LinearLayout>
@@ -227,7 +228,7 @@
                 app:custom_button_type="secondary" />
 
             <com.example.timviec.components.CustomButton
-                android:id="@+id/edit_user_edit_btn"
+                android:id="@+id/edit_user_approve_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
