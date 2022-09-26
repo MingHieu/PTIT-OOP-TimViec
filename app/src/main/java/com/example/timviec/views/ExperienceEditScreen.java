@@ -9,20 +9,20 @@ import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
 import com.example.timviec.components.CustomInput;
-import com.example.timviec.model.Education;
+import com.example.timviec.model.Experience;
 
-public class EducationEditScreen extends Utils.BaseActivity {
-    private Education mEducation;
+public class ExperienceEditScreen extends Utils.BaseActivity {
+    private Experience mExperience;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_education_edit_screen);
+        setContentView(R.layout.activity_experience_edit_screen);
 
-        setUpScreen("Học vấn");
+        setUpScreen("Kinh nghiệm");
 
-        CustomButton deleteButton = findViewById(R.id.education_edit_delete_btn);
-        CustomButton approveButton = findViewById(R.id.education_edit_approve_btn);
+        CustomButton deleteButton = findViewById(R.id.experience_edit_delete_btn);
+        CustomButton approveButton = findViewById(R.id.experience_edit_approve_btn);
 
         Bundle extras = getIntent().getExtras();
 
@@ -30,11 +30,11 @@ public class EducationEditScreen extends Utils.BaseActivity {
 
         if (extras != null) {
             if (createNew) {
-                mEducation = new Education();
+                mExperience = new Experience();
                 deleteButton.setmText("Huỷ");
                 approveButton.setmText("Thêm mới");
             } else {
-                mEducation = new Education(
+                mExperience = new Experience(
                         extras.getString("name"),
                         extras.getString("major"),
                         extras.getString("from"),
@@ -43,19 +43,19 @@ public class EducationEditScreen extends Utils.BaseActivity {
             }
         }
 
-        CustomInput nameView = findViewById(R.id.education_edit_name);
-        nameView.setValue(mEducation.getName());
+        CustomInput nameView = findViewById(R.id.experience_edit_name);
+        nameView.setValue(mExperience.getName());
 
-        CustomInput majorView = findViewById(R.id.education_edit_major);
-        majorView.setValue(mEducation.getMajor());
+        CustomInput majorView = findViewById(R.id.experience_edit_major);
+        majorView.setValue(mExperience.getMajor());
 
-        CustomInput fromDateView = findViewById(R.id.education_edit_from_date);
-        fromDateView.setValue(mEducation.getFrom());
+        CustomInput fromDateView = findViewById(R.id.experience_edit_from_date);
+        fromDateView.setValue(mExperience.getFrom());
 
-        CustomInput toDateView = findViewById(R.id.education_edit_to_date);
-        toDateView.setValue(mEducation.getTo());
+        CustomInput toDateView = findViewById(R.id.experience_edit_to_date);
+        toDateView.setValue(mExperience.getTo());
 
-        CheckBox checkBox = findViewById(R.id.education_edit_checkbox);
+        CheckBox checkBox = findViewById(R.id.experience_edit_checkbox);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -66,13 +66,13 @@ public class EducationEditScreen extends Utils.BaseActivity {
                 }
             }
         });
-        if (mEducation.getTo().equals("Hiện tại")) {
+        if (mExperience.getTo().equals("Hiện tại")) {
             checkBox.setChecked(true);
             toDateView.setValue("");
         }
 
-        CustomInput detailView = findViewById(R.id.education_edit_description);
-        detailView.setValue(mEducation.getDescription());
+        CustomInput detailView = findViewById(R.id.experience_edit_description);
+        detailView.setValue(mExperience.getDescription());
 
 
         deleteButton.setHandleOnClick(new Runnable() {
@@ -97,5 +97,4 @@ public class EducationEditScreen extends Utils.BaseActivity {
             }
         });
     }
-
 }

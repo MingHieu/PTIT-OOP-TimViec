@@ -65,7 +65,7 @@ public class CustomButton extends FrameLayout {
                 break;
             case "1":
                 mBtnInner.setCardBackgroundColor(getResources().getColor(R.color.white));
-                mBtnText.setTextColor(getResources().getColor(R.color.primary));
+                mBtnText.setTextColor(color);
                 break;
         }
         a.recycle();

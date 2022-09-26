@@ -86,7 +86,7 @@ public class UserFragment extends Utils.BaseFragment {
         experienceEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ExpeirenceScreen.class);
+                Intent i = new Intent(getActivity(), ExperienceScreen.class);
                 startActivity(i);
             }
         });

@@ -88,7 +88,7 @@ public class Utils {
 
         public void setUpScreen() {
             TextView actionBarTitle = findViewById(R.id.action_bar_title);
-            if(actionBarTitle != null){
+            if (actionBarTitle != null) {
                 actionBarTitle.setVisibility(View.GONE);
             }
 
@@ -103,7 +103,7 @@ public class Utils {
             }
 
             LinearLayout actionBarBorder = findViewById(R.id.action_bar_border);
-            if(actionBarBorder != null){
+            if (actionBarBorder != null) {
                 actionBarBorder.setVisibility(View.GONE);
             }
         }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".views.SkillScreen">
+    tools:context=".views.ExperienceScreen">
 
     <include layout="@layout/custom_action_bar" />
 
@@ -15,13 +15,13 @@
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/skill_screen_list"
+            android:id="@+id/experience_screen_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/skill_screen_add_button"
+            android:id="@+id/experience_screen_add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

@@ -8,6 +8,7 @@
             <enum name="textMultiLine" value="2" />
             <enum name="date" value="3" />
             <enum name="month_year" value="4" />
+            <enum name="none" value="5" />
         </attr>
         <attr name="custom_input_required" format="boolean" />
         <attr name="custom_input_radius" format="boolean" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.timviec" >
+    package="com.example.timviec">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,7 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp.NoActionBar"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".views.SkillEditScreen"
+            android:exported="false" />
+        <activity
+            android:name=".views.ExperienceEditScreen"
+            android:exported="false" />
         <activity
             android:name=".views.SignupEnterpriseScreen"
             android:exported="false" />
@@ -27,7 +33,7 @@
             android:name=".views.SkillScreen"
             android:exported="false" />
         <activity
-            android:name=".views.ExpeirenceScreen"
+            android:name=".views.ExperienceScreen"
             android:exported="false" />
         <activity
             android:name=".views.SettingScreen"
@@ -52,7 +58,7 @@
             android:exported="false" />
         <activity
             android:name=".views.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

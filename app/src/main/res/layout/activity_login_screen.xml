@@ -30,8 +30,8 @@
             android:id="@+id/login_screen_username_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:custom_input_placeholder="Nhập số điện thoại"
-            app:custom_input_text="Số điện thoại"
+            app:custom_input_placeholder="Nhập email của bạn"
+            app:custom_input_text="Email"
             app:custom_input_type="text" />
 
         <com.example.timviec.components.CustomInput

@@ -116,7 +116,7 @@ public class CustomInput extends FrameLayout {
                 break;
             case "3":
                 Calendar calendar = Calendar.getInstance();
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.CustomDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         // i - year, i1 - month, i2 - day
@@ -125,7 +125,6 @@ public class CustomInput extends FrameLayout {
                         setValue(simpleDateFormat.format(calendar.getTime()));
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
-                datePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 mInput.setInputType(InputType.TYPE_NULL);
                 mInput.setOnClickListener(new OnClickListener() {
                     @Override
@@ -153,6 +152,10 @@ public class CustomInput extends FrameLayout {
                         rackMonthPicker.show();
                     }
                 });
+                break;
+            case "5":
+                mInput.setFocusable(false);
+                ((CardView) findViewById(R.id.custom_input_inner_wrapper)).setCardBackgroundColor(getResources().getColor(R.color.gray_200));
                 break;
             default:
                 mInput.setInputType(InputType.TYPE_CLASS_TEXT);

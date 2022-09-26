@@ -1,6 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/surface"
@@ -19,8 +17,8 @@
         android:id="@+id/notification_card_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="day la content"
-        android:paddingBottom="10dp" />
+        android:paddingBottom="10dp"
+        android:text="day la content" />
 
     <LinearLayout
         android:layout_width="match_parent"

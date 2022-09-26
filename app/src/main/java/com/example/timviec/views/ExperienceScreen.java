@@ -1,33 +1,65 @@
 package com.example.timviec.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 import com.example.timviec.R;
 import com.example.timviec.Utils;
-import com.example.timviec.model.Education;
 import com.example.timviec.model.Experience;
-import com.example.timviec.model.Skill;
 
 import java.util.ArrayList;
 
-public class ExpeirenceScreen extends Utils.BaseActivity {
+public class ExperienceScreen extends Utils.BaseActivity {
+    ArrayList<Experience> experienceItems;
+    ExperienceListViewAdapter experienceListViewAdapter;
+    ListView experienceListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expeirence_screen);
+        setContentView(R.layout.activity_experience_screen);
+
+        setUpScreen("Kinh nghiệm");
+
+        experienceItems = new ArrayList<Experience>();
+        experienceItems.add(new Experience("MindX Technology School", "Giảng viên", "05/2021", "Hiện tại", null));
+
+        experienceListView = findViewById(R.id.experience_screen_list);
+        experienceListView.setPadding(
+                (int) Utils.convertDpToPixel(10, this),
+                (int) Utils.convertDpToPixel(20, this),
+                (int) Utils.convertDpToPixel(10, this),
+                0);
+        experienceListView.setDivider(new ColorDrawable(Color.TRANSPARENT));  //hide the divider
+        experienceListView.setDividerHeight((int) Utils.convertDpToPixel(20, this));
+        experienceListViewAdapter = new ExperienceListViewAdapter(
+                experienceItems,
+                (int) Utils.convertDpToPixel(10, this),
+                Utils.convertDpToPixel(6, this),
+                new Intent(ExperienceScreen.this, ExperienceEditScreen.class));
+        experienceListView.setAdapter(experienceListViewAdapter);
+
+        findViewById(R.id.experience_screen_add_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ExperienceScreen.this, ExperienceEditScreen.class);
+                i.putExtra("createNew", true);
+                startActivity(i);
+            }
+        });
     }
 }
 
-class ExperienceListViewAdapter extends BaseAdapter{
+class ExperienceListViewAdapter extends BaseAdapter {
     private final ArrayList<Experience> listItems;
     private int padding;
     private float radius;

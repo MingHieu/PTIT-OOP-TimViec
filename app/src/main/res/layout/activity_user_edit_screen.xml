@@ -169,11 +169,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:custom_input_border_color="@color/gray_400"
-                    app:custom_input_placeholder="VD: nguyenvana@gmail.com"
                     app:custom_input_radius="false"
                     app:custom_input_required="true"
                     app:custom_input_text="Email liên lạc"
-                    app:custom_input_type="text" />
+                    app:custom_input_type="none" />
 
                 <com.example.timviec.components.CustomInput
                     android:id="@+id/edit_user_phone_number"

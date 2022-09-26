@@ -2,12 +2,14 @@ package com.example.timviec.views;
 
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -20,10 +22,43 @@ import java.util.ArrayList;
 
 public class SkillScreen extends Utils.BaseActivity {
 
+    ArrayList<Skill> skillItems;
+    SkillListViewAdapter skillListViewAdapter;
+    ListView skillListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skill_screen);
+
+        setUpScreen("Kỹ năng");
+
+        skillItems = new ArrayList<Skill>();
+        skillItems.add(new Skill("Github, Gitlab", 3, null));
+
+        skillListView = findViewById(R.id.skill_screen_list);
+        skillListView.setPadding(
+                (int) Utils.convertDpToPixel(10, this),
+                (int) Utils.convertDpToPixel(20, this),
+                (int) Utils.convertDpToPixel(10, this),
+                0);
+        skillListView.setDivider(new ColorDrawable(Color.TRANSPARENT));  //hide the divider
+        skillListView.setDividerHeight((int) Utils.convertDpToPixel(20, this));
+        skillListViewAdapter = new SkillListViewAdapter(
+                skillItems,
+                (int) Utils.convertDpToPixel(10, this),
+                Utils.convertDpToPixel(6, this),
+                new Intent(SkillScreen.this, SkillEditScreen.class));
+        skillListView.setAdapter(skillListViewAdapter);
+
+        findViewById(R.id.skill_screen_add_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SkillScreen.this, SkillEditScreen.class);
+                i.putExtra("createNew", true);
+                startActivity(i);
+            }
+        });
     }
 }
 
@@ -63,27 +98,9 @@ class SkillListViewAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View itemView = view != null ? view : View.inflate(viewGroup.getContext(), R.layout.skill_item, null);
         Skill item = getItem(i);
-        ((TextView) itemView.findViewById(R.id.skill_item_name)).setText(item.getName());
 
-        ((ViewGroup) itemView.findViewById(R.id.skill_item_rate)).removeAllViews();
-        for (int j = 0; j < item.getRate(); j++) {
-            ImageView activeStar = new ImageView(itemView.getContext());
-            activeStar.setImageResource(R.drawable.ic_star_active);
-            int size = (int) Utils.convertDpToPixel(25, itemView.getContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
-            params.setMargins(0,0,size,0);
-            activeStar.setLayoutParams(params);
-            ((LinearLayout) itemView.findViewById(R.id.skill_item_rate)).addView(activeStar);
-        }
-        for (int j = 0; j < 5 - item.getRate(); j++) {
-            ImageView inActiveStar = new ImageView(itemView.getContext());
-            inActiveStar.setImageResource(R.drawable.ic_star_inactive);
-            int size = (int) Utils.convertDpToPixel(25, itemView.getContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
-            params.setMargins(0,0,size,0);
-            inActiveStar.setLayoutParams(params);
-            ((LinearLayout) itemView.findViewById(R.id.skill_item_rate)).addView(inActiveStar);
-        }
+        ((TextView) itemView.findViewById(R.id.skill_item_name)).setText(item.getName());
+        ((RatingBar) itemView.findViewById(R.id.skill_item_rate)).setRating(item.getRate());
 
         if (item.getDescription() != null && item.getDescription().length() > 0) {
             ((TextView) itemView.findViewById(R.id.skill_item_description)).setText(item.getDescription());
