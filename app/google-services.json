@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "221903002021",
+    "project_id": "timviec-1ecdb",
+    "storage_bucket": "timviec-1ecdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221903002021:android:1100edf24a94d5f3cdb04c",
+        "android_client_info": {
+          "package_name": "com.example.timviec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "221903002021-399m9va2751b6l00mhrrh2gj5g03eaa6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUBoVn7v7SU3emboFsk9dPdvxj4ywnR6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "221903002021-399m9va2751b6l00mhrrh2gj5g03eaa6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -52,12 +52,12 @@ public class LoginScreen extends Utils.BaseActivity {
 //        ApiService.apiService.hello().enqueue(new Callback<User>() {
 //            @Override
 //            public void onResponse(Call<User> call, Response<User> response) {
-//                Log.i(null, "onResponse: " + response.body().toString());
+//                Log.i("DebugTag", "onResponse: " + response.body().toString());
 //            }
 //
 //            @Override
 //            public void onFailure(Call<User> call, Throwable t) {
-//                Log.i(null, "onFailure: " + t.getMessage());
+//                Log.i("DebugTag", "onFailure: " + t.getMessage());
 //            }
 //        });
     }

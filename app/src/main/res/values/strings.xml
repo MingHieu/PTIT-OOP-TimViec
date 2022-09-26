@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyApp</string>
+    <string name="app_name">Tìm Việc</string>
     <string name="home_screen_title">Việc làm</string>
     <string name="notification_screen_title">Thông báo</string>
     <string name="history_screen_title">Lịch sử</string>
