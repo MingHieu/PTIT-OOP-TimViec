@@ -44,7 +44,7 @@ public class Enterprise {
     @Column(name = "enterprise_url")
     private String enterprise_url;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId
     private User user;
 }

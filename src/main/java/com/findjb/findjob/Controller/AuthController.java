@@ -73,7 +73,7 @@ public class AuthController {
                         Enterprise enterprise = entityManager.find(Enterprise.class, userDetails.getId());
                         EnterpriseResponse enterpriseResponse = new EnterpriseResponse(enterprise.getName(),
                                         enterprise.getEmail(),
-                                        enterprise.getIntroduction(), enterprise.getAddress());
+                                        enterprise.getIntroduction(), enterprise.getAddress(),enterprise.getEnterprise_url());
                         detail = enterpriseResponse;
                 } else {
                         Freelancer freelancer = entityManager.find(Freelancer.class, userDetails.getId());

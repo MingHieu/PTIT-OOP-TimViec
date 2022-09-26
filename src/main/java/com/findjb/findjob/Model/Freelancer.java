@@ -36,13 +36,13 @@ public class Freelancer {
     @Column(name = "dob")
     private String dob;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     private Integer gender;
 
     @Column(name = "address")
     private String address;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phone_number;
 
     @Column(name = "email", nullable = false)
@@ -51,7 +51,7 @@ public class Freelancer {
     @Column(name = "introduction")
     private String introduction;
 
-    @Column(name = "level",nullable = false)
+    @Column(name = "level")
     private Integer level;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
