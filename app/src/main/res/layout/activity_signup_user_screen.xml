@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
         android:text="Đăng ký"
         android:textColor="@color/on_background"
         android:textSize="32sp"
@@ -31,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            app:custom_input_placeholder="Nhập họ và tên của bạn"
+            app:custom_input_placeholder="VD: Nguyễn Văn A"
             app:custom_input_text="Họ và tên"
             app:custom_input_type="text" />
 
@@ -39,7 +38,7 @@
             android:id="@+id/sign_up_user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:custom_input_placeholder="Nhập email của bạn"
+            app:custom_input_placeholder="VD: nguyenvana@gmail.com"
             app:custom_input_text="Email"
             app:custom_input_type="text" />
 

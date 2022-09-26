@@ -46,7 +46,9 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_product_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_select_role_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_signup_enterprise_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_signup_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_signup_user_screen.xml" value="0.22870370370370371" />
         <entry key="app/src/main/res/layout/activity_skill_edit_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_skill_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_user_edit_screen.xml" value="0.25" />
