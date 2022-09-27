@@ -1,11 +1,18 @@
 package com.findjb.findjob.Service.JPA;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -60,4 +67,25 @@ public class EnterpriseService implements EnterpriseServiceInterface {
     public void deleteEnterprise(Long id) {
         enterpriseRepository.deleteById(id);
     }
+
+    @Override
+    public Map<String, Object> getAllEnterprise(Integer pageNo, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Enterprise> enterprises = enterpriseRepository.findAll(pageable);
+        List<Enterprise> list = new ArrayList<Enterprise>();
+        list = enterprises.getContent();
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", list);
+        response.put("currentPage", enterprises.getNumber());
+        response.put("totalItems", enterprises.getTotalElements());
+        response.put("totalPages", enterprises.getTotalPages());
+        return response;
+    }
+
+    @Override
+    public Enterprise getEnterpriseDetails(Long id) {
+        Enterprise enterprise = enterpriseRepository.findById(id).get();
+        return enterprise;
+    }
+
 }

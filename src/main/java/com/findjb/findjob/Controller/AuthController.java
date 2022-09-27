@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -73,7 +74,8 @@ public class AuthController {
                         Enterprise enterprise = entityManager.find(Enterprise.class, userDetails.getId());
                         EnterpriseResponse enterpriseResponse = new EnterpriseResponse(enterprise.getName(),
                                         enterprise.getEmail(),
-                                        enterprise.getIntroduction(), enterprise.getAddress(),enterprise.getEnterprise_url());
+                                        enterprise.getIntroduction(), enterprise.getAddress(),
+                                        enterprise.getEnterprise_url());
                         detail = enterpriseResponse;
                 } else {
                         Freelancer freelancer = entityManager.find(Freelancer.class, userDetails.getId());
@@ -90,11 +92,31 @@ public class AuthController {
                                 role_id));
         }
 
-        @GetMapping({ "/smt" })
-        public Object responseString() {
-                return entityManager
-                                .createQuery("SELECT * FROM freelancers e WHERE e.user_id = :user_id", Freelancer.class)
-                                .setParameter("user_id", 2)
-                                .getSingleResult();
+        @GetMapping("/user/detail")
+        public ResponseEntity<Object> getUserDetail() {
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+                List<String> roles = userDetails.getAuthorities().stream()
+                                .map(item -> item.getAuthority())
+                                .collect(Collectors.toList());
+                String role = roles.get(0);
+                Long role_id = roleRepository.findByName(role).getId();
+                Object detail = new Object();
+                if (role_id == 2) {
+                        Enterprise enterprise = entityManager.find(Enterprise.class, userDetails.getId());
+                        EnterpriseResponse enterpriseResponse = new EnterpriseResponse(enterprise.getName(),
+                                        enterprise.getEmail(),
+                                        enterprise.getIntroduction(), enterprise.getAddress(),
+                                        enterprise.getEnterprise_url());
+                        detail = enterpriseResponse;
+                } else {
+                        Freelancer freelancer = entityManager.find(Freelancer.class, userDetails.getId());
+                        FreelancerResponse freelancerResponse = new FreelancerResponse(freelancer.getName(),
+                                        freelancer.getDob(),
+                                        freelancer.getGender(), freelancer.getAddress(), freelancer.getPhone_number(),
+                                        freelancer.getEmail(), freelancer.getIntroduction(), freelancer.getLevel());
+                        detail = freelancerResponse;
+                }
+                return new ResponseEntity<Object>(detail, HttpStatus.OK);
         }
 }

@@ -1,5 +1,9 @@
 package com.findjb.findjob.Service;
 
+import java.util.Map;
+
+
+import com.findjb.findjob.Model.Enterprise;
 import com.findjb.findjob.Request.CreateEnterprise;
 import com.findjb.findjob.Request.UpdateEnterprise;
 
@@ -9,4 +13,7 @@ public interface EnterpriseServiceInterface {
     void updateEnterprise(UpdateEnterprise updateEnterprise, long id);
 
     void deleteEnterprise(Long id);
+
+    Map<String, Object> getAllEnterprise(Integer pageNo, Integer pageSize);
+    Enterprise getEnterpriseDetails(Long id);
 }
