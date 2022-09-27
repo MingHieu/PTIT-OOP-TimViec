@@ -33,11 +33,6 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_check_all" />
         </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_400" />
     </LinearLayout>
 
     <ScrollView
