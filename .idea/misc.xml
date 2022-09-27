@@ -10,13 +10,24 @@
         <entry key="..\:/MyApp/TimViec/app/src/main/res/drawable/login_image.xml" value="0.205" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_bottom_tab.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_cart_screen.xml" value="0.3625" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_education_edit_screen.xml" value="0.2" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_education_screen.xml" value="0.3625" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_experience_edit_screen.xml" value="0.30480072463768115" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_job_car.xml" value="0.18541666666666667" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_job_card.xml" value="0.16485507246376813" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_job_edit_screen.xml" value="0.33" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_job_screen.xml" value="0.3484375" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_login_screen.xml" value="0.1762917933130699" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_profile_screen.xml" value="0.3625" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/education_item.xml" value="0.25" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/experience_item.xml" value="0.34103260869565216" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_enterprise.xml" value="0.33" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_notification.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_order.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_setting.xml" value="0.3625" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_user.xml" value="0.33" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/job_item.xml" value="0.33" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/preview_component.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/sample_custom_button.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/sample_job_car.xml" value="0.1762917933130699" />
