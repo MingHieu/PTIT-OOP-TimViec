@@ -59,7 +59,7 @@
         <entry key="app/src/main/res/layout/education_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/experience_item.xml" value="0.22870370370370371" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.28229166666666666" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_order.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.28229166666666666" />
@@ -72,6 +72,7 @@
         <entry key="app/src/main/res/layout/preview_component.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/sample_custom_button.xml" value="0.1" />
         <entry key="app/src/main/res/layout/sample_custom_input.xml" value="0.3050847457627119" />
+        <entry key="app/src/main/res/layout/sample_job_card.xml" value="0.21135029354207435" />
         <entry key="app/src/main/res/layout/sample_search_input.xml" value="0.2682291666666667" />
         <entry key="app/src/main/res/layout/sample_setting_selection.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/skill_item.xml" value="0.33" />

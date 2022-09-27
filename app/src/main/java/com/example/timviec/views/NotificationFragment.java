@@ -32,8 +32,8 @@ public class NotificationFragment extends Utils.BaseFragment {
         super.onCreate(savedInstanceState);
 
         notificationItems = new ArrayList<Notification>();
-        notificationItems.add(new Notification(1,"Test 1", "Test", new Date(), true));
-        notificationItems.add(new Notification(2,"Test 2", "Test", new Date(), false));
+        notificationItems.add(new Notification(1, "Test 1", "Test", new Date(), true));
+        notificationItems.add(new Notification(2, "Test 2", "Test", new Date(), false));
     }
 
     @Override
@@ -90,7 +90,7 @@ class NotificationListViewAdapter extends BaseAdapter {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(item.getUnread()){
+                if (item.getUnread()) {
                     item.setUnread(false);
                     notifyDataSetChanged();
                 }
