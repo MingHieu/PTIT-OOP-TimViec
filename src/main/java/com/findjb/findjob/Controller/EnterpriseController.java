@@ -22,12 +22,12 @@ import com.findjb.findjob.Request.CreateEnterprise;
 import com.findjb.findjob.Service.JPA.EnterpriseService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class EnterpriseController {
     @Autowired
     private EnterpriseService enterpriseService;
 
-    @PostMapping({ "/user/create/enterprise" })
+    @PostMapping({ "/create/enterprise" })
     public ResponseEntity<Object> createNewEnterprise(@Valid @RequestBody CreateEnterprise user) {
         enterpriseService.createNewEnterprise(user);
         Map<String, Object> response = new HashMap<String, Object>();
@@ -36,28 +36,28 @@ public class EnterpriseController {
         return new ResponseEntity<Object>(response, null, 200);
     }
 
-    @PutMapping("/user/update/enterprise")
+    @PutMapping("/enterprise/update")
     public ResponseEntity<Object> updateEnterprise() {
         Object ob = new String("abc");
         return new ResponseEntity<Object>(ob, HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/delete/enterprise/{id}")
-    public ResponseEntity<Object> deleteEnterprise(@PathVariable Long id) {
-        enterpriseService.deleteEnterprise(id);
+    @DeleteMapping("/enterprise/delete")
+    public ResponseEntity<Object> deleteEnterprise() {
+        enterpriseService.deleteEnterprise();
         Map<String, Object> response = new HashMap<String, Object>();
         response.put("status", true);
         response.put("message", "create successfully");
         return new ResponseEntity<Object>(response, null, 200);
     }
 
-    @GetMapping("/enterprise")
+    @GetMapping("/")
     public ResponseEntity<Object> getAllEnterprise(@RequestParam(defaultValue = "1") Integer pageNo,
             @RequestParam(defaultValue = "2") Integer pageSize) {
         return new ResponseEntity<Object>(enterpriseService.getAllEnterprise(pageNo, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping("/enterprise/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getEnterpriseDetail(@PathVariable Long id) {
         return new ResponseEntity<Object>(enterpriseService.getEnterpriseDetails(id), HttpStatus.OK);
     }

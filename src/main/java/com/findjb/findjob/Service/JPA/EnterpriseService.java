@@ -13,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.findjb.findjob.JWT.JWTServices.UserDetailsImplement;
 import com.findjb.findjob.Model.Enterprise;
 import com.findjb.findjob.Model.Role;
 import com.findjb.findjob.Model.User;
@@ -64,8 +67,10 @@ public class EnterpriseService implements EnterpriseServiceInterface {
     }
 
     @Override
-    public void deleteEnterprise(Long id) {
-        enterpriseRepository.deleteById(id);
+    public void deleteEnterprise() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+        enterpriseRepository.deleteById(userDetails.getId());
     }
 
     @Override

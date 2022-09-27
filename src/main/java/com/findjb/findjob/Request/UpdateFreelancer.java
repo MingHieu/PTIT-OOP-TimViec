@@ -1,10 +1,8 @@
 package com.findjb.findjob.Request;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class UpdateFreelancer {
     String name;
     String dob;

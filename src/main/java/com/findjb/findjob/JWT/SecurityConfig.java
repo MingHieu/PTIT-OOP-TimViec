@@ -58,8 +58,7 @@ public class SecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(auth).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/login").permitAll()
-                .antMatchers("/api/test/**").permitAll()
-                .antMatchers("/api/user/**").permitAll()
+                .antMatchers("/api/user/create/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

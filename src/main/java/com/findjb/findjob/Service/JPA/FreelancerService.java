@@ -6,9 +6,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.findjb.findjob.JWT.JWTServices.UserDetailsImplement;
 import com.findjb.findjob.Model.Freelancer;
 import com.findjb.findjob.Model.Role;
 import com.findjb.findjob.Model.User;
@@ -49,8 +52,10 @@ public class FreelancerService implements FreelancerServiceInterface {
     }
 
     @Override
-    public void updateFreelancer(UpdateFreelancer updateFreelancer, Long id) {
-        Freelancer freelancer = freelancerRepository.findById(id).get();
+    public void updateFreelancer(UpdateFreelancer updateFreelancer) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+        Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
         freelancer.setAddress(updateFreelancer.getAddress());
         freelancer.setName(updateFreelancer.getName());
         freelancer.setDob(updateFreelancer.getDob());
@@ -61,8 +66,10 @@ public class FreelancerService implements FreelancerServiceInterface {
     }
 
     @Override
-    public void deleteFreelancer(Long id) {
-        freelancerRepository.deleteById(id);
+    public void deleteFreelancer() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+        freelancerRepository.deleteById(userDetails.getId());
     }
 
 }

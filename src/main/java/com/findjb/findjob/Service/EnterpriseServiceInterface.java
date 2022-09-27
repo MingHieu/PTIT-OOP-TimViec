@@ -12,7 +12,7 @@ public interface EnterpriseServiceInterface {
 
     void updateEnterprise(UpdateEnterprise updateEnterprise, long id);
 
-    void deleteEnterprise(Long id);
+    void deleteEnterprise();
 
     Map<String, Object> getAllEnterprise(Integer pageNo, Integer pageSize);
     Enterprise getEnterpriseDetails(Long id);
