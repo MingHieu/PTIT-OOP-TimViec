@@ -26,22 +26,22 @@ public class JobEditScreen extends Utils.BaseActivity {
 
         Boolean createNew = extras.getBoolean("ceateNew", false);
 
-//        if (extras != null) {
-//            if (createNew) {
-//                mJob = new Job();
-//                delateButton.setmText("Huỷ");
-//                approveButton.setmText("Thêm mới");
-//            } else {
-//                mJob = new Job(
-//                        extras.getString("name"),
-//                        extras.getString("expectSalary"),
-//                        extras.getInt("quantity"),
-//                        extras.getString("description"),
-//                        extras.getString("requirement"),
-//                        extras.getString("benefit"),
-//                        extras.getString("creatAt"),
-//                        extras.getString("expired"));
-//            }
-//        }
+        if (extras != null) {
+            if (createNew) {
+                mJob = new Job();
+                delateButton.setmText("Huỷ");
+                approveButton.setmText("Thêm mới");
+            } else {
+                mJob = new Job(
+                        extras.getString("name"),
+                        extras.getString("expectSalary"),
+                        extras.getInt("quantity"),
+                        extras.getString("description"),
+                        extras.getString("requirement"),
+                        extras.getString("benefit"),
+                        extras.getString("creatAt"),
+                        extras.getString("expired"));
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.timviec.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Job {
@@ -15,15 +16,25 @@ public class Job {
     public Job() {
     }
 
-    public Job(String name, String expectSalary, int quantity, String description, String requirement, String benefit, Date createAt, Date expired) {
+    public Job(String name, String expectSalary, int quantity, String description, String requirement, String benefit, String createAt, String expired) {
         this.name = name;
         this.expectSalary = expectSalary;
         this.quantity = quantity;
         this.description = description;
         this.requirement = requirement;
         this.benefit = benefit;
-        this.createAt = createAt;
-        this.expired = expired;
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
+            this.expired = simpleDateFormat.parse(expired);
+        } catch (Exception e) {
+
+        }
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
+            this.createAt = simpleDateFormat.parse(createAt);
+        } catch (Exception e) {
+
+        }
     }
 
     public String getName() {
@@ -78,15 +89,25 @@ public class Job {
         return createAt;
     }
 
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
+    public void setCreateAt(String createAt) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
+            this.createAt = simpleDateFormat.parse(createAt);
+        } catch (Exception e) {
+
+        }
     }
 
     public Date getExpired() {
         return expired;
     }
 
-    public void setExpired(Date expired) {
-        this.expired = expired;
+    public void setExpired(String expired) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
+            this.expired = simpleDateFormat.parse(expired);
+        } catch (Exception e) {
+
+        }
     }
 }
