@@ -72,7 +72,7 @@ public class Utils {
         public void setUpScreen(String screenTitle) {
             TextView actionBarTitle = findViewById(R.id.action_bar_title);
             if (actionBarTitle != null) {
-                actionBarTitle.setText("Học vấn");
+                actionBarTitle.setText(screenTitle);
             }
 
             ImageView actionBarBackButton = findViewById(R.id.action_bar_back_button);
@@ -114,6 +114,23 @@ public class Utils {
         public void startActivity(Intent intent) {
             super.startActivity(intent);
             getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+        }
+
+        public void setUpScreen(View view, String screenTitle) {
+            TextView actionBarTitle = view.findViewById(R.id.action_bar_title);
+            if (actionBarTitle != null) {
+                actionBarTitle.setText(screenTitle);
+            }
+
+            ImageView actionBarBackButton = view.findViewById(R.id.action_bar_back_button);
+            if (actionBarBackButton != null) {
+                actionBarBackButton.setVisibility(View.GONE);
+            }
+
+            LinearLayout actionBarBorder = view.findViewById(R.id.action_bar_border);
+            if (actionBarBorder != null) {
+                actionBarBorder.setVisibility(View.GONE);
+            }
         }
     }
 }

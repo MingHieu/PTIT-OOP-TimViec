@@ -1,6 +1,0 @@
-<resources>
-    <declare-styleable name="NotificationCard">
-        <attr name="notification_card_title" format="string" />
-        <attr name="notification_card_content" format="string" />
-    </declare-styleable>
-</resources>
