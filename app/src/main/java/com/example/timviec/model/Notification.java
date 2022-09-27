@@ -3,6 +3,7 @@ package com.example.timviec.model;
 import java.util.Date;
 
 public class Notification {
+    private int id;
     private String title = "";
     private String content = "";
     private Date time = new Date();
@@ -11,11 +12,20 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(String title, String content, Date time, Boolean unread) {
+    public Notification(int id, String title, String content, Date time, Boolean unread) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.time = time;
         this.unread = unread;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
