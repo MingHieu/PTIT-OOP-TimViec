@@ -1,7 +1,5 @@
 package com.example.timviec.views;
 
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,12 +10,13 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.model.Job;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 
 import java.util.ArrayList;
 
@@ -105,7 +104,7 @@ class JobListViewAdapter extends BaseAdapter {
         Job item = (Job) getItem(i);
         ((TextView) itemView.findViewById(R.id.job_item_name)).setText(item.getName());
         ((TextView) itemView.findViewById(R.id.job_item_expectSalary)).setText(item.getExpectSalary());
-        ((TextView) itemView.findViewById(R.id.job_item_quantity)).setText(item.getQuantity());
+        ((TextView) itemView.findViewById(R.id.job_item_quantity)).setText("" + item.getQuantity());
 
         if (item.getDescription() != null && item.getDescription().length() > 0) {
             ((TextView) itemView.findViewById(R.id.job_item_description)).setText(item.getDescription());
@@ -122,7 +121,7 @@ class JobListViewAdapter extends BaseAdapter {
         }
 
         if (intentNavigateTo != null) {
-            itemView.findViewById(R.id.job_item_wrapper).setOnClickListener(new  View.OnClickListener() {
+            itemView.findViewById(R.id.job_item_wrapper).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     intentNavigateTo.putExtra("name", item.getName());
@@ -138,7 +137,6 @@ class JobListViewAdapter extends BaseAdapter {
                 }
             });
         }
-
 
 
         return itemView;

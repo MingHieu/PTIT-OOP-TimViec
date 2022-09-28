@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
@@ -45,6 +46,10 @@ public class LoginScreen extends Utils.BaseActivity {
     }
 
     private void login() {
+        Bundle extras = getIntent().getExtras();
+        int roleId = extras.getInt("roleId");
+        App.getContext().getStateManager().getUser().setRoleId(roleId);
+
         Intent i = new Intent(this, BottomTab.class);
         startActivity(i);
 
