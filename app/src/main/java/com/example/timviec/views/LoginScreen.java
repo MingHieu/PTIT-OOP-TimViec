@@ -53,7 +53,6 @@ public class LoginScreen extends Utils.BaseActivity {
         Intent i = new Intent(this, BottomTab.class);
         startActivity(i);
 
-
 //        ApiService.apiService.hello().enqueue(new Callback<User>() {
 //            @Override
 //            public void onResponse(Call<User> call, Response<User> response) {

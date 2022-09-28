@@ -3,9 +3,11 @@ package com.example.timviec.components;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -92,6 +94,7 @@ public class CustomInput extends FrameLayout {
         switch (a.getString(R.styleable.CustomInput_custom_input_type)) {
             case "1":
                 mInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                mInput.setTypeface(Typeface.DEFAULT);
                 showPassBtn.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
