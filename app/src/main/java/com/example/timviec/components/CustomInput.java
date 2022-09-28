@@ -159,6 +159,9 @@ public class CustomInput extends FrameLayout {
                 mInput.setFocusable(false);
                 ((CardView) findViewById(R.id.custom_input_inner_wrapper)).setCardBackgroundColor(getResources().getColor(R.color.gray_200));
                 break;
+            case "6":
+                mInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
             default:
                 mInput.setInputType(InputType.TYPE_CLASS_TEXT);
         }

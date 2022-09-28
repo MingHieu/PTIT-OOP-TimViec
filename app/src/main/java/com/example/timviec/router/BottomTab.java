@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.views.EnterpriseFragment;
 import com.example.timviec.views.HistoryFragment;
 import com.example.timviec.views.HomeFragment;
 import com.example.timviec.views.NotificationFragment;
@@ -112,7 +114,14 @@ class BottomTabAdapter extends FragmentStateAdapter {
             case 2:
                 return new NotificationFragment();
             case 3:
-                return new UserFragment();
+                int roleId = App.getContext().getStateManager().getUser().getRoleId();
+                if (roleId == 1) {
+                    return new UserFragment();
+                }
+                if (roleId == 2) {
+                    return new EnterpriseFragment();
+                }
+
             default:
                 return new HomeFragment();
         }
