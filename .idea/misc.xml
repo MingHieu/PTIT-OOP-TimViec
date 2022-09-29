@@ -38,7 +38,9 @@
         <entry key="app/src/main/res/layout/activity_bottom_tab.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_education_edit_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_education_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_enterprise_edit_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_job_edit_screen.xml" value="0.2657407407407407" />
         <entry key="app/src/main/res/layout/activity_login_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_product_screen.xml" value="0.28229166666666666" />
@@ -65,11 +67,13 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1068840579710145" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_user.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/job_item.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/loading_dialog.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/notification_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/preview_component.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/sample_custom_button.xml" value="0.1" />
         <entry key="app/src/main/res/layout/sample_custom_input.xml" value="0.38141174316406246" />
+        <entry key="app/src/main/res/layout/sample_job_card.xml" value="0.2657407407407407" />
         <entry key="app/src/main/res/layout/sample_notification_card.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/sample_search_input.xml" value="0.2682291666666667" />
         <entry key="app/src/main/res/layout/sample_setting_selection.xml" value="0.28229166666666666" />
