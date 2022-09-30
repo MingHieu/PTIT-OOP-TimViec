@@ -52,7 +52,6 @@ public class EnterpriseService implements EnterpriseServiceInterface {
         userRepository.save(user);
         Enterprise enterprise = Enterprise.builder()
                 .name(newEnterprise.getName())
-                .address(newEnterprise.getAddress())
                 .email(newEnterprise.getEmail())
                 .user(user)
                 .build();
@@ -60,10 +59,15 @@ public class EnterpriseService implements EnterpriseServiceInterface {
     }
 
     @Override
-    public void updateEnterprise(UpdateEnterprise updateEnterprise, long id) {
-        Enterprise enterprise = enterpriseRepository.findById(id).get();
+    public void updateEnterprise(UpdateEnterprise updateEnterprise) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+        Enterprise enterprise = enterpriseRepository.findById(userDetails.getId()).get();
         enterprise.setAddress(updateEnterprise.getAddress());
         enterprise.setIntroduction(updateEnterprise.getIntroduction());
+        enterprise.setName(updateEnterprise.getName());
+        enterprise.setPhone_number(updateEnterprise.getPhone_number());
+        enterpriseRepository.save(enterprise);
     }
 
     @Override

@@ -10,5 +10,4 @@ public class EnterpriseResponse {
     private String email;
     private String introduction;
     private String address;
-    private String url;
 }

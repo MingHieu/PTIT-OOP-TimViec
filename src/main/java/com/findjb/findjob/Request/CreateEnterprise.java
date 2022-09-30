@@ -21,7 +21,4 @@ public class CreateEnterprise {
     @NotNull(message = "Mật khẩu không được để trống")
     @Min(value = 8, message = "Mật khẩu không phải có ít nhất {value} kí tự")
     private String password;
-
-    @NotNull(message = "Địa chỉ không được để trống")
-    private String address;
 }

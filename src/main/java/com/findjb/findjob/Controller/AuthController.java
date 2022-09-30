@@ -74,8 +74,7 @@ public class AuthController {
                         Enterprise enterprise = entityManager.find(Enterprise.class, userDetails.getId());
                         EnterpriseResponse enterpriseResponse = new EnterpriseResponse(enterprise.getName(),
                                         enterprise.getEmail(),
-                                        enterprise.getIntroduction(), enterprise.getAddress(),
-                                        enterprise.getEnterprise_url());
+                                        enterprise.getIntroduction(), enterprise.getAddress());
                         detail = enterpriseResponse;
                 } else {
                         Freelancer freelancer = entityManager.find(Freelancer.class, userDetails.getId());
@@ -106,8 +105,7 @@ public class AuthController {
                         Enterprise enterprise = entityManager.find(Enterprise.class, userDetails.getId());
                         EnterpriseResponse enterpriseResponse = new EnterpriseResponse(enterprise.getName(),
                                         enterprise.getEmail(),
-                                        enterprise.getIntroduction(), enterprise.getAddress(),
-                                        enterprise.getEnterprise_url());
+                                        enterprise.getIntroduction(), enterprise.getAddress());
                         detail = enterpriseResponse;
                 } else {
                         Freelancer freelancer = entityManager.find(Freelancer.class, userDetails.getId());

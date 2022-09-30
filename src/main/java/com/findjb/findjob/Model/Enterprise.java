@@ -44,9 +44,8 @@ public class Enterprise{
     @Column(name = "introduction")
     private String introduction;
 
-    @Column(name = "enterprise_url")
-    private String enterprise_url;
-
+    @Column(name = "phone_number")
+    private String phone_number;
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId
