@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -20,6 +21,7 @@ public class CustomButton extends FrameLayout {
     private CardView mBtn;
     private CardView mBtnInner;
     private TextView mBtnText;
+    private LinearLayout mLoadingView;
 
     public CustomButton(Context context) {
         super(context);
@@ -68,6 +70,10 @@ public class CustomButton extends FrameLayout {
                 mBtnText.setTextColor(color);
                 break;
         }
+
+        mLoadingView = findViewById(R.id.custom_button_loading);
+        mLoadingView.setVisibility(View.GONE);
+
         a.recycle();
     }
 
@@ -83,5 +89,21 @@ public class CustomButton extends FrameLayout {
     public void setmText(String mText) {
         this.mText = mText;
         mBtnText.setText(mText);
+    }
+
+    public void setLoading(Boolean loading) {
+        if (loading) {
+            mLoadingView.setVisibility(View.VISIBLE);
+            mBtnText.setVisibility(View.GONE);
+            mBtn.getBackground().setAlpha(102);
+            mBtnInner.getBackground().setAlpha(102);
+            mBtn.setClickable(false);
+        } else {
+            mLoadingView.setVisibility(View.GONE);
+            mBtnText.setVisibility(View.VISIBLE);
+            mBtn.getBackground().setAlpha(255);
+            mBtnInner.getBackground().setAlpha(255);
+            mBtn.setClickable(true);
+        }
     }
 }
