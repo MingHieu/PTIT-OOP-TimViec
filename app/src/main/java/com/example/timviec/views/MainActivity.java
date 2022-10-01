@@ -43,6 +43,7 @@ public class MainActivity extends Utils.BaseActivity {
 
                         Intent i = new Intent(MainActivity.this, SelectRoleScreen.class);
                         startActivity(i);
+                        finish();
                     }
                 });
     }

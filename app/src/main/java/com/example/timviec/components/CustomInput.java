@@ -65,7 +65,6 @@ public class CustomInput extends FrameLayout {
 
         // Input Required
         if (a.getBoolean(R.styleable.CustomInput_custom_input_required, false) == false) {
-            Log.i(null, "" + a.getBoolean(R.styleable.CustomInput_custom_input_required, false));
             ((TextView) findViewById(R.id.custom_input_required)).setVisibility(View.GONE);
         }
 

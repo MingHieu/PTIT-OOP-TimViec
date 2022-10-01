@@ -35,7 +35,7 @@
         <entry key="app/src/main/res/drawable/ripple_effect.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/round.xml" value="0.1655" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login_screen.xml" value="0.1813922356091031" />
-        <entry key="app/src/main/res/layout/activity_bottom_tab.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_bottom_tab.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_education_edit_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_education_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_enterprise_edit_screen.xml" value="0.28229166666666666" />
@@ -49,16 +49,17 @@
         <entry key="app/src/main/res/layout/activity_signup_enterprise_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_signup_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_signup_user_screen.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_skill_screen.xml" value="0.15462962962962962" />
         <entry key="app/src/main/res/layout/activity_user_edit_screen.xml" value="0.2657407407407407" />
         <entry key="app/src/main/res/layout/border.xml" value="0.2682291666666667" />
         <entry key="app/src/main/res/layout/component_sample.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/content_product_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/custom_action_bar.xml" value="0.28125" />
-        <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.2657407407407407" />
         <entry key="app/src/main/res/layout/education_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/experience_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.28229166666666666" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33102652825836215" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_order.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.28229166666666666" />
@@ -71,7 +72,7 @@
         <entry key="app/src/main/res/layout/loading_dialog.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/notification_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/preview_component.xml" value="0.28229166666666666" />
-        <entry key="app/src/main/res/layout/sample_custom_button.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/sample_custom_button.xml" value="0.26010894775390625" />
         <entry key="app/src/main/res/layout/sample_custom_input.xml" value="0.38141174316406246" />
         <entry key="app/src/main/res/layout/sample_job_card.xml" value="0.2657407407407407" />
         <entry key="app/src/main/res/layout/sample_notification_card.xml" value="0.28229166666666666" />

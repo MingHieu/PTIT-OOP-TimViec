@@ -2,6 +2,7 @@ package com.example.timviec.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,8 +10,16 @@ import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
+import com.example.timviec.components.CustomDialog;
 import com.example.timviec.components.CustomInput;
+import com.example.timviec.model.API;
 import com.example.timviec.router.BottomTab;
+import com.example.timviec.services.ApiService;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginScreen extends Utils.BaseActivity {
     private CustomInput mUsernameInput;
@@ -50,20 +59,28 @@ public class LoginScreen extends Utils.BaseActivity {
         int roleId = extras.getInt("roleId");
         App.getContext().getStateManager().getUser().setRoleId(roleId);
 
-        Intent i = new Intent(this, BottomTab.class);
-        startActivity(i);
+        mLoginButton.setLoading(true);
 
-//        ApiService.apiService.hello().enqueue(new Callback<User>() {
-//            @Override
-//            public void onResponse(Call<User> call, Response<User> response) {
-//                Log.i("DebugTag", "onResponse: " + response.body().toString());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<User> call, Throwable t) {
-//                Log.i("DebugTag", "onFailure: " + t.getMessage());
-//            }
-//        });
+        ApiService.apiService.login(new API.LoginBody(
+                        mUsernameInput.getValue(),
+                        mPasswordInput.getValue()))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.i("DebugTag", "onResponse: " + response.body());
+                        Intent i = new Intent(LoginScreen.this, BottomTab.class);
+                        startActivity(i);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("DebugTag", "onFailure: " + t.getMessage());
+                        mLoginButton.setLoading(false);
+                        CustomDialog dialog = new CustomDialog(LoginScreen.this, t.getMessage(), null, null);
+                        dialog.show();
+                    }
+                });
     }
 
     private void goToSignup() {
