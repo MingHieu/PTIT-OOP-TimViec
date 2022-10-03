@@ -4,14 +4,12 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -35,9 +33,10 @@ import java.util.Calendar;
  * TODO: document your custom view class.
  */
 public class CustomInput extends FrameLayout {
-    private String mText;
     private EditText mInput;
     private Boolean showPass = false;
+    private AutoCompleteTextView mInputAutoComplete;
+    private Boolean autoComplete = false;
 
     public CustomInput(Context context) {
         super(context);
@@ -167,33 +166,29 @@ public class CustomInput extends FrameLayout {
             default:
                 mInput.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        // Catch event when text changed
-        mInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mText = mInput.getText().toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        // Auto complete input
+        mInputAutoComplete = findViewById(R.id.custom_input_input_auto_complete);
+        mInputAutoComplete.setHint(a.getString(R.styleable.CustomInput_custom_input_placeholder));
+        mInputAutoComplete.setVisibility(View.GONE);
 
         a.recycle();
     }
 
     public String getValue() {
-        return mText;
+        if (autoComplete)
+            return mInputAutoComplete.getText().toString();
+        return mInput.getText().toString();
     }
 
-    public void setValue(String mText) {
-        this.mText = mText;
-        mInput.setText(mText);
+    public void setValue(String text) {
+        mInput.setText(text);
+    }
+
+    public void setSuggestList(ArrayAdapter<String> mAutoCompleteAdapter) {
+        autoComplete = true;
+        mInputAutoComplete.setAdapter(mAutoCompleteAdapter);
+        mInputAutoComplete.setVisibility(View.VISIBLE);
+        mInput.setVisibility(View.GONE);
     }
 }
