@@ -92,8 +92,7 @@ public class BottomTab extends Utils.BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(0, R.anim.slide_out_right);
+        moveTaskToBack(true);
     }
 }
 

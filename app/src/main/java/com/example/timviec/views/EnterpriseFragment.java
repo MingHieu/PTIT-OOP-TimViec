@@ -43,7 +43,7 @@ public class EnterpriseFragment extends Utils.BaseFragment {
         enterpriseEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), EducationEditScreen.class);
+                Intent i = new Intent(getActivity(), EnterpriseEditScreen.class);
                 startActivity(i);
             }
         });

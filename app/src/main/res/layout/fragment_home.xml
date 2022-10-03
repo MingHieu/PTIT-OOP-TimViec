@@ -24,6 +24,7 @@
             app:cardElevation="0dp">
 
             <ImageView
+                android:id="@+id/fragment_home_avatar"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@drawable/ic_user" />
@@ -42,6 +43,7 @@
                 android:textSize="16dp" />
 
             <TextView
+                android:id="@+id/fragment_home_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Lê Minh Hiếu"
