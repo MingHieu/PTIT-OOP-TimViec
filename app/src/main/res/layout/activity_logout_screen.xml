@@ -48,6 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingHorizontal="20dp"
+            app:custom_button_round="true"
+            app:custom_button_type="secondary"
             app:custom_button_text="Hủy" />
 
         <com.example.timviec.components.CustomButton
@@ -56,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingHorizontal="20dp"
+            app:custom_button_round="true"
             app:custom_button_text="Đăng xuất" />
 
 
