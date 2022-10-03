@@ -22,6 +22,8 @@
     <color name="on_error">#FFF</color>
     <color name="pending">#FF9232</color>
     <color name="on_pending">#FFF</color>
+    <color name="gray_10">#FAFAFA</color>
+    <color name="green_10">#E0F8EC</color>
 
 
 </resources>
