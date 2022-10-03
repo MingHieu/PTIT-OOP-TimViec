@@ -46,6 +46,9 @@ public class Enterprise{
 
     @Column(name = "phone_number")
     private String phone_number;
+
+    @Column(name = "avatar",length = 100000)
+    private String avatar;
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId
