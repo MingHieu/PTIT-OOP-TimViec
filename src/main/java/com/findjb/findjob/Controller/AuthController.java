@@ -54,7 +54,7 @@ public class AuthController {
         JwtUtils jwtUtils;
 
         @PostMapping({ "/login" })
-        public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        public ResponseEntity<Object> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
                 Authentication authentication = authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
@@ -84,11 +84,14 @@ public class AuthController {
                                         freelancer.getEmail(), freelancer.getIntroduction(), freelancer.getLevel());
                         detail = freelancerResponse;
                 }
-                return ResponseEntity.ok(new JwtResponse(jwt,
-                                userDetails.getId(),
-                                userDetails.getUsername(),
-                                detail,
-                                role_id));
+                // return ResponseEntity.ok(new JwtResponse(jwt,
+                // userDetails.getId(),
+                // userDetails.getUsername(),
+                // detail,
+                // role_id));
+                return new ResponseEntity<Object>(
+                                new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), role_id, detail),
+                                HttpStatus.OK);
         }
 
         @GetMapping("/user/detail")
