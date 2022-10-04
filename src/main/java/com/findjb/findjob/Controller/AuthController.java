@@ -30,6 +30,7 @@ import com.findjb.findjob.Request.LoginRequest;
 import com.findjb.findjob.Responses.EnterpriseResponse;
 import com.findjb.findjob.Responses.FreelancerResponse;
 import com.findjb.findjob.Responses.JwtResponse;
+import com.findjb.findjob.Responses.ObjectResponse;
 
 @RestController
 @RequestMapping({ "/api/auth" })
@@ -118,6 +119,7 @@ public class AuthController {
                                         freelancer.getEmail(), freelancer.getIntroduction(), freelancer.getLevel());
                         detail = freelancerResponse;
                 }
-                return new ResponseEntity<Object>(detail, HttpStatus.OK);
+                return new ResponseEntity<Object>(new ObjectResponse(true, "Lấy chi tiết thành công", detail),
+                                HttpStatus.OK);
         }
 }

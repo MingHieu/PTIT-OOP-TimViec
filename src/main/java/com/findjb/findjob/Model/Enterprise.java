@@ -1,6 +1,5 @@
 package com.findjb.findjob.Model;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -27,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-public class Enterprise{
+public class Enterprise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,8 +46,12 @@ public class Enterprise{
     @Column(name = "phone_number")
     private String phone_number;
 
-    @Column(name = "avatar",length = 100000)
+    @Column(name = "avatar", length = 100000)
     private String avatar;
+
+    @Column(name = "fcm")
+    private String fcm;
+    
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId

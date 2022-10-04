@@ -8,5 +8,5 @@ import lombok.Data;
 public class ObjectResponse {
     Boolean status;
     String message;
-    Object obj;
+    Object data;
 }
