@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.timviec.App;
@@ -38,7 +37,7 @@ public class LoginScreen extends Utils.BaseActivity {
         setUpScreen();
 
         mUsernameInput = findViewById(R.id.login_screen_username_input);
-        mUsernameInput.setSuggestList(new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, COUNTRIES));
+        mUsernameInput.setSelectOption(this, COUNTRIES);
         mPasswordInput = findViewById(R.id.login_screen_password_input);
         mLoginButton = findViewById(R.id.login_screen_login_btn);
         mSignupButton = findViewById(R.id.login_screen_signup_btn);

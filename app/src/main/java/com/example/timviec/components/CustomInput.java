@@ -1,5 +1,6 @@
 package com.example.timviec.components;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -37,6 +39,9 @@ public class CustomInput extends FrameLayout {
     private Boolean showPass = false;
     private AutoCompleteTextView mInputAutoComplete;
     private Boolean autoComplete = false;
+    private Spinner mInputSelect;
+    private ImageView mInputSelectIcon;
+    private Boolean selectable = false;
 
     public CustomInput(Context context) {
         super(context);
@@ -172,12 +177,19 @@ public class CustomInput extends FrameLayout {
         mInputAutoComplete.setHint(a.getString(R.styleable.CustomInput_custom_input_placeholder));
         mInputAutoComplete.setVisibility(View.GONE);
 
+        mInputSelect = findViewById(R.id.custom_input_input_select);
+        mInputSelect.setVisibility(View.GONE);
+        mInputSelectIcon = findViewById(R.id.custom_input_input_select_icon);
+        mInputSelectIcon.setVisibility(View.GONE);
+
         a.recycle();
     }
 
     public String getValue() {
         if (autoComplete)
             return mInputAutoComplete.getText().toString();
+        if(selectable)
+            return mInputSelect.getSelectedItem().toString();
         return mInput.getText().toString();
     }
 
@@ -185,10 +197,20 @@ public class CustomInput extends FrameLayout {
         mInput.setText(text);
     }
 
-    public void setSuggestList(ArrayAdapter<String> mAutoCompleteAdapter) {
+    public void setSuggestList(Activity activity, String[] suggestList) {
         autoComplete = true;
-        mInputAutoComplete.setAdapter(mAutoCompleteAdapter);
+        mInputAutoComplete.setAdapter(new ArrayAdapter<String>(activity, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, suggestList));
         mInputAutoComplete.setVisibility(View.VISIBLE);
+        mInput.setVisibility(View.GONE);
+    }
+
+    public void setSelectOption(Activity activity, String[] selectOptions) {
+        selectable = true;
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,R.layout.spinner_item_selected,selectOptions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mInputSelect.setAdapter(adapter);
+        mInputSelect.setVisibility(View.VISIBLE);
+        mInputSelectIcon.setVisibility(View.VISIBLE);
         mInput.setVisibility(View.GONE);
     }
 }
