@@ -174,25 +174,41 @@ CARO là một Startup công nghệ đang phát triển rất nhanh về quy mô
                 android:background="@color/gray_200"
                 android:layout_height="1dp" />
 
-            <com.example.timviec.components.JobCard
-                android:layout_marginTop="10dp"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:job_card_job_company="Công ty giải pháp và công nghệ CARO"
-                app:job_card_job_time="Còn 2 tháng nữa"
-                app:job_card_job_money="Up to 1000$"
-                app:job_card_job_address="Hà Nội"
-                app:job_card_job_name="Java Development" />
+                android:orientation="vertical">
 
-            <com.example.timviec.components.JobCard
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:job_card_job_company="Công ty giải pháp và công nghệ CARO"
-                app:job_card_job_time="Còn 2 tháng nữa"
-                app:job_card_job_money="Up to 1000$"
-                app:job_card_job_address="Hà Nội"
-                app:job_card_job_name="Java Development" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Việc làm cùng công ty"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/on_surface" />
+
+                <com.example.timviec.components.JobCard
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:job_card_job_company="Công ty giải pháp và công nghệ CARO"
+                    app:job_card_job_time="Còn 2 tháng nữa"
+                    app:job_card_job_money="Up to 1000$"
+                    app:job_card_job_address="Hà Nội"
+                    app:job_card_job_name="Java Development" />
+
+                <com.example.timviec.components.JobCard
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:job_card_job_company="Công ty giải pháp và công nghệ CARO"
+                    app:job_card_job_time="Còn 2 tháng nữa"
+                    app:job_card_job_money="Up to 1000$"
+                    app:job_card_job_address="Hà Nội"
+                    app:job_card_job_name="Java Development" />
+
+            </LinearLayout>
+
 
 
         </LinearLayout>
