@@ -33,7 +33,7 @@ public class BottomTab extends Utils.BaseActivity {
         setContentView(R.layout.activity_bottom_tab);
 
         mBottomNav = findViewById(R.id.bottom_tab);
-        mViewerPage = findViewById(R.id.view_pager);
+        mViewerPage = findViewById(R.id.bottom_tab_view_pager);
         // Make content not stretch horizontally when over scroll
         View child = mViewerPage.getChildAt(0);
         if (child instanceof RecyclerView) {
@@ -120,7 +120,6 @@ class BottomTabAdapter extends FragmentStateAdapter {
                 if (roleId == 2) {
                     return new EnterpriseFragment();
                 }
-
             default:
                 return new HomeFragment();
         }

@@ -33,7 +33,7 @@ public class CustomDialog {
         confirmButton = view.findViewById(R.id.custom_dialog_button);
 
         builder.setView(view);
-        builder.setCancelable(false);
+//        builder.setCancelable(false);
 
         alertDialog = builder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

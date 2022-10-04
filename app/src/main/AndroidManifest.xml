@@ -17,10 +17,6 @@
         android:theme="@style/Theme.MyApp.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".views.JobDetailsScreen"
-            android:exported="false" />
-
         <service
             android:name=".services.NotificationService"
             android:exported="false">
@@ -28,6 +24,10 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".views.JobDetailScreen"
+            android:exported="false" />
 
         <activity
             android:name=".views.EnterpriseEditScreen"

@@ -1,19 +1,24 @@
 package com.example.timviec.components;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.timviec.R;
+import com.example.timviec.views.JobDetailScreen;
 
 /**
  * TODO: document your custom view class.
  */
 public class JobCard extends FrameLayout {
     private String mName, mCompany, mMoney, mAddress, mTime;
-
+    private CardView mJobCard;
 
     public JobCard(Context context) {
         super(context);
@@ -44,14 +49,19 @@ public class JobCard extends FrameLayout {
         mTime = a.getString(R.styleable.JobCard_job_card_job_time);
 
         ((TextView) findViewById(R.id.job_card_job_name)).setText(mName);
-
         ((TextView) findViewById(R.id.job_card_job_company)).setText(mCompany);
-
         ((TextView) findViewById(R.id.job_card_job_money)).setText(mMoney);
-
         ((TextView) findViewById(R.id.job_card_job_address)).setText(mAddress);
-
         ((TextView) findViewById(R.id.job_card_job_time)).setText(mTime);
+
+        mJobCard = findViewById(R.id.job_card);
+        mJobCard.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), JobDetailScreen.class);
+                getContext().startActivity(i);
+            }
+        });
 
         a.recycle();
     }

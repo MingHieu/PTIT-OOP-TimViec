@@ -1,7 +1,11 @@
 package com.example.timviec.views;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.timviec.R;
 import com.example.timviec.Utils;
@@ -9,6 +13,7 @@ import com.example.timviec.components.CustomButton;
 
 public class SettingScreen extends Utils.BaseActivity {
     private CustomButton mLogoutButton;
+    private AlertDialog mAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,13 +22,33 @@ public class SettingScreen extends Utils.BaseActivity {
 
         setUpScreen("Cài đặt");
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View alertDialogView = this.getLayoutInflater().inflate(R.layout.logout_dialog, null);
+        builder.setView(alertDialogView);
+        mAlertDialog = builder.create();
+        mAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ((CustomButton) alertDialogView.findViewById(R.id.logout_dialog_btn_cancel)).setHandleOnClick(new Runnable() {
+            @Override
+            public void run() {
+                mAlertDialog.dismiss();
+            }
+        });
+
+        ((CustomButton) alertDialogView.findViewById(R.id.logout_dialog_btn_approve)).setHandleOnClick(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(SettingScreen.this, SelectRoleScreen.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
         mLogoutButton = findViewById(R.id.setting_logout_button);
         mLogoutButton.setHandleOnClick(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SettingScreen.this,SelectRoleScreen.class);
-                startActivity(i);
-                finish();
+                mAlertDialog.show();
             }
         });
     }
