@@ -2,7 +2,6 @@ package com.findjb.findjob.Service.JPA;
 
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,6 +57,7 @@ public class FreelancerService implements FreelancerServiceInterface {
         freelancer.setGender(updateFreelancer.getGender());
         freelancer.setPhone_number(updateFreelancer.getPhone_number());
         freelancer.setIntroduction(updateFreelancer.getIntroduction());
+        freelancer.setLevel(updateFreelancer.getLevel());
         freelancer.setAvatar(updateFreelancer.getAvatar());
         freelancerRepository.save(freelancer);
     }

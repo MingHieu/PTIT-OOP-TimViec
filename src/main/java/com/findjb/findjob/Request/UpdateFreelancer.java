@@ -10,5 +10,6 @@ public class UpdateFreelancer {
     private String address;
     private String phone_number;
     private String introduction;
+    private Integer level;
     private String avatar;
 }
