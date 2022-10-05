@@ -34,6 +34,8 @@ public class Education {
     private String from_date;
     @Column(name = "to_date")
     private String to_date;
+    @Column(name = "detail")
+    private String detail;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "freelancer_id", nullable = false)

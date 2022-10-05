@@ -2,8 +2,6 @@ package com.findjb.findjob.Service.JPA;
 
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -24,8 +22,6 @@ import com.findjb.findjob.Service.FreelancerServiceInterface;
 
 @Service
 public class FreelancerService implements FreelancerServiceInterface {
-    @PersistenceContext
-    private EntityManager entityManager;
     @Autowired
     private UserRepository userRepository;
     @Autowired

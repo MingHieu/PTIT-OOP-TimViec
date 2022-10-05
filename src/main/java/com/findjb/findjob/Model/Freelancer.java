@@ -62,6 +62,6 @@ public class Freelancer {
     @MapsId
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "freelancer")
-    private List<Skill> skills;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "freelancer")
+    private List<Skill> educations;
 }

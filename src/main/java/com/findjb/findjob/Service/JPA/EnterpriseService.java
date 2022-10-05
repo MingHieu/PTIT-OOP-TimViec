@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,8 +28,6 @@ import com.findjb.findjob.Service.EnterpriseServiceInterface;
 
 @Service
 public class EnterpriseService implements EnterpriseServiceInterface {
-    @PersistenceContext
-    private EntityManager entityManager;
     @Autowired
     private UserRepository userRepository;
     @Autowired
