@@ -27,8 +27,6 @@ import com.findjb.findjob.Model.Freelancer;
 import com.findjb.findjob.Repositories.RoleRepository;
 import com.findjb.findjob.Repositories.UserRepository;
 import com.findjb.findjob.Request.LoginRequest;
-import com.findjb.findjob.Responses.EnterpriseResponse;
-import com.findjb.findjob.Responses.FreelancerResponse;
 import com.findjb.findjob.Responses.JwtResponse;
 import com.findjb.findjob.Responses.ObjectResponse;
 
@@ -72,18 +70,10 @@ public class AuthController {
                 Long role_id = roleRepository.findByName(role).getId();
                 Object detail = new Object();
                 if (role_id == 2) {
-                        Enterprise enterprise = entityManager.find(Enterprise.class, userDetails.getId());
-                        EnterpriseResponse enterpriseResponse = new EnterpriseResponse(enterprise.getName(),
-                                        enterprise.getEmail(),
-                                        enterprise.getIntroduction(), enterprise.getAddress());
-                        detail = enterpriseResponse;
+                        detail = entityManager.find(Enterprise.class, userDetails.getId());
+
                 } else {
-                        Freelancer freelancer = entityManager.find(Freelancer.class, userDetails.getId());
-                        FreelancerResponse freelancerResponse = new FreelancerResponse(freelancer.getName(),
-                                        freelancer.getDob(),
-                                        freelancer.getGender(), freelancer.getAddress(), freelancer.getPhone_number(),
-                                        freelancer.getEmail(), freelancer.getIntroduction(), freelancer.getLevel());
-                        detail = freelancerResponse;
+                        detail = entityManager.find(Freelancer.class, userDetails.getId());
                 }
                 // return ResponseEntity.ok(new JwtResponse(jwt,
                 // userDetails.getId(),
@@ -106,18 +96,10 @@ public class AuthController {
                 Long role_id = roleRepository.findByName(role).getId();
                 Object detail = new Object();
                 if (role_id == 2) {
-                        Enterprise enterprise = entityManager.find(Enterprise.class, userDetails.getId());
-                        EnterpriseResponse enterpriseResponse = new EnterpriseResponse(enterprise.getName(),
-                                        enterprise.getEmail(),
-                                        enterprise.getIntroduction(), enterprise.getAddress());
-                        detail = enterpriseResponse;
+                        detail = entityManager.find(Enterprise.class, userDetails.getId());
+
                 } else {
-                        Freelancer freelancer = entityManager.find(Freelancer.class, userDetails.getId());
-                        FreelancerResponse freelancerResponse = new FreelancerResponse(freelancer.getName(),
-                                        freelancer.getDob(),
-                                        freelancer.getGender(), freelancer.getAddress(), freelancer.getPhone_number(),
-                                        freelancer.getEmail(), freelancer.getIntroduction(), freelancer.getLevel());
-                        detail = freelancerResponse;
+                        detail = entityManager.find(Freelancer.class, userDetails.getId());
                 }
                 return new ResponseEntity<Object>(new ObjectResponse(true, "Lấy chi tiết thành công", detail),
                                 HttpStatus.OK);
