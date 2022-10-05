@@ -50,9 +50,9 @@ public class EducationController {
         return new ResponseEntity<Object>(new StatusResponse(true, "Cập nhật thành công"), HttpStatus.OK);
     }
 
-    @DeleteMapping("education/delelte/{id}")
+    @DeleteMapping("education/delete/{id}")
     public ResponseEntity<Object> deleteEducation(@RequestParam Long id) {
         educationService.deleteEducation(id);
-        return new ResponseEntity<Object>(new StatusResponse(true, "Xóaz thành công"), HttpStatus.OK);
+        return new ResponseEntity<Object>(new StatusResponse(true, "Xóa thành công"), HttpStatus.OK);
     }
 }
