@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 public class UpdateFreelancer {
-    String name;
-    String dob;
-    Integer gender;
-    String address;
-    String phone_number;
-    String introduction;
+    private String name;
+    private String dob;
+    private Integer gender;
+    private String address;
+    private String phone_number;
+    private String introduction;
+    private String avatar;
 }

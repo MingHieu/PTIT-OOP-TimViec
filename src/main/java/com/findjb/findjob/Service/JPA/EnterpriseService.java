@@ -67,6 +67,7 @@ public class EnterpriseService implements EnterpriseServiceInterface {
         enterprise.setIntroduction(updateEnterprise.getIntroduction());
         enterprise.setName(updateEnterprise.getName());
         enterprise.setPhone_number(updateEnterprise.getPhone_number());
+        enterprise.setAvatar(updateEnterprise.getAddress());
         enterpriseRepository.save(enterprise);
     }
 

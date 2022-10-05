@@ -21,8 +21,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users")
 @Data
-@SecondaryTables({ @SecondaryTable(name = "enterprises", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id",referencedColumnName = "id")),
-        @SecondaryTable(name = "freelancers", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id",referencedColumnName = "id")) })
+@SecondaryTables({
+        @SecondaryTable(name = "enterprises", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")),
+        @SecondaryTable(name = "freelancers", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")) })
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,6 +35,8 @@ public class User {
     private String username;
     @Column(name = "password")
     private String password;
+    @Column(name = "fcmToken")
+    private String fcmToken;
     @OneToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;

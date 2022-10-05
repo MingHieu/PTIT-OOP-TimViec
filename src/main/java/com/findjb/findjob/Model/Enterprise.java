@@ -49,8 +49,6 @@ public class Enterprise {
     @Column(name = "avatar", length = 100000)
     private String avatar;
 
-    @Column(name = "fcm")
-    private String fcm;
     
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -8,4 +8,5 @@ public class UpdateEnterprise {
     private String address;
     private String phone_number;
     private String introduction;
+    private String avatar;
 }

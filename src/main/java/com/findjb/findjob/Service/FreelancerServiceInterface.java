@@ -7,4 +7,5 @@ public interface FreelancerServiceInterface {
     void createNewFreelancer(CreateFreelancer newFreelancer);
     void updateFreelancer(UpdateFreelancer updateFreelancer);
     void deleteFreelancer();
+
 }

@@ -62,6 +62,7 @@ public class FreelancerService implements FreelancerServiceInterface {
         freelancer.setGender(updateFreelancer.getGender());
         freelancer.setPhone_number(updateFreelancer.getPhone_number());
         freelancer.setIntroduction(updateFreelancer.getIntroduction());
+        freelancer.setAvatar(updateFreelancer.getAvatar());
         freelancerRepository.save(freelancer);
     }
 
