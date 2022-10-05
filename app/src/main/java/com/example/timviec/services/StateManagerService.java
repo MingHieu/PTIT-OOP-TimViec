@@ -13,7 +13,7 @@ public class StateManagerService {
     private MutableLiveData<String> authToken = new MutableLiveData<>();
 
     public StateManagerService() {
-        user.setValue(new User(10, null, null, null));
+        user.setValue(new User());
         authToken.setValue("");
     }
 

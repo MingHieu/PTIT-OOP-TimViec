@@ -13,10 +13,12 @@ import com.example.timviec.components.CustomButton;
 import com.example.timviec.components.CustomDialog;
 import com.example.timviec.components.CustomInput;
 import com.example.timviec.model.API;
+import com.example.timviec.model.User;
 import com.example.timviec.router.BottomTab;
 import com.example.timviec.services.ApiService;
 
-import okhttp3.ResponseBody;
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,30 +57,49 @@ public class LoginScreen extends Utils.BaseActivity {
     }
 
     private void login() {
-        Bundle extras = getIntent().getExtras();
-        int roleId = extras.getInt("roleId");
-        App.getContext().getStateManager().getUser().setRoleId(roleId);
-
         mLoginButton.setLoading(true);
 
         ApiService.apiService.login(new API.LoginBody(
                         mUsernameInput.getValue(),
                         mPasswordInput.getValue()))
-                .enqueue(new Callback<ResponseBody>() {
+                .enqueue(new Callback<API.LoginResponse>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Log.i("DebugTag", "onResponse: " + response.body());
-                        Intent i = new Intent(LoginScreen.this, BottomTab.class);
-                        startActivity(i);
-                        finish();
+                    public void onResponse(Call<API.LoginResponse> call, Response<API.LoginResponse> response) {
+                        if (response.isSuccessful()) {
+                            API.LoginResponse res = response.body();
+                            Log.i("DebugTag", res.toString());
+
+                            String accessToken = res.getAccessToken();
+                            App.getContext().getStateManager().setAuthToken(accessToken);
+
+                            User user = new User();
+                            user.setRoleId(res.getRole());
+                            user.setDetail(res.getDetail());
+                            App.getContext().getStateManager().setUser(user);
+
+                            Intent i = new Intent(LoginScreen.this, BottomTab.class);
+                            startActivity(i);
+                        } else {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                Log.e("DebugTag", jsonObject.getString("message"));
+                                CustomDialog dialog = new CustomDialog(LoginScreen.this, jsonObject.getString("message"), null, null);
+                                dialog.show();
+                                mLoginButton.setLoading(false);
+                            } catch (Exception e) {
+                                CustomDialog dialog = new CustomDialog(LoginScreen.this, e.getMessage(), null, null);
+                                dialog.show();
+                                mLoginButton.setLoading(false);
+                            }
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.i("DebugTag", "onFailure: " + t.getMessage());
-                        mLoginButton.setLoading(false);
+                    public void onFailure(Call<API.LoginResponse> call, Throwable t) {
+                        Log.e("DebugTag", t.toString());
                         CustomDialog dialog = new CustomDialog(LoginScreen.this, t.getMessage(), null, null);
                         dialog.show();
+                        mLoginButton.setLoading(false);
                     }
                 });
     }

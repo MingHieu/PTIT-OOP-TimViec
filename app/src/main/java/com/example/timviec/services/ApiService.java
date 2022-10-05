@@ -1,10 +1,7 @@
 package com.example.timviec.services;
 
-import android.util.Log;
-
 import com.example.timviec.App;
 import com.example.timviec.model.API;
-import com.example.timviec.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -19,7 +16,6 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 class ApiServiceInterceptor implements Interceptor {
@@ -53,7 +49,7 @@ public interface ApiService {
 
     // Auth Api
     @POST("auth/login")
-    Call<ResponseBody> login(@Body API.LoginBody body);
+    Call<API.LoginResponse> login(@Body API.LoginBody body);
 }
 
 

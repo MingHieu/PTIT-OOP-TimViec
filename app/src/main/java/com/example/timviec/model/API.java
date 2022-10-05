@@ -1,12 +1,8 @@
 package com.example.timviec.model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class API {
     public static class LoginBody {
-        @SerializedName("username")
         private String username;
-        @SerializedName("password")
         private String password;
 
         public LoginBody(String username, String password) {
@@ -16,14 +12,32 @@ public class API {
     }
 
     public static class LoginResponse {
-        @SerializedName("username")
-        private String username;
-        @SerializedName("password")
-        private String password;
+        private int id, role;
+        private String email, accessToken, tokenType;
+        private Object detail;
 
-        public LoginResponse(String username, String password) {
-            this.username = username;
-            this.password = password;
+        public int getRole() {
+            return role;
+        }
+
+        public String getAccessToken() {
+            return accessToken;
+        }
+
+        public Object getDetail() {
+            return detail;
+        }
+
+        @Override
+        public String toString() {
+            return "LoginResponse{" +
+                    "id=" + id +
+                    ", role=" + role +
+                    ", email='" + email + '\'' +
+                    ", accessToken='" + accessToken + '\'' +
+                    ", tokenType='" + tokenType + '\'' +
+                    ", detail=" + detail +
+                    '}';
         }
     }
 }

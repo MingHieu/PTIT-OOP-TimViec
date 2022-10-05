@@ -1,19 +1,15 @@
 package com.example.timviec.model;
 
 public class User {
-    Freelancer freelancer;
-    Enterprise enterprise;
-    private int roleId;
-    private String username;
+    int roleId;
+    Object detail;
 
     public User() {
     }
 
-    public User(int roleId, String username, Freelancer freelancer, Enterprise enterprise) {
+    public User(int roleId, Object detail) {
         this.roleId = roleId;
-        this.username = username;
-        this.freelancer = freelancer;
-        this.enterprise = enterprise;
+        this.detail = detail;
     }
 
     public int getRoleId() {
@@ -24,37 +20,19 @@ public class User {
         this.roleId = roleId;
     }
 
-    public String getUsername() {
-        return username;
+    public Object getDetail() {
+        return detail;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Freelancer getFreelancer() {
-        return freelancer;
-    }
-
-    public void setFreelancer(Freelancer freelancer) {
-        this.freelancer = freelancer;
-    }
-
-    public Enterprise getEnterprise() {
-        return enterprise;
-    }
-
-    public void setEnterprise(Enterprise enterprise) {
-        this.enterprise = enterprise;
+    public void setDetail(Object detail) {
+        this.detail = detail;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "roleId=" + roleId +
-                ", username='" + username + '\'' +
-                ", freelancer=" + freelancer +
-                ", enterprise=" + enterprise +
+                ", detail=" + detail +
                 '}';
     }
 }

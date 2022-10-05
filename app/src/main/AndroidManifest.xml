@@ -30,9 +30,6 @@
             android:exported="false" />
 
         <activity
-            android:name=".views.EnterpriseEditScreen"
-            android:exported="false" />
-        <activity
             android:name=".views.JobEditScreen"
             android:exported="false" />
         <activity

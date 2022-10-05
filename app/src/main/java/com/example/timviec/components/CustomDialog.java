@@ -76,4 +76,8 @@ public class CustomDialog {
     public void onConfirm(Runnable runnable) {
         confirmButton.setHandleOnClick(runnable);
     }
+
+    public void setCancelable(Boolean b) {
+        alertDialog.setCancelable(b);
+    }
 }
