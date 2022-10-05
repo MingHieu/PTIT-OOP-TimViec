@@ -51,7 +51,7 @@ public class EducationController {
     }
 
     @DeleteMapping("education/delelte/{id}")
-    public ResponseEntity<Object> delelteEducation(@RequestParam Long id) {
+    public ResponseEntity<Object> deleteEducation(@RequestParam Long id) {
         educationService.deleteEducation(id);
         return new ResponseEntity<Object>(new StatusResponse(true, "Xóaz thành công"), HttpStatus.OK);
     }
