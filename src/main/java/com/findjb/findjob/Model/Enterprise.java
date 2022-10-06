@@ -2,7 +2,6 @@ package com.findjb.findjob.Model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,7 +24,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Embeddable
 public class Enterprise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

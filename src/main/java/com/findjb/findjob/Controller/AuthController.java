@@ -29,6 +29,7 @@ import com.findjb.findjob.Repositories.UserRepository;
 import com.findjb.findjob.Request.LoginRequest;
 import com.findjb.findjob.Responses.JwtResponse;
 import com.findjb.findjob.Responses.ObjectResponse;
+import com.findjb.findjob.Responses.StatusResponse;
 
 @RestController
 @RequestMapping({ "/api/auth" })
@@ -53,36 +54,40 @@ public class AuthController {
         JwtUtils jwtUtils;
 
         @PostMapping({ "/login" })
-        public ResponseEntity<Object> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        public ResponseEntity<Object> authenticateUser(@RequestBody LoginRequest loginRequest) throws Exception {
+                try {
+                        Authentication authentication = authenticationManager.authenticate(
+                                        new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                                                        loginRequest.getPassword()));
 
-                Authentication authentication = authenticationManager.authenticate(
-                                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-                                                loginRequest.getPassword()));
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                        String jwt = jwtUtils.generateJwtToken(authentication);
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                String jwt = jwtUtils.generateJwtToken(authentication);
+                        UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+                        List<String> roles = userDetails.getAuthorities().stream()
+                                        .map(item -> item.getAuthority())
+                                        .collect(Collectors.toList());
+                        String role = roles.get(0);
+                        Long role_id = roleRepository.findByName(role).getId();
+                        Object detail = new Object();
+                        if (role_id == 2) {
+                                detail = entityManager.find(Enterprise.class, userDetails.getId());
 
-                UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
-                List<String> roles = userDetails.getAuthorities().stream()
-                                .map(item -> item.getAuthority())
-                                .collect(Collectors.toList());
-                String role = roles.get(0);
-                Long role_id = roleRepository.findByName(role).getId();
-                Object detail = new Object();
-                if (role_id == 2) {
-                        detail = entityManager.find(Enterprise.class, userDetails.getId());
-
-                } else {
-                        detail = entityManager.find(Freelancer.class, userDetails.getId());
+                        } else {
+                                detail = entityManager.find(Freelancer.class, userDetails.getId());
+                        }
+                        // return ResponseEntity.ok(new JwtResponse(jwt,
+                        // userDetails.getId(),
+                        // userDetails.getUsername(),
+                        // detail,
+                        // role_id));
+                        return new ResponseEntity<Object>(
+                                        new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), role_id,
+                                                        detail),
+                                        HttpStatus.OK);
+                } catch (Exception e) {
+                        return new ResponseEntity<Object>(new StatusResponse(false,"Đăng nhập thất bại"), HttpStatus.UNAUTHORIZED);
                 }
-                // return ResponseEntity.ok(new JwtResponse(jwt,
-                // userDetails.getId(),
-                // userDetails.getUsername(),
-                // detail,
-                // role_id));
-                return new ResponseEntity<Object>(
-                                new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), role_id, detail),
-                                HttpStatus.OK);
         }
 
         @GetMapping("/user/detail")

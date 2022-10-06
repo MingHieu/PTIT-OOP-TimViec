@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -60,8 +62,10 @@ public class Freelancer {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId
+    @JsonIgnore
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "freelancer")
-    private List<Skill> educations;
+    @JsonIgnore
+    private List<Education> educations;
 }
