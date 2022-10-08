@@ -21,7 +21,7 @@ public class ExperienceService implements ExperienceServiceInterface {
     @Autowired
     private FreelancerRepository freelancerRepository;
     @Autowired
-    private ExperienceRepository skillRepository;
+    private ExperienceRepository experienceRepository;
 
     @Override
     public void createExperience(CreateExperience updateExperience) {
@@ -44,34 +44,25 @@ public class ExperienceService implements ExperienceServiceInterface {
         
     }
 
-    @Override
-    public List<Experience> getListExperience() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public List<Experience> getListExperience() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+        Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
+        return experienceRepository.findByFreelancerId(freelancer.getId());
+		
+	}
 
-    @Override
-    public Experience getListExperience(Long id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public Experience getListExperience(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public void deleteExperience(Long id) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void createExperience(CreateExperience newExperience) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void updateExperience(CreateExperience updateExperience, Long id) {
-        // TODO Auto-generated method stub
-        
-    }
-    
+	@Override
+	public void deleteExperience(Long id) {
+		experienceRepository.deleteById(id);;
+		
+	}
 }
+    

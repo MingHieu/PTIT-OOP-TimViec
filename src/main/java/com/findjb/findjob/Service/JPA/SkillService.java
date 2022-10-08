@@ -53,7 +53,6 @@ public class SkillService implements SkillServiceInterface{
     
     @Override
     public Skill getDetailSkill() {
-        // TODO Auto-generated method stub
         return SkillRepository.findById(id).get();
     @Override
     public void deleteSKill() {

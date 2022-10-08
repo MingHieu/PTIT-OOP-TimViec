@@ -12,7 +12,7 @@ public interface SkillServiceInterface {
 
     List<Skill> getListSkill();
 
-    Skill getDetailSkill ();
+    Skill getDetailSkill (Long id);
 
-    void deleteSKill();
+    void deleteSKill(Long id);
 }
