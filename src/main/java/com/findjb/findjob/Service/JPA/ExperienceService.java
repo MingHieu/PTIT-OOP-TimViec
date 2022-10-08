@@ -3,9 +3,10 @@ package com.findjb.findjob.Service.JPA;
 
 import java.util.List;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.findjb.findjob.JWT.JWTServices.UserDetailsImplement;
 import com.findjb.findjob.Model.Experience;
