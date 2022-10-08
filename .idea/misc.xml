@@ -25,6 +25,7 @@
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_logout_screen.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_profile_screen.xml" value="0.3625" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_search_screen.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_select_role_screen.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_signup_user_screen.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/activity_user_edit_screen.xml" value="0.25" />
@@ -33,6 +34,7 @@
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/experience_item.xml" value="0.34103260869565216" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_enterprise.xml" value="0.33" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_history.xml" value="0.3625" />
+        <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_home.xml" value="0.27807971014492755" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_job_detail_company.xml" value="0.3625" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_job_detail_information.xml" value="0.28940217391304346" />
         <entry key="..\:/MyApp/TimViec/app/src/main/res/layout/fragment_job_details_company.xml" value="0.1" />
