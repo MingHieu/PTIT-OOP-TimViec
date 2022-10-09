@@ -66,6 +66,6 @@ public class Freelancer {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "freelancer")
-    @JsonIgnore
+    // @JsonIgnore
     private List<Education> educations;
 }

@@ -24,7 +24,7 @@ public class EducationController {
     private EducationService educationService;
 
     @PostMapping("/create/education")
-    public ResponseEntity<Object> createNewEducation(@PathVariable EducationRequest educationRequest) {
+    public ResponseEntity<Object> createNewEducation(@RequestBody EducationRequest educationRequest) {
         educationService.createEducation(educationRequest);
         return new ResponseEntity<Object>(new StatusResponse(true, "Tạo mới thành công"), HttpStatus.OK);
     }
