@@ -88,6 +88,7 @@
                         android:textSize="16dp" />
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/fragment_home_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/surface"

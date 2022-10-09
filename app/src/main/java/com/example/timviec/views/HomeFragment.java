@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
@@ -42,7 +44,17 @@ public class HomeFragment extends Utils.BaseFragment {
             }
         });
 
-        ((TextView) view.findViewById(R.id.fragment_home_name)).setText((String) stateManager.getUser().getDetail().get("name"));
+        mName = view.findViewById(R.id.fragment_home_name);
+        mName.setText((String) stateManager.getUser().getDetail().get("name"));
+
+
+        ((CardView) view.findViewById(R.id.fragment_home_search)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SearchScreen.class);
+                startActivity(i);
+            }
+        });
 
         return view;
     }
