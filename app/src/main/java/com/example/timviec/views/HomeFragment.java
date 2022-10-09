@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.services.StateManagerService;
 
 public class HomeFragment extends Utils.BaseFragment {
+    private StateManagerService stateManager = App.getContext().getStateManager();
     private ImageView mAvatar;
     private TextView mName;
 
@@ -38,6 +41,8 @@ public class HomeFragment extends Utils.BaseFragment {
                 startActivity(i);
             }
         });
+
+        ((TextView) view.findViewById(R.id.fragment_home_name)).setText((String) stateManager.getUser().getDetail().get("name"));
 
         return view;
     }

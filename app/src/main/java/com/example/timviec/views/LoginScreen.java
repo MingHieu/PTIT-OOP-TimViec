@@ -16,6 +16,7 @@ import com.example.timviec.model.API;
 import com.example.timviec.model.User;
 import com.example.timviec.router.BottomTab;
 import com.example.timviec.services.ApiService;
+import com.example.timviec.services.StateManagerService;
 
 import org.json.JSONObject;
 
@@ -28,6 +29,7 @@ public class LoginScreen extends Utils.BaseActivity {
     private CustomInput mPasswordInput;
     private CustomButton mLoginButton;
     private TextView mSignupButton;
+    private StateManagerService stateManager = App.getContext().getStateManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +72,18 @@ public class LoginScreen extends Utils.BaseActivity {
                             Log.i("DebugTag", res.toString());
 
                             String accessToken = res.getAccessToken();
-                            App.getContext().getStateManager().setAuthToken(accessToken);
+                            stateManager.setAuthToken(accessToken);
 
                             User user = new User();
                             user.setRoleId(res.getRole());
                             user.setDetail(res.getDetail());
-                            App.getContext().getStateManager().setUser(user);
+                            stateManager.setUser(user);
 
                             Intent i = new Intent(LoginScreen.this, BottomTab.class);
                             startActivity(i);
                         } else {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                                Log.e("DebugTag", jsonObject.getString("message"));
                                 CustomDialog dialog = new CustomDialog(LoginScreen.this, jsonObject.getString("message"), null, null);
                                 dialog.show();
                                 mLoginButton.setLoading(false);

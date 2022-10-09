@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.timviec.R;
+import com.example.timviec.Utils;
 
-public class SearchScreen extends AppCompatActivity {
+public class SearchScreen extends Utils.BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

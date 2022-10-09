@@ -1,13 +1,15 @@
 package com.example.timviec.model;
 
+import java.util.LinkedHashMap;
+
 public class User {
     int roleId;
-    Object detail;
+    LinkedHashMap detail;
 
     public User() {
     }
 
-    public User(int roleId, Object detail) {
+    public User(int roleId, LinkedHashMap detail) {
         this.roleId = roleId;
         this.detail = detail;
     }
@@ -20,11 +22,11 @@ public class User {
         this.roleId = roleId;
     }
 
-    public Object getDetail() {
+    public LinkedHashMap getDetail() {
         return detail;
     }
 
-    public void setDetail(Object detail) {
+    public void setDetail(LinkedHashMap detail) {
         this.detail = detail;
     }
 
