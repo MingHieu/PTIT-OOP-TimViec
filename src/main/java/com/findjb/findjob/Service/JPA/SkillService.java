@@ -8,23 +8,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.findjb.findjob.JWT.JWTServices.UserDetailsImplement;
-import com.findjb.findjob.Model.Experience;
 import com.findjb.findjob.Model.Freelancer;
 import com.findjb.findjob.Model.Skill;
-import com.findjb.findjob.Repositories.ExperienceRepository;
 import com.findjb.findjob.Repositories.FreelancerRepository;
 import com.findjb.findjob.Repositories.SkillRepository;
-import com.findjb.findjob.Request.CreateSkill;
+import com.findjb.findjob.Request.SkillRequest;
 import com.findjb.findjob.Service.SkillServiceInterface;
 
 @Service
-public class SkillService implements SkillServiceInterface{
+public class SkillService implements SkillServiceInterface {
     @Autowired
     private FreelancerRepository freelancerRepository;
     @Autowired
     private SkillRepository skillRepository;
+
     @Override
-    public void createNewSkill(CreateSkill updateSkill) {
+    public void createNewSkill(SkillRequest updateSkill) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
         Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
@@ -34,16 +33,18 @@ public class SkillService implements SkillServiceInterface{
                 .freelancer(freelancer)
                 .build();
         skillRepository.save(skill);
-        
+
     }
+
     @Override
-    public void updateSkill(CreateSkill UpdateSkills, Long id) {
+    public void updateSkill(SkillRequest skillRequest, Long id) {
         Skill skill = skillRepository.findById(id).get();
-        skill.setDescription(skill.getDescription());
-        skill.setRating(skill.getRating());
-        skill.setName(skill.getName());
+        skill.setDescription(skillRequest.getDescription());
+        skill.setRating(skillRequest.getRating());
+        skill.setName(skillRequest.getName());
         skillRepository.save(skill);
     }
+
     @Override
     public List<Skill> getListSkill() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -51,14 +52,14 @@ public class SkillService implements SkillServiceInterface{
         Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
         return skillRepository.findByFreelancerId(freelancer.getId());
     }
-    
     @Override
-    public Skill getDetailSkill() {
-        return SkillRepository.findById(id).get();
-    @Override
-    public void deleteSKill() {
-        SkillRepository.deleteById(id);
-        
+    public Skill getDetailSkill(Long id) {
+        return skillRepository.findById(id).get();
     }
-    
+
+    @Override
+    public void deleteSKill(Long id) {
+        skillRepository.deleteById(id);
+    }
+
 }

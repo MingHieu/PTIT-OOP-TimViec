@@ -1,4 +1,4 @@
- 
+
 package com.findjb.findjob.Service.JPA;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import com.findjb.findjob.Model.Experience;
 import com.findjb.findjob.Model.Freelancer;
 import com.findjb.findjob.Repositories.ExperienceRepository;
 import com.findjb.findjob.Repositories.FreelancerRepository;
-import com.findjb.findjob.Request.CreateExperience;
+import com.findjb.findjob.Request.ExperienceRequest;
 import com.findjb.findjob.Service.ExperienceServiceInterface;
 
 @Service
@@ -25,45 +25,46 @@ public class ExperienceService implements ExperienceServiceInterface {
     private ExperienceRepository experienceRepository;
 
     @Override
-    public void createExperience(CreateExperience updateExperience) {
+    public void createExperience(ExperienceRequest newExperience) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
         Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
-        Experience experience = Experience.builder().name(updateExperience.getNamel())
-                .position(updateExperience.getPosition())
-                .from(updateExperience.getFrom())
-                .to(updateExperience.getTo())
-                .detail(updateExperience.getDetail())
+        Experience experience = Experience.builder().name(newExperience.getName())
+                .position(newExperience.getPosition())
+                .from_date(newExperience.getFrom_date())
+                .to_date(newExperience.getTo_date())
+                .detail(newExperience.getDetail())
                 .freelancer(freelancer)
                 .build();
-        ExperienceRepository.save(experience);
+        experienceRepository.save(experience);
     }
 
     @Override
-    public void updateExperience(CreateExperience updateExperience, Long id) {
-        Experience experience = ExperienceRepository.findById(id).get();
-        
+    public void updateExperience(ExperienceRequest updateExperience, Long id) {
+        Experience experience = experienceRepository.findById(id).get();
+        experience.setName(updateExperience.getName());
+        experience.setPosition(updateExperience.getPosition());
+        experience.setFrom_date(updateExperience.getFrom_date());
+        experience.setTo_date(updateExperience.getTo_date());
+        experience.setDetail(updateExperience.getDetail());
+        experienceRepository.save(experience);
     }
 
-	@Override
-	public List<Experience> getListExperience() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    @Override
+    public List<Experience> getListExperience() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
         Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
         return experienceRepository.findByFreelancerId(freelancer.getId());
-		
-	}
+    }
 
-	@Override
-	public Experience getListExperience(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Experience getExperienceDetail(Long id) {
+        return experienceRepository.findById(id).get();
+    }
 
-	@Override
-	public void deleteExperience(Long id) {
-		experienceRepository.deleteById(id);;
-		
-	}
+    @Override
+    public void deleteExperience(Long id) {
+        experienceRepository.deleteById(id);
+    }
 }
-    

@@ -3,12 +3,12 @@ package com.findjb.findjob.Service;
 import java.util.List;
 
 import com.findjb.findjob.Model.Skill;
-import com.findjb.findjob.Request.CreateSkill;
+import com.findjb.findjob.Request.SkillRequest;
 
 public interface SkillServiceInterface {
-    void createNewSkill(CreateSkill updateSkill);
+    void createNewSkill(SkillRequest updateSkill);
 
-    void updateSkill(CreateSkill UpdateSkills,Long id);
+    void updateSkill(SkillRequest UpdateSkills,Long id);
 
     List<Skill> getListSkill();
 

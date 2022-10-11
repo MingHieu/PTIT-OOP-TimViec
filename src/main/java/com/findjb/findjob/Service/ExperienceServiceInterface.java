@@ -3,16 +3,17 @@ package com.findjb.findjob.Service;
 import java.util.List;
 
 import com.findjb.findjob.Model.Experience;
-import com.findjb.findjob.Request.CreateExperience;
+import com.findjb.findjob.Request.ExperienceRequest;
+
 
 public interface ExperienceServiceInterface {
-    void createExperience(CreateExperience newExperience);
+    void createExperience(ExperienceRequest newExperience);
 
-    void updateExperience(CreateExperience updateExperience, Long id );
+    void updateExperience(ExperienceRequest updateExperience, Long id );
 
     List<Experience> getListExperience();
 
-    Experience getListExperience (Long id);
+    Experience getExperienceDetail (Long id);
 
     void deleteExperience(Long id);
 }

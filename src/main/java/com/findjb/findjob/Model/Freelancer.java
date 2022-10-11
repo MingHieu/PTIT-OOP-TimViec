@@ -66,6 +66,10 @@ public class Freelancer {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "freelancer")
-    @JsonIgnore
     private List<Education> educations;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "freelancer")
+    private List<Skill> skills;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "freelancer")
+    private List<Experience> experiences;
+
 }
