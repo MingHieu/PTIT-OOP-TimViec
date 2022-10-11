@@ -17,21 +17,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "skills")
+@Table(name = "experiences")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Skill {
+public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "description")
-    private String description;
-    @Column(name = "rating")
-    private Double rating;
+    @Column(name = "position")
+    private String position;
+    @Column(name = "from_date")
+    private String from_date;
+    @Column(name = "to_date")
+    private String to_date;
+    @Column(name = "detail")
+    private String detail;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "freelancer_id", nullable = false)
