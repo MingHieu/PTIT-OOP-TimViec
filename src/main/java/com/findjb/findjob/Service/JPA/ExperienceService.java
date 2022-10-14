@@ -33,7 +33,7 @@ public class ExperienceService implements ExperienceServiceInterface {
                 .position(newExperience.getPosition())
                 .from_date(newExperience.getFrom_date())
                 .to_date(newExperience.getTo_date())
-                .detail(newExperience.getDetail())
+                .description(newExperience.getDescription())
                 .freelancer(freelancer)
                 .build();
         experienceRepository.save(experience);
@@ -46,7 +46,7 @@ public class ExperienceService implements ExperienceServiceInterface {
         experience.setPosition(updateExperience.getPosition());
         experience.setFrom_date(updateExperience.getFrom_date());
         experience.setTo_date(updateExperience.getTo_date());
-        experience.setDetail(updateExperience.getDetail());
+        experience.setDescription(updateExperience.getDescription());
         experienceRepository.save(experience);
     }
 

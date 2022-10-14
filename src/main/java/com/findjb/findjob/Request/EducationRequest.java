@@ -8,5 +8,5 @@ public class EducationRequest {
     private String major;
     private String from;
     private String to;
-    private String detail;
+    private String description;
 }

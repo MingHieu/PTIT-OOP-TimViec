@@ -31,7 +31,7 @@ public class EducationService implements EducationServiceInterface {
                 .major(educationRequest.getMajor())
                 .from_date(educationRequest.getFrom())
                 .to_date(educationRequest.getTo())
-                .detail(educationRequest.getDetail())
+                .description(educationRequest.getDescription())
                 .freelancer(freelancer)
                 .build();
         educationRepository.save(education);
@@ -44,7 +44,7 @@ public class EducationService implements EducationServiceInterface {
         education.setMajor(educationRequest.getMajor());
         education.setFrom_date(educationRequest.getFrom());
         education.setTo_date(educationRequest.getTo());
-        education.setDetail(educationRequest.getDetail());
+        education.setDescription(educationRequest.getDescription());
         educationRepository.save(education);
     }
 

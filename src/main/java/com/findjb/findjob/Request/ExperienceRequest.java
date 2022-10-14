@@ -8,5 +8,5 @@ public class ExperienceRequest {
     String position;
     String from_date;
     String to_date;
-    String detail;
+    String description;
 }
