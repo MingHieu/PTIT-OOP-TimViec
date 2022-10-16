@@ -30,10 +30,10 @@ public class Education {
     private String name;
     @Column(name = "major", nullable = false)
     private String major;
-    @Column(name = "from_date", nullable = false)
-    private String from_date;
-    @Column(name = "to_date")
-    private String to_date;
+    @Column(name = "fromDate", nullable = false)
+    private String fromDate;
+    @Column(name = "toDate")
+    private String toDate;
     @Column(name = "description")
     private String description;
     @JsonIgnore

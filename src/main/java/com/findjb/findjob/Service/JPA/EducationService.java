@@ -29,8 +29,8 @@ public class EducationService implements EducationServiceInterface {
         Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
         Education education = Education.builder().name(educationRequest.getName())
                 .major(educationRequest.getMajor())
-                .from_date(educationRequest.getFrom())
-                .to_date(educationRequest.getTo())
+                .fromDate(educationRequest.getFrom())
+                .toDate(educationRequest.getTo())
                 .description(educationRequest.getDescription())
                 .freelancer(freelancer)
                 .build();
@@ -42,8 +42,8 @@ public class EducationService implements EducationServiceInterface {
         Education education = educationRepository.findById(id).get();
         education.setName(educationRequest.getName());
         education.setMajor(educationRequest.getMajor());
-        education.setFrom_date(educationRequest.getFrom());
-        education.setTo_date(educationRequest.getTo());
+        education.setFromDate(educationRequest.getFrom());
+        education.setToDate(educationRequest.getTo());
         education.setDescription(educationRequest.getDescription());
         educationRepository.save(education);
     }

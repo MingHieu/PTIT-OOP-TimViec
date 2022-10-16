@@ -31,8 +31,8 @@ public class ExperienceService implements ExperienceServiceInterface {
         Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
         Experience experience = Experience.builder().name(newExperience.getName())
                 .position(newExperience.getPosition())
-                .from_date(newExperience.getFrom_date())
-                .to_date(newExperience.getTo_date())
+                .fromDate(newExperience.getFrom())
+                .toDate(newExperience.getTo())
                 .description(newExperience.getDescription())
                 .freelancer(freelancer)
                 .build();
@@ -44,8 +44,8 @@ public class ExperienceService implements ExperienceServiceInterface {
         Experience experience = experienceRepository.findById(id).get();
         experience.setName(updateExperience.getName());
         experience.setPosition(updateExperience.getPosition());
-        experience.setFrom_date(updateExperience.getFrom_date());
-        experience.setTo_date(updateExperience.getTo_date());
+        experience.setFromDate(updateExperience.getFrom());
+        experience.setToDate(updateExperience.getTo());
         experience.setDescription(updateExperience.getDescription());
         experienceRepository.save(experience);
     }

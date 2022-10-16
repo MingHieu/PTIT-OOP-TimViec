@@ -31,9 +31,9 @@ public class Experience {
     @Column(name = "position")
     private String position;
     @Column(name = "from_date")
-    private String from_date;
+    private String fromDate;
     @Column(name = "to_date")
-    private String to_date;
+    private String toDate;
     @Column(name = "description")
     private String description;
     @JsonIgnore
