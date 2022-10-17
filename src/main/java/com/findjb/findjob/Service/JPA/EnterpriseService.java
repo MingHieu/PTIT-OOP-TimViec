@@ -48,6 +48,7 @@ public class EnterpriseService implements EnterpriseServiceInterface {
         Enterprise enterprise = Enterprise.builder()
                 .name(newEnterprise.getName())
                 .email(newEnterprise.getEmail())
+                .address(newEnterprise.getAddress())
                 .user(user)
                 .build();
         enterpriseRepository.save(enterprise);

@@ -1,5 +1,7 @@
 package com.findjb.findjob.Controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ public class FreelancerController {
     private FreelancerService freelancerService;
 
     @PostMapping({ "/create/freelancer" })
-    public ResponseEntity<Object> createNewFreelancer(@RequestBody CreateFreelancer freelancer) throws Exception {
+    public ResponseEntity<Object> createNewFreelancer(@RequestBody @Valid CreateFreelancer freelancer) throws Exception {
         freelancerService.createNewFreelancer(freelancer);
         return new ResponseEntity<Object>(new StatusResponse(true,"Đăng kí thành công"), HttpStatus.OK);
     }
