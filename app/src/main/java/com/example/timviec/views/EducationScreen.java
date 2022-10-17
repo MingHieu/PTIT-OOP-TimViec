@@ -63,7 +63,7 @@ public class EducationScreen extends Utils.BaseActivity {
             public void onClick(View view) {
                 Intent i = new Intent(EducationScreen.this, EducationEditScreen.class);
                 i.putExtra("createNew", true);
-                startActivity(i);
+                startActivityForResult(i, 0);
             }
         });
 
