@@ -27,6 +27,7 @@ import com.findjb.findjob.Model.Freelancer;
 import com.findjb.findjob.Repositories.RoleRepository;
 import com.findjb.findjob.Repositories.UserRepository;
 import com.findjb.findjob.Request.LoginRequest;
+import com.findjb.findjob.Responses.DataResponse;
 import com.findjb.findjob.Responses.JwtResponse;
 import com.findjb.findjob.Responses.ObjectResponse;
 import com.findjb.findjob.Responses.StatusResponse;
@@ -86,7 +87,8 @@ public class AuthController {
                                                         detail),
                                         HttpStatus.OK);
                 } catch (Exception e) {
-                        return new ResponseEntity<Object>(new StatusResponse(false,"Đăng nhập thất bại"), HttpStatus.UNAUTHORIZED);
+                        return new ResponseEntity<Object>(new StatusResponse(false, "Đăng nhập thất bại"),
+                                        HttpStatus.UNAUTHORIZED);
                 }
         }
 
@@ -101,10 +103,10 @@ public class AuthController {
                 Long role_id = roleRepository.findByName(role).getId();
                 Object detail = new Object();
                 if (role_id == 2) {
-                        detail = entityManager.find(Enterprise.class, userDetails.getId());
+                        detail = new DataResponse(role_id, entityManager.find(Enterprise.class, userDetails.getId()));
 
                 } else {
-                        detail = entityManager.find(Freelancer.class, userDetails.getId());
+                        detail = new DataResponse(role_id, entityManager.find(Freelancer.class, userDetails.getId()));
                 }
                 return new ResponseEntity<Object>(new ObjectResponse(true, "Lấy chi tiết thành công", detail),
                                 HttpStatus.OK);
