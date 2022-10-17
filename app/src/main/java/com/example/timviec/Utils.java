@@ -3,8 +3,11 @@ package com.example.timviec;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +20,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import java.io.ByteArrayOutputStream;
 
 public class Utils {
     /**
@@ -142,6 +147,21 @@ public class Utils {
                 actionBarBorder.setVisibility(View.GONE);
             }
         }
+    }
+
+    public static void setBase64UrlImageView(ImageView imageView, String base64Url) {
+        byte[] imageAsBytes = Base64.decode(base64Url.getBytes(), Base64.DEFAULT);
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+    }
+
+    public static String getBase64UrlImageView(ImageView imageView) {
+        imageView.buildDrawingCache();
+        Bitmap bitmap = imageView.getDrawingCache();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+        byte[] imageByteArray = stream.toByteArray();
+        String img_str = Base64.encodeToString(imageByteArray, 0);
+        return img_str;
     }
 }
 

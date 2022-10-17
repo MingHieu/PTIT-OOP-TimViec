@@ -1,6 +1,7 @@
 package com.example.timviec.views;
 
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -10,9 +11,16 @@ import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
 import com.example.timviec.components.CustomInput;
 import com.example.timviec.model.Education;
+import com.example.timviec.model.University;
+import com.google.gson.Gson;
+
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EducationEditScreen extends Utils.BaseActivity {
     private Education mEducation;
+    private ArrayList<University> universityArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +58,10 @@ public class EducationEditScreen extends Utils.BaseActivity {
         majorView.setValue(mEducation.getMajor());
 
         CustomInput fromDateView = findViewById(R.id.education_edit_from_date);
-        fromDateView.setValue(mEducation.getFrom());
+        fromDateView.setValue(mEducation.getFromDate());
 
         CustomInput toDateView = findViewById(R.id.education_edit_to_date);
-        toDateView.setValue(mEducation.getTo());
+        toDateView.setValue(mEducation.getToDate());
 
         CheckBox checkBox = findViewById(R.id.education_edit_checkbox);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -66,7 +74,7 @@ public class EducationEditScreen extends Utils.BaseActivity {
                 }
             }
         });
-        if (mEducation.getTo().equals("Hiện tại")) {
+        if (mEducation.getToDate().equals("Hiện tại")) {
             checkBox.setChecked(true);
             toDateView.setValue("");
         }
@@ -96,6 +104,13 @@ public class EducationEditScreen extends Utils.BaseActivity {
                 }
             }
         });
+
+        try {
+            JsonReader reader = new JsonReader(new FileReader("ViewnamUniversity.json"));
+//            universityArrayList = Arrays.asList(new Gson().fromJson(reader, University.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

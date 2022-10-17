@@ -6,10 +6,12 @@ import android.app.NotificationManager;
 import android.os.Build;
 
 import com.example.timviec.services.StateManagerService;
+import com.example.timviec.services.StorageService;
 
 public class App extends Application {
     private static App mContext;
-    private final StateManagerService stateManager = new StateManagerService();
+    private StateManagerService stateManager;
+    private StorageService storageService;
 
     public static App getContext() {
         return mContext;
@@ -19,11 +21,17 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        stateManager = new StateManagerService();
+        storageService = new StorageService(this);
         createNotificationChannel();
     }
 
     public StateManagerService getStateManager() {
         return stateManager;
+    }
+
+    public StorageService getStorageService() {
+        return storageService;
     }
 
     private void createNotificationChannel() {

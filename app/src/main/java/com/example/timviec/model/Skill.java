@@ -2,15 +2,15 @@ package com.example.timviec.model;
 
 public class Skill {
     private String name = "";
-    private int rate = 0;
+    private float rating = 0;
     private String description = "";
 
     public Skill() {
     }
 
-    public Skill(String name, int rate, String description) {
+    public Skill(String name, float rating, String description) {
         this.name = name;
-        this.rate = rate;
+        this.rating = rating;
         this.description = description;
     }
 
@@ -22,12 +22,12 @@ public class Skill {
         this.name = name;
     }
 
-    public int getRate() {
-        return rate;
+    public float getRating() {
+        return rating;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getDescription() {

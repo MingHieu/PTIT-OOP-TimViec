@@ -12,16 +12,23 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.model.Experience;
+import com.example.timviec.services.StateManagerService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExperienceScreen extends Utils.BaseActivity {
-    ArrayList<Experience> experienceItems;
-    ExperienceListViewAdapter experienceListViewAdapter;
-    ListView experienceListView;
+    private ArrayList<Experience> experienceItems;
+    private ExperienceListViewAdapter experienceListViewAdapter;
+    private ListView experienceListView;
+    private StateManagerService stateManager = App.getContext().getStateManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +38,12 @@ public class ExperienceScreen extends Utils.BaseActivity {
         setUpScreen("Kinh nghiệm");
 
         experienceItems = new ArrayList<Experience>();
-        experienceItems.add(new Experience("MindX Technology School", "Giảng viên", "05/2021", "Hiện tại", null));
+        for (LinkedTreeMap experienceMap : (List<LinkedTreeMap>) stateManager.getUser().getDetail().get("experiences")) {
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.toJsonTree(experienceMap).getAsJsonObject();
+            Experience experience = gson.fromJson(jsonObject, Experience.class);
+            experienceItems.add(experience);
+        }
 
         experienceListView = findViewById(R.id.experience_screen_list);
         experienceListView.setPadding(
@@ -96,8 +108,8 @@ class ExperienceListViewAdapter extends BaseAdapter {
         View itemView = view != null ? view : View.inflate(viewGroup.getContext(), R.layout.experience_item, null);
         Experience item = getItem(i);
         ((TextView) itemView.findViewById(R.id.experience_item_name)).setText(item.getName());
-        ((TextView) itemView.findViewById(R.id.experience_item_major)).setText(item.getMajor());
-        ((TextView) itemView.findViewById(R.id.experience_item_time)).setText(item.getFrom() + " - " + item.getTo());
+        ((TextView) itemView.findViewById(R.id.experience_item_major)).setText(item.getPosition());
+        ((TextView) itemView.findViewById(R.id.experience_item_time)).setText(item.getFromDate() + " - " + item.getToDate());
         if (item.getDescription() != null && item.getDescription().length() > 0) {
             ((TextView) itemView.findViewById(R.id.experience_item_description)).setText(item.getDescription());
         } else {
@@ -115,9 +127,9 @@ class ExperienceListViewAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     intentNavigateTo.putExtra("name", item.getName());
-                    intentNavigateTo.putExtra("major", item.getMajor());
-                    intentNavigateTo.putExtra("from", item.getFrom());
-                    intentNavigateTo.putExtra("to", item.getTo());
+                    intentNavigateTo.putExtra("position", item.getPosition());
+                    intentNavigateTo.putExtra("from", item.getFromDate());
+                    intentNavigateTo.putExtra("to", item.getToDate());
                     intentNavigateTo.putExtra("description", item.getDescription());
                     view.getContext().startActivity(intentNavigateTo);
                 }

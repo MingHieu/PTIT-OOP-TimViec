@@ -13,18 +13,24 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.model.Education;
+import com.example.timviec.services.StateManagerService;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EducationScreen extends Utils.BaseActivity {
-    ArrayList<Education> educationItems;
-    EducationListViewAdapter educationListViewAdapter;
-    ListView educationListView;
+    private ArrayList<Education> educationItems;
+    private EducationListViewAdapter educationListViewAdapter;
+    private ListView educationListView;
+    private StateManagerService stateManager = App.getContext().getStateManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +39,12 @@ public class EducationScreen extends Utils.BaseActivity {
 
         setUpScreen("Học vấn");
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            educationItems = new Gson().fromJson(extras.getString("educationItems"), new TypeToken<ArrayList<Education>>() {
-            }.getType());
-        } else {
-            educationItems = new ArrayList<Education>();
+        educationItems = new ArrayList<Education>();
+        for (LinkedTreeMap educationMap : (List<LinkedTreeMap>) stateManager.getUser().getDetail().get("educations")) {
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.toJsonTree(educationMap).getAsJsonObject();
+            Education education = gson.fromJson(jsonObject, Education.class);
+            educationItems.add(education);
         }
 
         educationListView = findViewById(R.id.education_screen_list);
@@ -105,7 +111,7 @@ class EducationListViewAdapter extends BaseAdapter {
         Education item = getItem(i);
         ((TextView) itemView.findViewById(R.id.education_item_name)).setText(item.getName());
         ((TextView) itemView.findViewById(R.id.education_item_major)).setText(item.getMajor());
-        ((TextView) itemView.findViewById(R.id.education_item_time)).setText(item.getFrom() + " - " + item.getTo());
+        ((TextView) itemView.findViewById(R.id.education_item_time)).setText(item.getFromDate() + " - " + item.getToDate());
         if (item.getDescription() != null && item.getDescription().length() > 0) {
             ((TextView) itemView.findViewById(R.id.education_item_description)).setText(item.getDescription());
         } else {
@@ -124,8 +130,8 @@ class EducationListViewAdapter extends BaseAdapter {
                 public void onClick(View view) {
                     intentNavigateTo.putExtra("name", item.getName());
                     intentNavigateTo.putExtra("major", item.getMajor());
-                    intentNavigateTo.putExtra("from", item.getFrom());
-                    intentNavigateTo.putExtra("to", item.getTo());
+                    intentNavigateTo.putExtra("from", item.getFromDate());
+                    intentNavigateTo.putExtra("to", item.getToDate());
                     intentNavigateTo.putExtra("description", item.getDescription());
                     view.getContext().startActivity(intentNavigateTo);
                 }

@@ -13,10 +13,12 @@ import androidx.cardview.widget.CardView;
 import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.model.User;
 import com.example.timviec.services.StateManagerService;
 
 public class HomeFragment extends Utils.BaseFragment {
     private StateManagerService stateManager = App.getContext().getStateManager();
+    private User user = stateManager.getUser();
     private ImageView mAvatar;
     private TextView mName;
 
@@ -45,8 +47,7 @@ public class HomeFragment extends Utils.BaseFragment {
         });
 
         mName = view.findViewById(R.id.fragment_home_name);
-        mName.setText((String) stateManager.getUser().getDetail().get("name"));
-
+        mName.setText((String) user.getDetail().get("name"));
 
         ((CardView) view.findViewById(R.id.fragment_home_search)).setOnClickListener(new View.OnClickListener() {
             @Override

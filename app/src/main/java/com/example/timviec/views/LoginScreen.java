@@ -17,6 +17,7 @@ import com.example.timviec.model.User;
 import com.example.timviec.router.BottomTab;
 import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
+import com.example.timviec.services.StorageService;
 
 import org.json.JSONObject;
 
@@ -30,6 +31,8 @@ public class LoginScreen extends Utils.BaseActivity {
     private CustomButton mLoginButton;
     private TextView mSignupButton;
     private StateManagerService stateManager = App.getContext().getStateManager();
+    private StorageService storageService = App.getContext().getStorageService();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +70,13 @@ public class LoginScreen extends Utils.BaseActivity {
                 .enqueue(new Callback<API.LoginResponse>() {
                     @Override
                     public void onResponse(Call<API.LoginResponse> call, Response<API.LoginResponse> response) {
+                        mLoginButton.setLoading(false);
                         if (response.isSuccessful()) {
                             API.LoginResponse res = response.body();
-                            Log.i("DebugTag", res.toString());
 
-                            String accessToken = res.getAccessToken();
-                            stateManager.setAuthToken(accessToken);
+                            String authToken = res.getToken();
+                            stateManager.setAuthToken(authToken);
+                            storageService.setString("authToken", authToken);
 
                             User user = new User();
                             user.setRoleId(res.getRole());
@@ -86,21 +90,19 @@ public class LoginScreen extends Utils.BaseActivity {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());
                                 CustomDialog dialog = new CustomDialog(LoginScreen.this, jsonObject.getString("message"), null, null);
                                 dialog.show();
-                                mLoginButton.setLoading(false);
                             } catch (Exception e) {
                                 CustomDialog dialog = new CustomDialog(LoginScreen.this, e.getMessage(), null, null);
                                 dialog.show();
-                                mLoginButton.setLoading(false);
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<API.LoginResponse> call, Throwable t) {
+                        mLoginButton.setLoading(false);
                         Log.e("DebugTag", t.toString());
                         CustomDialog dialog = new CustomDialog(LoginScreen.this, t.getMessage(), null, null);
                         dialog.show();
-                        mLoginButton.setLoading(false);
                     }
                 });
     }

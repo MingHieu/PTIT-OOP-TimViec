@@ -36,7 +36,7 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
             } else {
                 mExperience = new Experience(
                         extras.getString("name"),
-                        extras.getString("major"),
+                        extras.getString("position"),
                         extras.getString("from"),
                         extras.getString("to"),
                         extras.getString("description"));
@@ -47,13 +47,13 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
         nameView.setValue(mExperience.getName());
 
         CustomInput majorView = findViewById(R.id.experience_edit_major);
-        majorView.setValue(mExperience.getMajor());
+        majorView.setValue(mExperience.getPosition());
 
         CustomInput fromDateView = findViewById(R.id.experience_edit_from_date);
-        fromDateView.setValue(mExperience.getFrom());
+        fromDateView.setValue(mExperience.getFromDate());
 
         CustomInput toDateView = findViewById(R.id.experience_edit_to_date);
-        toDateView.setValue(mExperience.getTo());
+        toDateView.setValue(mExperience.getToDate());
 
         CheckBox checkBox = findViewById(R.id.experience_edit_checkbox);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -66,7 +66,7 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
                 }
             }
         });
-        if (mExperience.getTo().equals("Hiện tại")) {
+        if (mExperience.getToDate().equals("Hiện tại")) {
             checkBox.setChecked(true);
             toDateView.setValue("");
         }

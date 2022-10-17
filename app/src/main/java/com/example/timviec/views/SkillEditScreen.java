@@ -37,7 +37,7 @@ public class SkillEditScreen extends Utils.BaseActivity {
             } else {
                 mSkill = new Skill(
                         extras.getString("name"),
-                        extras.getInt("rate"),
+                        extras.getInt("rating"),
                         extras.getString("description"));
             }
         }
@@ -46,11 +46,11 @@ public class SkillEditScreen extends Utils.BaseActivity {
         nameView.setValue(mSkill.getName());
 
         RatingBar rateView = findViewById(R.id.skill_edit_rate);
-        rateView.setRating(mSkill.getRate());
+        rateView.setRating(mSkill.getRating());
         rateView.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                mSkill.setRate((int) v);
+                mSkill.setRating((int) v);
             }
         });
 

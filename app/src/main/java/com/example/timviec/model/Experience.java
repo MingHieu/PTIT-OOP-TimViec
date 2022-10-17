@@ -2,19 +2,19 @@ package com.example.timviec.model;
 
 public class Experience {
     private String name = "";
-    private String major = "";
-    private String from = "";
-    private String to = "";
+    private String position = "";
+    private String fromDate = "";
+    private String toDate = "";
     private String description = "";
 
     public Experience() {
     }
 
-    public Experience(String name, String major, String from, String to, String description) {
+    public Experience(String name, String position, String fromDate, String toDate, String description) {
         this.name = name;
-        this.major = major;
-        this.from = from;
-        this.to = to;
+        this.position = position;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
         this.description = description;
     }
 
@@ -26,28 +26,28 @@ public class Experience {
         this.name = name;
     }
 
-    public String getMajor() {
-        return major;
+    public String getPosition() {
+        return position;
     }
 
-    public void setMajor(String major) {
-        this.major = major;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public String getFrom() {
-        return from;
+    public String getFromDate() {
+        return fromDate;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public String getTo() {
-        return to;
+    public String getToDate() {
+        return toDate;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
     public String getDescription() {

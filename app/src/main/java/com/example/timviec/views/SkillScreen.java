@@ -14,17 +14,24 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.model.Skill;
+import com.example.timviec.services.StateManagerService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SkillScreen extends Utils.BaseActivity {
 
-    ArrayList<Skill> skillItems;
-    SkillListViewAdapter skillListViewAdapter;
-    ListView skillListView;
+    private ArrayList<Skill> skillItems;
+    private SkillListViewAdapter skillListViewAdapter;
+    private ListView skillListView;
+    private StateManagerService stateManager = App.getContext().getStateManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,12 @@ public class SkillScreen extends Utils.BaseActivity {
         setUpScreen("Kỹ năng");
 
         skillItems = new ArrayList<Skill>();
-        skillItems.add(new Skill("Github, Gitlab", 3, null));
+        for (LinkedTreeMap skillMap : (List<LinkedTreeMap>) stateManager.getUser().getDetail().get("skills")) {
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.toJsonTree(skillMap).getAsJsonObject();
+            Skill skill = gson.fromJson(jsonObject, Skill.class);
+            skillItems.add(skill);
+        }
 
         skillListView = findViewById(R.id.skill_screen_list);
         skillListView.setPadding(
@@ -100,7 +112,7 @@ class SkillListViewAdapter extends BaseAdapter {
         Skill item = getItem(i);
 
         ((TextView) itemView.findViewById(R.id.skill_item_name)).setText(item.getName());
-        ((RatingBar) itemView.findViewById(R.id.skill_item_rate)).setRating(item.getRate());
+        ((RatingBar) itemView.findViewById(R.id.skill_item_rate)).setRating(item.getRating());
 
         if (item.getDescription() != null && item.getDescription().length() > 0) {
             ((TextView) itemView.findViewById(R.id.skill_item_description)).setText(item.getDescription());
@@ -119,7 +131,7 @@ class SkillListViewAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     intentNavigateTo.putExtra("name", item.getName());
-                    intentNavigateTo.putExtra("rate", item.getRate());
+                    intentNavigateTo.putExtra("rating", item.getRating());
                     intentNavigateTo.putExtra("description", item.getDescription());
                     view.getContext().startActivity(intentNavigateTo);
                 }

@@ -11,21 +11,20 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 class ApiServiceInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
-        String authToken = App.getContext().getStateManager().getAuthToken();
-        if (authToken != null) {
-            builder.addHeader("Authorization", authToken);
-        }
+        String authToken = "Bearer " + App.getContext().getStateManager().getAuthToken();
+        builder.header("Authorization", authToken);
         builder.addHeader("Content-Type", "application/json");
         return chain.proceed(builder.build());
     }
@@ -47,9 +46,16 @@ public interface ApiService {
             .build()
             .create(ApiService.class);
 
-    // Auth Api
+
+    @GET("auth/user/detail")
+    Call<API.UserDetailResponse> getUserDetail();a
+
     @POST("auth/login")
     Call<API.LoginResponse> login(@Body API.LoginBody body);
+
+    @PUT("user/freelancer/update")
+    Call<API.UpdateFreelancerResponse> updateFreelancer(@Body API.UpdateFreelancerBody body);
+
 }
 
 
