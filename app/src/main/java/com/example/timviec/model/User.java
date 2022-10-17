@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class User {
     private int roleId;
     private UserDetail detail;
+
     public User() {
     }
 

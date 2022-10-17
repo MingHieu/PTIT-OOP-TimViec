@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
@@ -16,9 +15,7 @@ import com.example.timviec.components.LoadingDialog;
 import com.example.timviec.model.API;
 import com.example.timviec.model.Education;
 import com.example.timviec.model.University;
-import com.example.timviec.model.User;
 import com.example.timviec.services.ApiService;
-import com.example.timviec.services.StateManagerService;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -41,13 +38,8 @@ public class EducationEditScreen extends Utils.BaseActivity {
     private CheckBox checkBox;
     private CustomInput descriptionView;
 
-    private StateManagerService stateManager = App.getContext().getStateManager();
-    private User user = stateManager.getUser();
-    private ArrayList<Education> educations = user.getDetail().getEducations();
-
     private LoadingDialog loadingDialog;
     private CustomDialog dialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,15 +144,11 @@ public class EducationEditScreen extends Utils.BaseActivity {
 
         loadingDialog.show();
 
-        Education body = getField();
-
-        ApiService.apiService.createEducation(body).enqueue(new Callback<API.Response>() {
+        ApiService.apiService.createEducation(getField()).enqueue(new Callback<API.Response>() {
             @Override
             public void onResponse(Call<API.Response> call, Response<API.Response> response) {
                 loadingDialog.hide();
                 if (response.isSuccessful()) {
-                    user.getDetail().getEducations().add(body);
-
                     handleSuccess(response);
                 } else {
                     handleError(response);
@@ -181,20 +169,11 @@ public class EducationEditScreen extends Utils.BaseActivity {
 
         loadingDialog.show();
 
-        Education body = getField();
-
-        ApiService.apiService.updateEducation(body, mEducation.getId()).enqueue(new Callback<API.Response>() {
+        ApiService.apiService.updateEducation(getField(), mEducation.getId()).enqueue(new Callback<API.Response>() {
             @Override
             public void onResponse(Call<API.Response> call, Response<API.Response> response) {
                 loadingDialog.hide();
                 if (response.isSuccessful()) {
-                    Education edu = educations.stream().filter(education -> education.getId() == mEducation.getId()).findFirst().get();
-                    edu.setName(body.getName());
-                    edu.setMajor(body.getMajor());
-                    edu.setFromDate(body.getFromDate());
-                    edu.setToDate(body.getToDate());
-                    edu.setDescription(body.getDescription());
-
                     handleSuccess(response);
                 } else {
                     handleError(response);
@@ -217,9 +196,6 @@ public class EducationEditScreen extends Utils.BaseActivity {
             public void onResponse(Call<API.Response> call, Response<API.Response> response) {
                 loadingDialog.hide();
                 if (response.isSuccessful()) {
-                    Education edu = educations.stream().filter(education -> education.getId() == mEducation.getId()).findFirst().get();
-                    educations.remove(edu);
-
                     handleSuccess(response);
                 } else {
                     handleError(response);
@@ -268,6 +244,7 @@ public class EducationEditScreen extends Utils.BaseActivity {
             @Override
             public void run() {
                 dialog.hide();
+                setResult(RESULT_OK);
                 onBackPressed();
                 finish();
             }

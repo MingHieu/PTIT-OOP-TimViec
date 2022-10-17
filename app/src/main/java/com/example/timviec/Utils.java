@@ -108,6 +108,12 @@ public class Utils {
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
         }
 
+        @Override
+        public void startActivityForResult(Intent intent, int requestCode) {
+            super.startActivityForResult(intent, requestCode);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+        }
+
         public void setUpScreen(String screenTitle) {
             TextView actionBarTitle = findViewById(R.id.action_bar_title);
             if (actionBarTitle != null) {

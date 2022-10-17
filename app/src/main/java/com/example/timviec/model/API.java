@@ -1,5 +1,7 @@
 package com.example.timviec.model;
 
+import java.util.ArrayList;
+
 public class API {
     public static class LoginBody {
         private String username, password;
@@ -73,6 +75,36 @@ public class API {
 
         public String getMessage() {
             return message;
+        }
+    }
+
+    public static class getAllEducationResponse {
+        private Boolean status;
+        private String message;
+        private ArrayList<Education> data;
+
+        public ArrayList<Education> getData() {
+            return data;
+        }
+    }
+
+    public static class getAllSkillResponse {
+        private Boolean status;
+        private String message;
+        private ArrayList<Skill> data;
+
+        public ArrayList<Skill> getData() {
+            return data;
+        }
+    }
+
+    public static class getAllExperienceResponse {
+        private Boolean status;
+        private String message;
+        private ArrayList<Experience> data;
+
+        public ArrayList<Experience> getData() {
+            return data;
         }
     }
 }

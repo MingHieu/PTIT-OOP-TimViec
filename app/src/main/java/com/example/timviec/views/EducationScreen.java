@@ -1,5 +1,6 @@
 package com.example.timviec.views;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,11 +19,21 @@ import androidx.cardview.widget.CardView;
 import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.components.CustomDialog;
+import com.example.timviec.components.LoadingDialog;
+import com.example.timviec.model.API;
 import com.example.timviec.model.Education;
 import com.example.timviec.model.User;
+import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EducationScreen extends Utils.BaseActivity {
     private ArrayList<Education> educationItems;
@@ -37,7 +49,6 @@ public class EducationScreen extends Utils.BaseActivity {
 
         setUpScreen("Học vấn");
 
-        educationItems = user.getDetail().getEducations();
         educationListView = findViewById(R.id.education_screen_list);
         educationListView.setPadding(
                 (int) Utils.convertDpToPixel(10, this),
@@ -55,17 +66,70 @@ public class EducationScreen extends Utils.BaseActivity {
                 startActivity(i);
             }
         });
+
+        setupView();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void setupView() {
+        educationItems = user.getDetail().getEducations();
         educationListViewAdapter = new EducationListViewAdapter(
                 educationItems,
                 (int) Utils.convertDpToPixel(10, this),
                 Utils.convertDpToPixel(6, this),
                 new Intent(EducationScreen.this, EducationEditScreen.class));
         educationListView.setAdapter(educationListViewAdapter);
+        educationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Education item = (Education) adapterView.getItemAtPosition(i);
+                Intent intent = new Intent(EducationScreen.this, EducationEditScreen.class);
+                intent.putExtra("id", item.getId());
+                intent.putExtra("name", item.getName());
+                intent.putExtra("major", item.getMajor());
+                intent.putExtra("from", item.getFromDate());
+                intent.putExtra("to", item.getToDate());
+                intent.putExtra("description", item.getDescription());
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != Activity.RESULT_OK) return;
+        Log.i("DebugTag", "OK");
+
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
+
+        ApiService.apiService.getAllEducation().enqueue(new Callback<API.getAllEducationResponse>() {
+            @Override
+            public void onResponse(Call<API.getAllEducationResponse> call, Response<API.getAllEducationResponse> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    ArrayList<Education> educations = response.body().getData();
+                    user.getDetail().setEducations(educations);
+                    setupView();
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        CustomDialog dialog = new CustomDialog(EducationScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
+                        dialog.show();
+                    } catch (Exception e) {
+                        CustomDialog dialog = new CustomDialog(EducationScreen.this, e.getMessage(), null, null);
+                        dialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.getAllEducationResponse> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(EducationScreen.this, t);
+            }
+        });
     }
 }
 
@@ -119,20 +183,7 @@ class EducationListViewAdapter extends BaseAdapter {
         if (radius > 0) {
             ((CardView) itemView.findViewById(R.id.education_item)).setRadius(radius);
         }
-        if (intentNavigateTo != null) {
-            itemView.findViewById(R.id.education_item_wrapper).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    intentNavigateTo.putExtra("id", item.getId());
-                    intentNavigateTo.putExtra("name", item.getName());
-                    intentNavigateTo.putExtra("major", item.getMajor());
-                    intentNavigateTo.putExtra("from", item.getFromDate());
-                    intentNavigateTo.putExtra("to", item.getToDate());
-                    intentNavigateTo.putExtra("description", item.getDescription());
-                    view.getContext().startActivity(intentNavigateTo);
-                }
-            });
-        }
+
         return itemView;
     }
 }

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -52,6 +53,9 @@ public interface ApiService {
     @POST("education/create")
     Call<API.Response> createEducation(@Body Education body);
 
+    @GET("education/all")
+    Call<API.getAllEducationResponse> getAllEducation();
+
     @PUT("education/update/{id}")
     Call<API.Response> updateEducation(@Body Education body, @Path("id") Integer id);
 
@@ -61,6 +65,9 @@ public interface ApiService {
     @POST("skill/create")
     Call<API.Response> createSkill(@Body Skill body);
 
+    @GET("skill/all")
+    Call<API.getAllSkillResponse> getAllSkill();
+
     @PUT("skill/update/{id}")
     Call<API.Response> updateSkill(@Body Skill body, @Path("id") Integer id);
 
@@ -69,6 +76,9 @@ public interface ApiService {
 
     @POST("experience/create")
     Call<API.Response> createExperience(@Body Experience body);
+
+    @GET("experience/all")
+    Call<API.getAllExperienceResponse> getAllExperience();
 
     @PUT("experience/update/{id}")
     Call<API.Response> updateExperience(@Body Experience body, @Path("id") Integer id);

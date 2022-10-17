@@ -87,7 +87,7 @@ public class LoginScreen extends Utils.BaseActivity {
                         } else {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                                CustomDialog dialog = new CustomDialog(LoginScreen.this, jsonObject.getString("message"), null, null);
+                                CustomDialog dialog = new CustomDialog(LoginScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
                                 dialog.show();
                             } catch (Exception e) {
                                 CustomDialog dialog = new CustomDialog(LoginScreen.this, e.getMessage(), null, null);
