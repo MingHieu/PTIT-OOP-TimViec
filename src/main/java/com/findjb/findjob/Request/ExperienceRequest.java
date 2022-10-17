@@ -6,7 +6,7 @@ import lombok.Data;
 public class ExperienceRequest {
     String name;
     String position;
-    String from;
-    String to;
+    String fromDate;
+    String toDate;
     String description;
 }

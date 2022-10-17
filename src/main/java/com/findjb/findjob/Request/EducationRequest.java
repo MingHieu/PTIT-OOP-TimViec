@@ -6,7 +6,7 @@ import lombok.Data;
 public class EducationRequest {
     private String name;
     private String major;
-    private String from;
-    private String to;
+    private String fromDate;
+    private String toDate;
     private String description;
 }
