@@ -187,29 +187,33 @@ public class CustomInput extends FrameLayout {
 
     public String getValue() {
         if (autoComplete)
-            return mInputAutoComplete.getText().toString();
-        if(selectable)
-            return mInputSelect.getSelectedItem().toString();
-        return mInput.getText().toString();
+            return mInputAutoComplete.getText().toString().trim();
+        if (selectable)
+            return mInputSelect.getSelectedItem().toString().trim();
+        return mInput.getText().toString().trim();
     }
 
     public void setValue(String text) {
         mInput.setText(text);
     }
 
-    public void setSuggestList(Activity activity, String[] suggestList) {
+    public void setSuggestList(Activity activity, String[] suggestList, String currentValue) {
         autoComplete = true;
         mInputAutoComplete.setAdapter(new ArrayAdapter<String>(activity, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, suggestList));
         mInputAutoComplete.setVisibility(View.VISIBLE);
+        mInputAutoComplete.setText(currentValue);
         mInput.setVisibility(View.GONE);
     }
 
-    public void setSelectOption(Activity activity, String[] selectOptions) {
+    public void setSelectOption(Activity activity, String[] selectOptions, String currentValue) {
         selectable = true;
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,R.layout.spinner_item_selected,selectOptions);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item_selected, selectOptions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mInputSelect.setAdapter(adapter);
         mInputSelect.setVisibility(View.VISIBLE);
+        if (currentValue != null) {
+            mInputSelect.setSelection(adapter.getPosition(currentValue));
+        }
         mInputSelectIcon.setVisibility(View.VISIBLE);
         mInput.setVisibility(View.GONE);
     }

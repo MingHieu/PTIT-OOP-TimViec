@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,20 +18,17 @@ import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.model.Education;
+import com.example.timviec.model.User;
 import com.example.timviec.services.StateManagerService;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.internal.LinkedTreeMap;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EducationScreen extends Utils.BaseActivity {
     private ArrayList<Education> educationItems;
     private EducationListViewAdapter educationListViewAdapter;
     private ListView educationListView;
     private StateManagerService stateManager = App.getContext().getStateManager();
+    private User user = stateManager.getUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +37,7 @@ public class EducationScreen extends Utils.BaseActivity {
 
         setUpScreen("Học vấn");
 
-        educationItems = new ArrayList<Education>();
-        for (LinkedTreeMap educationMap : (List<LinkedTreeMap>) stateManager.getUser().getDetail().get("educations")) {
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.toJsonTree(educationMap).getAsJsonObject();
-            Education education = gson.fromJson(jsonObject, Education.class);
-            educationItems.add(education);
-        }
-
+        educationItems = user.getDetail().getEducations();
         educationListView = findViewById(R.id.education_screen_list);
         educationListView.setPadding(
                 (int) Utils.convertDpToPixel(10, this),
@@ -55,12 +46,6 @@ public class EducationScreen extends Utils.BaseActivity {
                 0);
         educationListView.setDivider(new ColorDrawable(Color.TRANSPARENT));  //hide the divider
         educationListView.setDividerHeight((int) Utils.convertDpToPixel(20, this));
-        educationListViewAdapter = new EducationListViewAdapter(
-                educationItems,
-                (int) Utils.convertDpToPixel(10, this),
-                Utils.convertDpToPixel(6, this),
-                new Intent(EducationScreen.this, EducationEditScreen.class));
-        educationListView.setAdapter(educationListViewAdapter);
 
         findViewById(R.id.education_screen_add_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +55,17 @@ public class EducationScreen extends Utils.BaseActivity {
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        educationListViewAdapter = new EducationListViewAdapter(
+                educationItems,
+                (int) Utils.convertDpToPixel(10, this),
+                Utils.convertDpToPixel(6, this),
+                new Intent(EducationScreen.this, EducationEditScreen.class));
+        educationListView.setAdapter(educationListViewAdapter);
     }
 }
 
@@ -112,10 +108,9 @@ class EducationListViewAdapter extends BaseAdapter {
         ((TextView) itemView.findViewById(R.id.education_item_name)).setText(item.getName());
         ((TextView) itemView.findViewById(R.id.education_item_major)).setText(item.getMajor());
         ((TextView) itemView.findViewById(R.id.education_item_time)).setText(item.getFromDate() + " - " + item.getToDate());
-        if (item.getDescription() != null && item.getDescription().length() > 0) {
+        if (!Utils.checkEmptyInput(item.getDescription())) {
+            itemView.findViewById(R.id.education_item_description).setVisibility(View.VISIBLE);
             ((TextView) itemView.findViewById(R.id.education_item_description)).setText(item.getDescription());
-        } else {
-            ((TextView) itemView.findViewById(R.id.education_item_description)).setVisibility(View.GONE);
         }
 
         if (padding > 0) {
@@ -128,6 +123,7 @@ class EducationListViewAdapter extends BaseAdapter {
             itemView.findViewById(R.id.education_item_wrapper).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    intentNavigateTo.putExtra("id", item.getId());
                     intentNavigateTo.putExtra("name", item.getName());
                     intentNavigateTo.putExtra("major", item.getMajor());
                     intentNavigateTo.putExtra("from", item.getFromDate());

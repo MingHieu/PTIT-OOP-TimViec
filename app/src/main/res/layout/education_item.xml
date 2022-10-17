@@ -60,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="- Dòng 1\n- Dòng 2\n- Dòng 3"
-            android:textColor="@color/on_surface" />
+            android:textColor="@color/on_surface"
+            android:visibility="gone"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

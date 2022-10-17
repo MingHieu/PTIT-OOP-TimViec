@@ -127,9 +127,9 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:id="@+id/fragment_enterprise_jobs_edit"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:id="@+id/fragment_enterprise_jobs_edit"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_pencil"
@@ -138,8 +138,8 @@
             </RelativeLayout>
 
             <com.example.timviec.components.NonScrollListView
-                android:layout_width="match_parent"
                 android:id="@+id/fragment_enterprise_jobs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:listSelector="@android:color/transparent"
                 android:paddingHorizontal="20dp"

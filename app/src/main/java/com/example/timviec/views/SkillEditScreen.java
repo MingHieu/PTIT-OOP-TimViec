@@ -36,6 +36,7 @@ public class SkillEditScreen extends Utils.BaseActivity {
                 approveButton.setmText("Thêm mới");
             } else {
                 mSkill = new Skill(
+                        extras.getInt("id"),
                         extras.getString("name"),
                         extras.getInt("rating"),
                         extras.getString("description"));

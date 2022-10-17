@@ -35,6 +35,7 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
                 approveButton.setmText("Thêm mới");
             } else {
                 mExperience = new Experience(
+                        extras.getInt("id"),
                         extras.getString("name"),
                         extras.getString("position"),
                         extras.getString("from"),

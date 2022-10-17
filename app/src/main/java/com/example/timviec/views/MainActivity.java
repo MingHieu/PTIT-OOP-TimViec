@@ -34,12 +34,14 @@ public class MainActivity extends Utils.BaseActivity {
 
     private StateManagerService stateManager = App.getContext().getStateManager();
     private StorageService storageService = App.getContext().getStorageService();
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loadingDialog = new LoadingDialog(MainActivity.this);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -48,7 +50,6 @@ public class MainActivity extends Utils.BaseActivity {
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        LoadingDialog loadingDialog = new LoadingDialog(MainActivity.this);
                         loadingDialog.show();
                     }
                 });
@@ -75,10 +76,11 @@ public class MainActivity extends Utils.BaseActivity {
                                         public void onResponse(Call<API.UserDetailResponse> call, Response<API.UserDetailResponse> response) {
                                             if (response.isSuccessful()) {
                                                 API.UserDetailResponse res = response.body();
+                                                API.UserDetailResponse.UserDetailResponseData data = res.getData();
 
                                                 User user = stateManager.getUser();
-                                                user.setDetail(res.getData());
-                                                user.setRoleId(1);
+                                                user.setDetail(data.getDetail());
+                                                user.setRoleId(data.getRole());
 
                                                 goToHome();
 
@@ -111,12 +113,14 @@ public class MainActivity extends Utils.BaseActivity {
     }
 
     private void goToLogin() {
+        loadingDialog.hide();
         Intent i = new Intent(this, SelectRoleScreen.class);
         startActivity(i);
         finish();
     }
 
-    private void goToHome(){
+    private void goToHome() {
+        loadingDialog.hide();
         Intent i = new Intent(this, BottomTab.class);
         startActivity(i);
         finish();

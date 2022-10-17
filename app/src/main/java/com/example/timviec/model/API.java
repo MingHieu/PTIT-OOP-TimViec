@@ -1,13 +1,8 @@
 package com.example.timviec.model;
 
-import com.google.gson.internal.LinkedTreeMap;
-
-import java.util.LinkedHashMap;
-
 public class API {
     public static class LoginBody {
-        private String username;
-        private String password;
+        private String username, password;
 
         public LoginBody(String username, String password) {
             this.username = username;
@@ -18,7 +13,7 @@ public class API {
     public static class LoginResponse {
         private int id, role;
         private String email, token;
-        private LinkedHashMap detail;
+        private User.UserDetail detail;
 
         public int getRole() {
             return role;
@@ -28,8 +23,32 @@ public class API {
             return token;
         }
 
-        public LinkedHashMap getDetail() {
+        public User.UserDetail getDetail() {
             return detail;
+        }
+    }
+
+    public static class UserDetailResponse {
+
+        private Boolean status;
+        private String message;
+        private UserDetailResponseData data;
+
+        public UserDetailResponseData getData() {
+            return data;
+        }
+
+        public static class UserDetailResponseData {
+            private int role;
+            private User.UserDetail detail;
+
+            public int getRole() {
+                return role;
+            }
+
+            public User.UserDetail getDetail() {
+                return detail;
+            }
         }
     }
 
@@ -48,7 +67,7 @@ public class API {
         }
     }
 
-    public static class UpdateFreelancerResponse {
+    public static class Response {
         private Boolean status;
         private String message;
 
@@ -56,15 +75,4 @@ public class API {
             return message;
         }
     }
-
-    public static class UserDetailResponse {
-        private Boolean status;
-        private String message;
-        private LinkedHashMap data;
-
-        public LinkedHashMap getData() {
-            return data;
-        }
-    }
-
 }

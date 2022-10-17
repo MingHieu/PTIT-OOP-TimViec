@@ -2,7 +2,6 @@ package com.example.timviec.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -100,9 +99,7 @@ public class LoginScreen extends Utils.BaseActivity {
                     @Override
                     public void onFailure(Call<API.LoginResponse> call, Throwable t) {
                         mLoginButton.setLoading(false);
-                        Log.e("DebugTag", t.toString());
-                        CustomDialog dialog = new CustomDialog(LoginScreen.this, t.getMessage(), null, null);
-                        dialog.show();
+                        Utils.handleFailure(LoginScreen.this, t);
                     }
                 });
     }

@@ -58,4 +58,15 @@ public class University {
     public void setAddress(Object address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "University{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", code='" + code + '\'' +
+                ", address=" + address +
+                '}';
+    }
 }

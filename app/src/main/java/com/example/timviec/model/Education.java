@@ -1,6 +1,9 @@
 package com.example.timviec.model;
 
+import androidx.annotation.Nullable;
+
 public class Education {
+    private Integer id = null;
     private String name = "";
     private String major = "";
     private String fromDate = "";
@@ -10,12 +13,21 @@ public class Education {
     public Education() {
     }
 
-    public Education(String name, String major, String fromDate, String toDate, String description) {
+    public Education(@Nullable Integer id, String name, String major, String fromDate, String toDate, String description) {
+        this.id = id;
         this.name = name;
         this.major = major;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.description = description;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -56,5 +68,17 @@ public class Education {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Education{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", major='" + major + '\'' +
+                ", fromDate='" + fromDate + '\'' +
+                ", toDate='" + toDate + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

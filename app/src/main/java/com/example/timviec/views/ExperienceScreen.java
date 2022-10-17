@@ -16,19 +16,17 @@ import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.model.Experience;
+import com.example.timviec.model.User;
 import com.example.timviec.services.StateManagerService;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ExperienceScreen extends Utils.BaseActivity {
     private ArrayList<Experience> experienceItems;
     private ExperienceListViewAdapter experienceListViewAdapter;
     private ListView experienceListView;
     private StateManagerService stateManager = App.getContext().getStateManager();
+    private User user = stateManager.getUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +35,7 @@ public class ExperienceScreen extends Utils.BaseActivity {
 
         setUpScreen("Kinh nghiệm");
 
-        experienceItems = new ArrayList<Experience>();
-        for (LinkedTreeMap experienceMap : (List<LinkedTreeMap>) stateManager.getUser().getDetail().get("experiences")) {
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.toJsonTree(experienceMap).getAsJsonObject();
-            Experience experience = gson.fromJson(jsonObject, Experience.class);
-            experienceItems.add(experience);
-        }
-
+        experienceItems = user.getDetail().getExperiences();
         experienceListView = findViewById(R.id.experience_screen_list);
         experienceListView.setPadding(
                 (int) Utils.convertDpToPixel(10, this),
@@ -53,12 +44,6 @@ public class ExperienceScreen extends Utils.BaseActivity {
                 0);
         experienceListView.setDivider(new ColorDrawable(Color.TRANSPARENT));  //hide the divider
         experienceListView.setDividerHeight((int) Utils.convertDpToPixel(20, this));
-        experienceListViewAdapter = new ExperienceListViewAdapter(
-                experienceItems,
-                (int) Utils.convertDpToPixel(10, this),
-                Utils.convertDpToPixel(6, this),
-                new Intent(ExperienceScreen.this, ExperienceEditScreen.class));
-        experienceListView.setAdapter(experienceListViewAdapter);
 
         findViewById(R.id.experience_screen_add_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +53,17 @@ public class ExperienceScreen extends Utils.BaseActivity {
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        experienceListViewAdapter = new ExperienceListViewAdapter(
+                experienceItems,
+                (int) Utils.convertDpToPixel(10, this),
+                Utils.convertDpToPixel(6, this),
+                new Intent(ExperienceScreen.this, ExperienceEditScreen.class));
+        experienceListView.setAdapter(experienceListViewAdapter);
     }
 }
 
@@ -126,6 +122,7 @@ class ExperienceListViewAdapter extends BaseAdapter {
             itemView.findViewById(R.id.experience_item_wrapper).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    intentNavigateTo.putExtra("id", item.getId());
                     intentNavigateTo.putExtra("name", item.getName());
                     intentNavigateTo.putExtra("position", item.getPosition());
                     intentNavigateTo.putExtra("from", item.getFromDate());

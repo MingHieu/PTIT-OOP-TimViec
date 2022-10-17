@@ -1,17 +1,29 @@
 package com.example.timviec.model;
 
+import androidx.annotation.Nullable;
+
 public class Skill {
+    private Integer id = null;
     private String name = "";
-    private float rating = 0;
+    private int rating = 0;
     private String description = "";
 
     public Skill() {
     }
 
-    public Skill(String name, float rating, String description) {
+    public Skill(@Nullable Integer id, String name, int rating, String description) {
+        this.id = id;
         this.name = name;
         this.rating = rating;
         this.description = description;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -22,11 +34,11 @@ public class Skill {
         this.name = name;
     }
 
-    public float getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

@@ -1,5 +1,6 @@
 package com.example.timviec;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -9,6 +10,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,7 +23,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.timviec.components.CustomDialog;
+import com.example.timviec.model.API;
+
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
+
+import retrofit2.Response;
 
 public class Utils {
     /**
@@ -44,6 +53,21 @@ public class Utils {
      */
     public static float convertPixelsToDp(float px, Context context) {
         return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    public static void setBase64UrlImageView(ImageView imageView, String base64Url) {
+        byte[] imageAsBytes = Base64.decode(base64Url.getBytes(), Base64.DEFAULT);
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+    }
+
+    public static String getBase64UrlImageView(ImageView imageView) {
+        imageView.buildDrawingCache();
+        Bitmap bitmap = imageView.getDrawingCache();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+        byte[] imageByteArray = stream.toByteArray();
+        String img_str = Base64.encodeToString(imageByteArray, 0);
+        return img_str;
     }
 
     static public class BaseActivity extends AppCompatActivity {
@@ -149,19 +173,16 @@ public class Utils {
         }
     }
 
-    public static void setBase64UrlImageView(ImageView imageView, String base64Url) {
-        byte[] imageAsBytes = Base64.decode(base64Url.getBytes(), Base64.DEFAULT);
-        imageView.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+    public static void handleFailure(Activity activity, Throwable t) {
+        Log.e("DebugTag", t.toString());
+        CustomDialog dialog = new CustomDialog(activity, t.getMessage(), null, CustomDialog.DialogType.ERROR);
+        dialog.show();
     }
 
-    public static String getBase64UrlImageView(ImageView imageView) {
-        imageView.buildDrawingCache();
-        Bitmap bitmap = imageView.getDrawingCache();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-        byte[] imageByteArray = stream.toByteArray();
-        String img_str = Base64.encodeToString(imageByteArray, 0);
-        return img_str;
+    public static Boolean checkEmptyInput(String input) {
+        if (input == null) return true;
+        if (input.equals("")) return true;
+        return false;
     }
 }
 

@@ -49,7 +49,7 @@ public class UserEditScreen extends Utils.BaseActivity {
         setContentView(R.layout.activity_user_edit_screen);
 
         mAvatar = findViewById(R.id.edit_user_avatar);
-        String avatar = (String) user.getDetail().get("avatar");
+        String avatar = user.getDetail().getAvatar();
         if (avatar != null) {
             Utils.setBase64UrlImageView(mAvatar, avatar);
         } else {
@@ -67,14 +67,14 @@ public class UserEditScreen extends Utils.BaseActivity {
         });
 
         mName = findViewById(R.id.edit_user_name);
-        mName.setValue((String) user.getDetail().get("name"));
+        mName.setValue(user.getDetail().getName());
 
         mDob = findViewById(R.id.edit_user_dob);
-        mDob.setValue((String) user.getDetail().get("dob"));
+        mDob.setValue(user.getDetail().getDob());
 
         mGender = findViewById(R.id.edit_user_gender);
-        if (user.getDetail().get("gender") != null) {
-            int gender = ((Number) user.getDetail().get("gender")).intValue();
+        if (user.getDetail().getGender() != null) {
+            int gender = user.getDetail().getGender();
             switch (gender) {
                 case 1:
                     ((RadioButton) findViewById(R.id.edit_user_gender_male)).setChecked(true);
@@ -87,15 +87,15 @@ public class UserEditScreen extends Utils.BaseActivity {
         }
 
         mAddress = findViewById(R.id.edit_user_address);
-        mAddress.setValue((String) user.getDetail().get("address"));
+        mAddress.setValue(user.getDetail().getAddress());
 
-        ((CustomInput) findViewById(R.id.edit_user_email)).setValue((String) user.getDetail().get("email"));
+        ((CustomInput) findViewById(R.id.edit_user_email)).setValue(user.getDetail().getEmail());
 
         mPhoneNumber = findViewById(R.id.edit_user_phone_number);
-        mPhoneNumber.setValue((String) user.getDetail().get("phone_number"));
+        mPhoneNumber.setValue(user.getDetail().getPhoneNumber());
 
         mDescription = findViewById(R.id.edit_user_description);
-        mDescription.setValue((String) user.getDetail().get("introduction"));
+        mDescription.setValue(user.getDetail().getIntroduction());
 
         ((CustomButton) findViewById(R.id.edit_user_cancel_btn)).setHandleOnClick(new Runnable() {
             @Override
@@ -119,25 +119,26 @@ public class UserEditScreen extends Utils.BaseActivity {
                         mPhoneNumber.getValue(),
                         mDescription.getValue(),
                         mGender.getCheckedRadioButtonId() == R.id.edit_user_gender_male ? 1 : 2);
-                ApiService.apiService.updateFreelancer(body).enqueue(new Callback<API.UpdateFreelancerResponse>() {
+                ApiService.apiService.updateFreelancer(body).enqueue(new Callback<API.Response>() {
                     @Override
-                    public void onResponse(Call<API.UpdateFreelancerResponse> call, Response<API.UpdateFreelancerResponse> response) {
+                    public void onResponse(Call<API.Response> call, Response<API.Response> response) {
                         loadingDialog.hide();
                         if (response.isSuccessful()) {
-                            API.UpdateFreelancerResponse res = response.body();
+                            API.Response res = response.body();
 
-                            user.getDetail().put("avatar", Utils.getBase64UrlImageView(mAvatar));
-                            user.getDetail().put("name", mName.getValue());
-                            user.getDetail().put("dob", mDob.getValue());
-                            user.getDetail().put("gender", mGender.getCheckedRadioButtonId() == R.id.edit_user_gender_male ? 1 : 2);
-                            user.getDetail().put("address", mAddress.getValue());
-                            user.getDetail().put("phone_number", mPhoneNumber.getValue());
-                            user.getDetail().put("introduction", mDescription.getValue());
+                            user.getDetail().setAvatar(Utils.getBase64UrlImageView(mAvatar));
+                            user.getDetail().setName(mName.getValue());
+                            user.getDetail().setDob(mDob.getValue());
+                            user.getDetail().setGender(mGender.getCheckedRadioButtonId() == R.id.edit_user_gender_male ? 1 : 2);
+                            user.getDetail().setAddress(mAddress.getValue());
+                            user.getDetail().setPhoneNumber(mPhoneNumber.getValue());
+                            user.getDetail().setIntroduction(mDescription.getValue());
 
                             CustomDialog dialog = new CustomDialog(UserEditScreen.this, res.getMessage(), null, CustomDialog.DialogType.SUCCESS);
                             dialog.onConfirm(new Runnable() {
                                 @Override
                                 public void run() {
+                                    dialog.hide();
                                     onBackPressed();
                                 }
                             });
@@ -155,7 +156,7 @@ public class UserEditScreen extends Utils.BaseActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<API.UpdateFreelancerResponse> call, Throwable t) {
+                    public void onFailure(Call<API.Response> call, Throwable t) {
                         loadingDialog.hide();
                         Log.e("DebugTag", t.toString());
                         CustomDialog dialog = new CustomDialog(UserEditScreen.this, t.getMessage(), null, CustomDialog.DialogType.ERROR);

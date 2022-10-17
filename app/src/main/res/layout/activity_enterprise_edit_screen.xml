@@ -15,9 +15,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:paddingBottom="10dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -169,18 +169,18 @@
                 android:id="@+id/edit_entreprise_cancel_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
                 app:custom_button_round="true"
                 app:custom_button_text="Hủy"
                 app:custom_button_type="secondary" />
 
             <com.example.timviec.components.CustomButton
+                android:id="@+id/edit_entreprise_approve_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/edit_entreprise_approve_btn"
                 android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
                 app:custom_button_round="true"
                 app:custom_button_text="Xác nhận" />
 

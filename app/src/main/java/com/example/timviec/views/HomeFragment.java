@@ -38,6 +38,8 @@ public class HomeFragment extends Utils.BaseFragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mAvatar = view.findViewById(R.id.fragment_home_avatar);
+        mName = view.findViewById(R.id.fragment_home_name);
+
         mAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,9 +47,6 @@ public class HomeFragment extends Utils.BaseFragment {
                 startActivity(i);
             }
         });
-
-        mName = view.findViewById(R.id.fragment_home_name);
-        mName.setText((String) user.getDetail().get("name"));
 
         ((CardView) view.findViewById(R.id.fragment_home_search)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,5 +57,21 @@ public class HomeFragment extends Utils.BaseFragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupView();
+    }
+
+    private void setupView() {
+        String avatar = user.getDetail().getAvatar();
+        if (avatar != null) {
+            Utils.setBase64UrlImageView(mAvatar, avatar);
+        } else {
+            mAvatar.setImageResource(R.drawable.img_default_user);
+        }
+        mName.setText(user.getDetail().getName());
     }
 }

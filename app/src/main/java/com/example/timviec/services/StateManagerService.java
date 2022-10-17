@@ -1,53 +1,29 @@
 package com.example.timviec.services;
 
-import android.content.Context;
-
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-
 import com.example.timviec.model.User;
 
 public class StateManagerService {
-    private MutableLiveData<User> user = new MutableLiveData<>();
-    private MutableLiveData<String> authToken = new MutableLiveData<>();
+    private User user;
+    private String authToken;
 
     public StateManagerService() {
-        user.setValue(new User());
-        authToken.setValue("");
+        user = new User();
+        authToken = "";
     }
 
     public User getUser() {
-        return user.getValue();
+        return user;
     }
 
     public void setUser(User user) {
-        this.user.setValue(user);
-    }
-
-    public void setOnChangeUser(Context context, Runnable runnable) {
-        user.observe((LifecycleOwner) context, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                runnable.run();
-            }
-        });
+        this.user = user;
     }
 
     public String getAuthToken() {
-        return authToken.getValue();
+        return authToken;
     }
 
     public void setAuthToken(String authToken) {
-        this.authToken.setValue(authToken);
-    }
-
-    public void setOnChangeAuthToken(Context context, Runnable runnable) {
-        authToken.observe((LifecycleOwner) context, new Observer<String>() {
-            @Override
-            public void onChanged(String authToken) {
-                runnable.run();
-            }
-        });
+        this.authToken = authToken;
     }
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/job_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/job_item"
     android:background="@color/surface">
 
     <LinearLayout
+        android:id="@+id/job_item_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/job_item_wrapper"
         android:orientation="vertical"
         android:paddingVertical="10dp">
 
@@ -29,24 +29,24 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/job_item_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/job_item_name"
                     android:text="Tên Công Việc"
                     android:textColor="@color/on_surface"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/job_item_expectSalary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/job_item_expectSalary"
                     android:text="Up to 1000$"
                     android:textColor="@color/gray_600" />
 
                 <TextView
+                    android:id="@+id/job_item_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/job_item_quantity"
                     android:text="Cần tuyển 5 người"
                     android:textColor="@color/gray_400" />
 
@@ -56,24 +56,24 @@
 
 
         <TextView
-            android:layout_width="match_parent"
             android:id="@+id/job_item_requirement"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Trên một năm kinh nghệm"
             android:textColor="@color/on_surface" />
 
         <TextView
-            android:layout_width="match_parent"
             android:id="@+id/job_item_benefit"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Được hưởng lương tháng 13"
             android:textColor="@color/on_surface" />
 
         <TextView
-            android:layout_width="match_parent"
             android:id="@+id/job_item_description"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="- Dòng 1\n- Dòng 2\n- Dòng 3"

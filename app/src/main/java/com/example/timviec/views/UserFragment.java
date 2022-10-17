@@ -2,6 +2,7 @@ package com.example.timviec.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,28 +18,24 @@ import com.example.timviec.model.Experience;
 import com.example.timviec.model.Skill;
 import com.example.timviec.model.User;
 import com.example.timviec.services.StateManagerService;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UserFragment extends Utils.BaseFragment {
-    private ArrayList<Education> educationItems;
+    private StateManagerService stateManager = App.getContext().getStateManager();
+    private User user = stateManager.getUser();
+
+    private ArrayList<Education> educationItems = user.getDetail().getEducations();
     private EducationListViewAdapter educationListViewAdapter;
     private NonScrollListView educationListView;
 
-    private ArrayList<Experience> experienceItems;
+    private ArrayList<Experience> experienceItems = user.getDetail().getExperiences();
     private ExperienceListViewAdapter experienceListViewAdapter;
     private NonScrollListView experienceListView;
 
-    private ArrayList<Skill> skillItems;
+    private ArrayList<Skill> skillItems = user.getDetail().getSkills();
     private SkillListViewAdapter skillListViewAdapter;
     private NonScrollListView skillListView;
-
-    private StateManagerService stateManager = App.getContext().getStateManager();
-    private User user = stateManager.getUser();
 
     private ImageView avatarView;
     private TextView nameView;
@@ -99,47 +96,32 @@ public class UserFragment extends Utils.BaseFragment {
         experienceListView = view.findViewById(R.id.fragment_user_experience);
         skillListView = view.findViewById(R.id.fragment_user_skill);
 
-        setupView();
-
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setupView();
+    }
+
     private void setupView() {
-        if ((String) user.getDetail().get("avatar") != null) {
-            Utils.setBase64UrlImageView(avatarView, (String) stateManager.getUser().getDetail().get("avatar"));
+        String avatar = user.getDetail().getAvatar();
+        if (avatar != null) {
+            Utils.setBase64UrlImageView(avatarView, avatar);
         } else {
             avatarView.setImageResource(R.drawable.img_default_user);
         }
-        nameView.setText((String) user.getDetail().get("name"));
-        descriptionView.setText((String) user.getDetail().get("introduction"));
+        nameView.setText(user.getDetail().getName());
+        descriptionView.setText(user.getDetail().getIntroduction());
 
-        educationItems = new ArrayList<Education>();
-        for (LinkedTreeMap educationMap : (List<LinkedTreeMap>) user.getDetail().get("educations")) {
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.toJsonTree(educationMap).getAsJsonObject();
-            Education education = gson.fromJson(jsonObject, Education.class);
-            educationItems.add(education);
-        }
         educationListViewAdapter = new EducationListViewAdapter(educationItems);
         educationListView.setAdapter(educationListViewAdapter);
 
-        experienceItems = new ArrayList<Experience>();
-        for (LinkedTreeMap experienceMap : (List<LinkedTreeMap>) user.getDetail().get("experiences")) {
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.toJsonTree(experienceMap).getAsJsonObject();
-            Experience experience = gson.fromJson(jsonObject, Experience.class);
-            experienceItems.add(experience);
-        }
         experienceListViewAdapter = new ExperienceListViewAdapter(experienceItems);
         experienceListView.setAdapter(experienceListViewAdapter);
 
-        skillItems = new ArrayList<Skill>();
-        for (LinkedTreeMap skillMap : (List<LinkedTreeMap>) user.getDetail().get("skills")) {
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.toJsonTree(skillMap).getAsJsonObject();
-            Skill skill = gson.fromJson(jsonObject, Skill.class);
-            skillItems.add(skill);
-        }
         skillListViewAdapter = new SkillListViewAdapter(skillItems);
         skillListView.setAdapter(skillListViewAdapter);
     }

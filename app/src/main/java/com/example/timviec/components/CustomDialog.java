@@ -17,12 +17,6 @@ public class CustomDialog {
     AlertDialog alertDialog;
     CustomButton confirmButton;
 
-    public enum DialogType {
-        SUCCESS,
-        ERROR,
-        WARNING
-    }
-
     public CustomDialog(Activity activity, String message, @Nullable String buttonTitle, @Nullable DialogType type) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -80,5 +74,11 @@ public class CustomDialog {
 
     public void setCancelable(Boolean b) {
         alertDialog.setCancelable(b);
+    }
+
+    public enum DialogType {
+        SUCCESS,
+        ERROR,
+        WARNING
     }
 }

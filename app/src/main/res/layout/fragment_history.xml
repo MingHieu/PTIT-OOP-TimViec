@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical"
     tools:context=".views.HistoryFragment">
@@ -13,19 +13,19 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_history"
-        app:tint="@color/gray_10"
-        android:layout_gravity="center" />
+        app:tint="@color/gray_10" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="16dp"
         android:text="Chưa có lịch sử công việc.\n Bạn hãy ứng tyển để tìm kiếm cơ hội việc làm ngay."
         android:textColor="@color/on_surface"
-        android:textSize="16dp"
-        android:padding="16dp" />
+        android:textSize="16dp" />
 
 
 </LinearLayout>
