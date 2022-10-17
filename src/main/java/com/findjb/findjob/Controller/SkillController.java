@@ -18,39 +18,39 @@ import com.findjb.findjob.Responses.StatusResponse;
 import com.findjb.findjob.Service.JPA.SkillService;
 
 @RestController
-@RequestMapping("/api/freelancer")
+@RequestMapping("/api/skill")
 public class SkillController {
     @Autowired
     SkillService skillService;
-    
-    @PostMapping("/create/skill")
+
+    @PostMapping("/create")
     public ResponseEntity<Object> createNewSkill(@RequestBody SkillRequest skillRequest) {
         skillService.createNewSkill(skillRequest);
         return new ResponseEntity<Object>(new StatusResponse(true, "Tạo mới thành công"), HttpStatus.OK);
     }
 
-    @GetMapping("skills/all")
+    @GetMapping("/all")
     public ResponseEntity<Object> getAllSkills() {
         return new ResponseEntity<Object>(
                 new ObjectResponse(true, "Lấy danh sách thành công", skillService.getListSkill()),
                 HttpStatus.OK);
     }
 
-    @GetMapping("skills/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getDetailSkill(@PathVariable Long id) {
         return new ResponseEntity<Object>(
                 new ObjectResponse(true, "Lấy danh sách thành công", skillService.getDetailSkill(id)),
                 HttpStatus.OK);
     }
 
-    @PutMapping("skills/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Object> updateSkill(@PathVariable Long id,
             @RequestBody SkillRequest skillRequest) {
         skillService.updateSkill(skillRequest, id);
         return new ResponseEntity<Object>(new StatusResponse(true, "Cập nhật thành công"), HttpStatus.OK);
     }
 
-    @DeleteMapping("skills/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteSkill(@PathVariable Long id) {
         skillService.deleteSKill(id);
         return new ResponseEntity<Object>(new StatusResponse(true, "Xóa thành công"), HttpStatus.OK);

@@ -18,39 +18,39 @@ import com.findjb.findjob.Responses.StatusResponse;
 import com.findjb.findjob.Service.JPA.EducationService;
 
 @RestController
-@RequestMapping("/api/freelancer")
+@RequestMapping("/api/education")
 public class EducationController {
     @Autowired
     private EducationService educationService;
 
-    @PostMapping("/create/education")
+    @PostMapping("create")
     public ResponseEntity<Object> createNewEducation(@RequestBody EducationRequest educationRequest) {
         educationService.createEducation(educationRequest);
         return new ResponseEntity<Object>(new StatusResponse(true, "Tạo mới thành công"), HttpStatus.OK);
     }
 
-    @GetMapping("education/all")
+    @GetMapping("all")
     public ResponseEntity<Object> getAllEducation() {
         return new ResponseEntity<Object>(
                 new ObjectResponse(true, "Lấy danh sách thành công", educationService.getListEducation()),
                 HttpStatus.OK);
     }
 
-    @GetMapping("education/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Object> getDetailEducation(@PathVariable Long id) {
         return new ResponseEntity<Object>(
                 new ObjectResponse(true, "Lấy danh sách thành công", educationService.getDetailEducation(id)),
                 HttpStatus.OK);
     }
 
-    @PutMapping("education/update/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<Object> updateEducation(@PathVariable Long id,
             @RequestBody EducationRequest educationRequest) {
         educationService.updateEducation(educationRequest, id);
         return new ResponseEntity<Object>(new StatusResponse(true, "Cập nhật thành công"), HttpStatus.OK);
     }
 
-    @DeleteMapping("education/delete/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Object> deleteEducation(@PathVariable Long id) {
         educationService.deleteEducation(id);
         return new ResponseEntity<Object>(new StatusResponse(true, "Xóa thành công"), HttpStatus.OK);
