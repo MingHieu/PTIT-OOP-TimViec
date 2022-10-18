@@ -23,8 +23,8 @@ import retrofit2.Response;
 
 
 public class SkillEditScreen extends Utils.BaseActivity {
-
     private Skill mSkill;
+
     private CustomInput nameView;
     private RatingBar rateView;
     private CustomInput descriptionView;
@@ -80,6 +80,7 @@ public class SkillEditScreen extends Utils.BaseActivity {
             public void run() {
                 if (createNew) {
                     onBackPressed();
+                    finish();
                 } else {
                     deleteSkill();
                 }
@@ -96,6 +97,8 @@ public class SkillEditScreen extends Utils.BaseActivity {
                 }
             }
         });
+
+        loadingDialog =new LoadingDialog(SkillEditScreen.this);
     }
 
     private void createNewSkill() {
@@ -147,8 +150,6 @@ public class SkillEditScreen extends Utils.BaseActivity {
     }
 
     private void deleteSkill() {
-        if (!handleValidate()) return;
-
         loadingDialog.show();
 
         ApiService.apiService.deleteSkill(mSkill.getId()).enqueue(new Callback<API.Response>() {
@@ -180,7 +181,7 @@ public class SkillEditScreen extends Utils.BaseActivity {
 
     private Boolean validateField() {
         if (Utils.checkEmptyInput(nameView.getValue())) return false;
-        if (!rateView.isIndicator()) return false;
+        if (rateView.getRating() > 0) return false;
 
         return true;
     }
