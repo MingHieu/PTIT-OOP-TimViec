@@ -1,32 +1,46 @@
 package com.example.timviec.views;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.components.CustomDialog;
+import com.example.timviec.components.LoadingDialog;
+import com.example.timviec.model.API;
 import com.example.timviec.model.Experience;
 import com.example.timviec.model.User;
+import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ExperienceScreen extends Utils.BaseActivity {
     private ArrayList<Experience> experienceItems;
     private ExperienceListViewAdapter experienceListViewAdapter;
     private ListView experienceListView;
-    private StateManagerService stateManager = App.getContext().getStateManager();
-    private User user = stateManager.getUser();
+    private final StateManagerService stateManager = App.getContext().getStateManager();
+    private final User user = stateManager.getUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +49,6 @@ public class ExperienceScreen extends Utils.BaseActivity {
 
         setUpScreen("Kinh nghiệm");
 
-        experienceItems = user.getDetail().getExperiences();
         experienceListView = findViewById(R.id.experience_screen_list);
         experienceListView.setPadding(
                 (int) Utils.convertDpToPixel(10, this),
@@ -50,20 +63,73 @@ public class ExperienceScreen extends Utils.BaseActivity {
             public void onClick(View view) {
                 Intent i = new Intent(ExperienceScreen.this, ExperienceEditScreen.class);
                 i.putExtra("createNew", true);
-                startActivity(i);
+                startActivityForResult(i, 0);
+            }
+        });
+
+        setupView();
+    }
+
+    private void setupView() {
+        experienceItems = user.getDetail().getExperiences();
+        experienceListViewAdapter = new ExperienceListViewAdapter(
+                experienceItems,
+                (int) Utils.convertDpToPixel(10, this),
+                Utils.convertDpToPixel(6, this));
+        experienceListView.setAdapter(experienceListViewAdapter);
+        experienceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Experience item = (Experience) adapterView.getItemAtPosition(i);
+                Intent intent = new Intent(ExperienceScreen.this, ExperienceEditScreen.class);
+                intent.putExtra("id", item.getId());
+                intent.putExtra("name", item.getName());
+                intent.putExtra("position", item.getPosition());
+                intent.putExtra("fron", item.getFromDate());
+                intent.putExtra("to", item.getToDate());
+                intent.putExtra("description", item.getDescription());
+                startActivityForResult(intent, 0);
+
             }
         });
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        experienceListViewAdapter = new ExperienceListViewAdapter(
-                experienceItems,
-                (int) Utils.convertDpToPixel(10, this),
-                Utils.convertDpToPixel(6, this),
-                new Intent(ExperienceScreen.this, ExperienceEditScreen.class));
-        experienceListView.setAdapter(experienceListViewAdapter);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != Activity.RESULT_OK) return;
+        Log.i("DebugTag", "OK");
+
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
+
+        ApiService.apiService.getAllExperience().enqueue(new Callback<API.getAllExperienceResponse>() {
+            @Override
+            public void onResponse(Call<API.getAllExperienceResponse> call, Response<API.getAllExperienceResponse> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    ArrayList<Experience> experiences = response.body().getData();
+                    user.getDetail().setExperiences(experiences);
+                    setupView();
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        CustomDialog dialog = new CustomDialog(ExperienceScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
+                        dialog.show();
+                    } catch (Exception e) {
+                        CustomDialog dialog= new CustomDialog(ExperienceScreen.this, e.getMessage(), null, null);
+                        dialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.getAllExperienceResponse> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(ExperienceScreen.this, t);
+            }
+        });
     }
 }
 
@@ -71,17 +137,15 @@ class ExperienceListViewAdapter extends BaseAdapter {
     private final ArrayList<Experience> listItems;
     private int padding;
     private float radius;
-    private Intent intentNavigateTo;
 
     public ExperienceListViewAdapter(ArrayList<Experience> listItems) {
         this.listItems = listItems;
     }
 
-    public ExperienceListViewAdapter(ArrayList<Experience> listItems, int padding, float radius, Intent intentNavigateTo) {
+    public ExperienceListViewAdapter(ArrayList<Experience> listItems, @Nullable int padding, @Nullable float radius) {
         this.listItems = listItems;
         this.padding = padding;
         this.radius = radius;
-        this.intentNavigateTo = intentNavigateTo;
     }
 
     @Override
@@ -104,12 +168,11 @@ class ExperienceListViewAdapter extends BaseAdapter {
         View itemView = view != null ? view : View.inflate(viewGroup.getContext(), R.layout.experience_item, null);
         Experience item = getItem(i);
         ((TextView) itemView.findViewById(R.id.experience_item_name)).setText(item.getName());
-        ((TextView) itemView.findViewById(R.id.experience_item_major)).setText(item.getPosition());
+        ((TextView) itemView.findViewById(R.id.experience_item_position)).setText(item.getPosition());
         ((TextView) itemView.findViewById(R.id.experience_item_time)).setText(item.getFromDate() + " - " + item.getToDate());
-        if (item.getDescription() != null && item.getDescription().length() > 0) {
+        if (!Utils.checkEmptyInput(item.getDescription())) {
+            itemView.findViewById(R.id.experience_item_description).setVisibility(View.VISIBLE);
             ((TextView) itemView.findViewById(R.id.experience_item_description)).setText(item.getDescription());
-        } else {
-            ((TextView) itemView.findViewById(R.id.experience_item_description)).setVisibility(View.GONE);
         }
 
         if (padding > 0) {
@@ -118,20 +181,7 @@ class ExperienceListViewAdapter extends BaseAdapter {
         if (radius > 0) {
             ((CardView) itemView.findViewById(R.id.experience_item)).setRadius(radius);
         }
-        if (intentNavigateTo != null) {
-            itemView.findViewById(R.id.experience_item_wrapper).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    intentNavigateTo.putExtra("id", item.getId());
-                    intentNavigateTo.putExtra("name", item.getName());
-                    intentNavigateTo.putExtra("position", item.getPosition());
-                    intentNavigateTo.putExtra("from", item.getFromDate());
-                    intentNavigateTo.putExtra("to", item.getToDate());
-                    intentNavigateTo.putExtra("description", item.getDescription());
-                    view.getContext().startActivity(intentNavigateTo);
-                }
-            });
-        }
+
         return itemView;
     }
 }

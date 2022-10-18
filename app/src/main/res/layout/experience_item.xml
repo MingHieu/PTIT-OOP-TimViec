@@ -37,7 +37,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/experience_item_major"
+                    android:id="@+id/experience_item_position"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Chuyên ngành"
