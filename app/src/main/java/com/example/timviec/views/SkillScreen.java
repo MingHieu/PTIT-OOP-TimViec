@@ -1,27 +1,40 @@
 package com.example.timviec.views;
 
-
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.components.CustomDialog;
+import com.example.timviec.components.LoadingDialog;
+import com.example.timviec.model.API;
 import com.example.timviec.model.Skill;
 import com.example.timviec.model.User;
+import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SkillScreen extends Utils.BaseActivity {
 
@@ -54,20 +67,70 @@ public class SkillScreen extends Utils.BaseActivity {
             public void onClick(View view) {
                 Intent i = new Intent(SkillScreen.this, SkillEditScreen.class);
                 i.putExtra("createNew", true);
-                startActivity(i);
+                startActivityForResult(i, 0);
+            }
+        });
+
+        setupView();
+    }
+
+    private void setupView() {
+        skillItems = user.getDetail().getSkills();
+        skillListViewAdapter = new SkillListViewAdapter(
+                skillItems,
+                (int) Utils.convertDpToPixel(10, this),
+                Utils.convertDpToPixel(6, this));
+        skillListView.setAdapter(skillListViewAdapter);
+        skillListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Skill item = (Skill) adapterView.getItemAtPosition(i);
+                Intent intent = new Intent(SkillScreen.this, SkillEditScreen.class);
+                intent.putExtra("id", item.getId());
+                intent.putExtra("name", item.getName());
+                intent.putExtra("rate", item.getRating());
+                intent.putExtra("description", item.getDescription());
+                startActivityForResult(intent, 0);
             }
         });
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        skillListViewAdapter = new SkillListViewAdapter(
-                skillItems,
-                (int) Utils.convertDpToPixel(10, this),
-                Utils.convertDpToPixel(6, this),
-                new Intent(SkillScreen.this, SkillEditScreen.class));
-        skillListView.setAdapter(skillListViewAdapter);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != Activity.RESULT_OK) return;
+        Log.i("DebugTag", "OK");
+
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
+
+        ApiService.apiService.getAllSkill().enqueue(new Callback<API.getAllSkillResponse>() {
+            @Override
+            public void onResponse(Call<API.getAllSkillResponse> call, Response<API.getAllSkillResponse> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    ArrayList<Skill> skills = response.body().getData();
+                    user.getDetail().setSkills(skills);
+                    setupView();
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        CustomDialog dialog = new CustomDialog(SkillScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
+                        dialog.show();
+                    } catch (Exception e) {
+                        CustomDialog dialog = new CustomDialog(SkillScreen.this, e.getMessage(), null, null);
+                        dialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.getAllSkillResponse> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(SkillScreen.this, t);
+            }
+        });
     }
 }
 
@@ -75,17 +138,15 @@ class SkillListViewAdapter extends BaseAdapter {
     private final ArrayList<Skill> listItems;
     private int padding;
     private float radius;
-    private Intent intentNavigateTo;
 
     public SkillListViewAdapter(ArrayList<Skill> listItems) {
         this.listItems = listItems;
     }
 
-    public SkillListViewAdapter(ArrayList<Skill> listItems, int padding, float radius, Intent intentNavigateTo) {
+    public SkillListViewAdapter(ArrayList<Skill> listItems, @Nullable int padding, @Nullable float radius) {
         this.listItems = listItems;
         this.padding = padding;
         this.radius = radius;
-        this.intentNavigateTo = intentNavigateTo;
     }
 
     @Override
@@ -111,10 +172,9 @@ class SkillListViewAdapter extends BaseAdapter {
         ((TextView) itemView.findViewById(R.id.skill_item_name)).setText(item.getName());
         ((RatingBar) itemView.findViewById(R.id.skill_item_rate)).setRating(item.getRating());
 
-        if (item.getDescription() != null && item.getDescription().length() > 0) {
+        if (!Utils.checkEmptyInput(item.getDescription())) {
+            itemView.findViewById(R.id.skill_edit_description).setVisibility(View.VISIBLE);
             ((TextView) itemView.findViewById(R.id.skill_item_description)).setText(item.getDescription());
-        } else {
-            ((TextView) itemView.findViewById(R.id.skill_item_description)).setVisibility(View.GONE);
         }
 
         if (padding > 0) {
@@ -123,19 +183,7 @@ class SkillListViewAdapter extends BaseAdapter {
         if (radius > 0) {
             ((CardView) itemView.findViewById(R.id.skill_item)).setRadius(radius);
         }
-        if (intentNavigateTo != null) {
-            itemView.findViewById(R.id.skill_item_wrapper).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    intentNavigateTo.putExtra("id", item.getId());
-                    intentNavigateTo.putExtra("name", item.getName());
-                    intentNavigateTo.putExtra("rating", item.getRating());
-                    intentNavigateTo.putExtra("description", item.getDescription());
-                    view.getContext().startActivity(intentNavigateTo);
-                }
-            });
-        }
+
         return itemView;
     }
-
 }
