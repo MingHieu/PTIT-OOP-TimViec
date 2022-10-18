@@ -75,8 +75,7 @@ public class EducationScreen extends Utils.BaseActivity {
         educationListViewAdapter = new EducationListViewAdapter(
                 educationItems,
                 (int) Utils.convertDpToPixel(10, this),
-                Utils.convertDpToPixel(6, this),
-                new Intent(EducationScreen.this, EducationEditScreen.class));
+                Utils.convertDpToPixel(6, this));
         educationListView.setAdapter(educationListViewAdapter);
         educationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -137,17 +136,15 @@ class EducationListViewAdapter extends BaseAdapter {
     private final ArrayList<Education> listItems;
     private int padding;
     private float radius;
-    private Intent intentNavigateTo;
 
     public EducationListViewAdapter(ArrayList<Education> listItems) {
         this.listItems = listItems;
     }
 
-    public EducationListViewAdapter(ArrayList<Education> listItems, @Nullable int padding, @Nullable float radius, @Nullable Intent intentNavigateTo) {
+    public EducationListViewAdapter(ArrayList<Education> listItems, @Nullable int padding, @Nullable float radius) {
         this.listItems = listItems;
         this.padding = padding;
         this.radius = radius;
-        this.intentNavigateTo = intentNavigateTo;
     }
 
     @Override
