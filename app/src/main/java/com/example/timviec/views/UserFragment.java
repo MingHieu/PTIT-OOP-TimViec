@@ -2,7 +2,6 @@ package com.example.timviec.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +24,15 @@ public class UserFragment extends Utils.BaseFragment {
     private StateManagerService stateManager = App.getContext().getStateManager();
     private User user = stateManager.getUser();
 
-    private ArrayList<Education> educationItems = user.getDetail().getEducations();
+    private ArrayList<Education> educationItems;
     private EducationListViewAdapter educationListViewAdapter;
     private NonScrollListView educationListView;
 
-    private ArrayList<Experience> experienceItems = user.getDetail().getExperiences();
+    private ArrayList<Experience> experienceItems;
     private ExperienceListViewAdapter experienceListViewAdapter;
     private NonScrollListView experienceListView;
 
-    private ArrayList<Skill> skillItems = user.getDetail().getSkills();
+    private ArrayList<Skill> skillItems;
     private SkillListViewAdapter skillListViewAdapter;
     private NonScrollListView skillListView;
 
@@ -116,12 +115,15 @@ public class UserFragment extends Utils.BaseFragment {
         nameView.setText(user.getDetail().getName());
         descriptionView.setText(user.getDetail().getIntroduction());
 
+        educationItems = user.getDetail().getEducations();
         educationListViewAdapter = new EducationListViewAdapter(educationItems);
         educationListView.setAdapter(educationListViewAdapter);
 
+        experienceItems = user.getDetail().getExperiences();
         experienceListViewAdapter = new ExperienceListViewAdapter(experienceItems);
         experienceListView.setAdapter(experienceListViewAdapter);
 
+        skillItems = user.getDetail().getSkills();
         skillListViewAdapter = new SkillListViewAdapter(skillItems);
         skillListView.setAdapter(skillListViewAdapter);
     }

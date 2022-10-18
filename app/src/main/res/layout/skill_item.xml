@@ -4,7 +4,7 @@
     android:id="@+id/skill_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/surface"
+    app:cardBackgroundColor="@color/surface"
     app:cardElevation="0dp">
 
     <LinearLayout
@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="- Dòng 1\n- Dòng 2\n- Dòng 3"
-            android:textColor="@color/on_surface" />
+            android:textColor="@color/on_surface"
+            android:visibility="gone"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

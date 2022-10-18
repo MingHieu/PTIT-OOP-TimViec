@@ -217,7 +217,7 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
 
     private Boolean handleValidate() {
         if (!vaidateField()) {
-            dialog = new CustomDialog(this, "Hãy điền đầy đủ thôn tin", null, CustomDialog.DialogType.WARNING);
+            dialog = new CustomDialog(this, "Hãy điền đầy đủ thông tin", null, CustomDialog.DialogType.WARNING);
             dialog.show();
             return false;
         }
@@ -226,7 +226,7 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
 
     private void handleSuccess(Response<API.Response> response) {
         API.Response res = response.body();
-        CustomDialog dialog = new CustomDialog(this, res.getMessage(), null, CustomDialog.DialogType.ERROR);
+        CustomDialog dialog = new CustomDialog(this, res.getMessage(), null, CustomDialog.DialogType.SUCCESS);
         dialog.onConfirm(new Runnable() {
             @Override
             public void run() {

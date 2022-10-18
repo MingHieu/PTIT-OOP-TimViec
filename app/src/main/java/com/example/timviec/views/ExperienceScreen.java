@@ -85,7 +85,7 @@ public class ExperienceScreen extends Utils.BaseActivity {
                 intent.putExtra("id", item.getId());
                 intent.putExtra("name", item.getName());
                 intent.putExtra("position", item.getPosition());
-                intent.putExtra("fron", item.getFromDate());
+                intent.putExtra("from", item.getFromDate());
                 intent.putExtra("to", item.getToDate());
                 intent.putExtra("description", item.getDescription());
                 startActivityForResult(intent, 0);

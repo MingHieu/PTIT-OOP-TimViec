@@ -173,7 +173,7 @@ class SkillListViewAdapter extends BaseAdapter {
         ((RatingBar) itemView.findViewById(R.id.skill_item_rate)).setRating(item.getRating());
 
         if (!Utils.checkEmptyInput(item.getDescription())) {
-            itemView.findViewById(R.id.skill_edit_description).setVisibility(View.VISIBLE);
+            itemView.findViewById(R.id.skill_item_description).setVisibility(View.VISIBLE);
             ((TextView) itemView.findViewById(R.id.skill_item_description)).setText(item.getDescription());
         }
 

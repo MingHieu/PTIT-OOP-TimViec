@@ -56,7 +56,7 @@ public class SkillEditScreen extends Utils.BaseActivity {
                         extras.getInt("id"),
                         extras.getString("name"),
                         extras.getInt("rate"),
-                        extras.getString("desciption"));
+                        extras.getString("description"));
             }
         }
 
@@ -96,6 +96,8 @@ public class SkillEditScreen extends Utils.BaseActivity {
                 }
             }
         });
+
+        loadingDialog = new LoadingDialog(this);
     }
 
     private void createNewSkill() {
@@ -180,7 +182,6 @@ public class SkillEditScreen extends Utils.BaseActivity {
 
     private Boolean validateField() {
         if (Utils.checkEmptyInput(nameView.getValue())) return false;
-        if (!rateView.isIndicator()) return false;
 
         return true;
     }
