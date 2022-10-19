@@ -1,5 +1,7 @@
 package com.findjb.findjob.Model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -47,9 +50,12 @@ public class Enterprise {
     @Column(name = "avatar", length = 100000)
     private String avatar;
 
-    
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId
     private User user;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL)
+    private List<Post> posts;
 }
