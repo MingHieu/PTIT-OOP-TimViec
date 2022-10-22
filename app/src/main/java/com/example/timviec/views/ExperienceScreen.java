@@ -118,7 +118,7 @@ public class ExperienceScreen extends Utils.BaseActivity {
                         CustomDialog dialog = new CustomDialog(ExperienceScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
                         dialog.show();
                     } catch (Exception e) {
-                        CustomDialog dialog= new CustomDialog(ExperienceScreen.this, e.getMessage(), null, null);
+                        CustomDialog dialog = new CustomDialog(ExperienceScreen.this, e.getMessage(), null, null);
                         dialog.show();
                     }
                 }
@@ -137,15 +137,18 @@ class ExperienceListViewAdapter extends BaseAdapter {
     private final ArrayList<Experience> listItems;
     private int padding;
     private float radius;
+    private boolean showDescription;
 
     public ExperienceListViewAdapter(ArrayList<Experience> listItems) {
         this.listItems = listItems;
+        this.showDescription = false;
     }
 
     public ExperienceListViewAdapter(ArrayList<Experience> listItems, @Nullable int padding, @Nullable float radius) {
         this.listItems = listItems;
         this.padding = padding;
         this.radius = radius;
+        this.showDescription = true;
     }
 
     @Override
@@ -170,7 +173,7 @@ class ExperienceListViewAdapter extends BaseAdapter {
         ((TextView) itemView.findViewById(R.id.experience_item_name)).setText(item.getName());
         ((TextView) itemView.findViewById(R.id.experience_item_position)).setText(item.getPosition());
         ((TextView) itemView.findViewById(R.id.experience_item_time)).setText(item.getFromDate() + " - " + item.getToDate());
-        if (!Utils.checkEmptyInput(item.getDescription())) {
+        if (!Utils.checkEmptyInput(item.getDescription()) && this.showDescription) {
             itemView.findViewById(R.id.experience_item_description).setVisibility(View.VISIBLE);
             ((TextView) itemView.findViewById(R.id.experience_item_description)).setText(item.getDescription());
         }

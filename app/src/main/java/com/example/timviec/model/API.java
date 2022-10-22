@@ -69,6 +69,14 @@ public class API {
         }
     }
 
+    public static class UpdateFCMBody{
+        private String fcm;
+
+        public UpdateFCMBody(String fcm) {
+            this.fcm = fcm;
+        }
+    }
+
     public static class Response {
         private Boolean status;
         private String message;

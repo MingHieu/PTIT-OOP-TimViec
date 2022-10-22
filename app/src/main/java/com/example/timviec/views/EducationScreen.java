@@ -136,15 +136,18 @@ class EducationListViewAdapter extends BaseAdapter {
     private final ArrayList<Education> listItems;
     private int padding;
     private float radius;
+    private boolean showDescription;
 
     public EducationListViewAdapter(ArrayList<Education> listItems) {
         this.listItems = listItems;
+        this.showDescription = false;
     }
 
     public EducationListViewAdapter(ArrayList<Education> listItems, @Nullable int padding, @Nullable float radius) {
         this.listItems = listItems;
         this.padding = padding;
         this.radius = radius;
+        this.showDescription = true;
     }
 
     @Override
@@ -169,7 +172,7 @@ class EducationListViewAdapter extends BaseAdapter {
         ((TextView) itemView.findViewById(R.id.education_item_name)).setText(item.getName());
         ((TextView) itemView.findViewById(R.id.education_item_major)).setText(item.getMajor());
         ((TextView) itemView.findViewById(R.id.education_item_time)).setText(item.getFromDate() + " - " + item.getToDate());
-        if (!Utils.checkEmptyInput(item.getDescription())) {
+        if (!Utils.checkEmptyInput(item.getDescription()) && this.showDescription) {
             itemView.findViewById(R.id.education_item_description).setVisibility(View.VISIBLE);
             ((TextView) itemView.findViewById(R.id.education_item_description)).setText(item.getDescription());
         }

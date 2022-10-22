@@ -50,6 +50,9 @@ public interface ApiService {
     @PUT("user/freelancer/update")
     Call<API.Response> updateFreelancer(@Body API.UpdateFreelancerBody body);
 
+    @PUT("user/setFcm")
+    Call<API.Response> updateFCM(@Body API.UpdateFCMBody body);
+
     @POST("education/create")
     Call<API.Response> createEducation(@Body Education body);
 

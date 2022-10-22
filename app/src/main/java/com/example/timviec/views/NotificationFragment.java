@@ -1,25 +1,28 @@
 package com.example.timviec.views;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.NonScrollListView;
 import com.example.timviec.model.Notification;
+import com.example.timviec.services.StateManagerService;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class NotificationFragment extends Utils.BaseFragment {
-    private ArrayList<Notification> notificationItems;
+    private StateManagerService stateManager = App.getContext().getStateManager();
+    private ArrayList<Notification> notifications = stateManager.getNotifications();
     private NotificationListViewAdapter notificationListViewAdapter;
     private NonScrollListView notificationListView;
 
@@ -30,10 +33,6 @@ public class NotificationFragment extends Utils.BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        notificationItems = new ArrayList<Notification>();
-        notificationItems.add(new Notification(1, "Test 1", "Test", new Date(), true));
-        notificationItems.add(new Notification(2, "Test 2", "Test", new Date(), false));
     }
 
     @Override
@@ -43,10 +42,15 @@ public class NotificationFragment extends Utils.BaseFragment {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
 
         notificationListView = view.findViewById(R.id.fragment_notification_list);
-        notificationListViewAdapter = new NotificationListViewAdapter(notificationItems);
-        notificationListView.setAdapter(notificationListViewAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        notificationListViewAdapter = new NotificationListViewAdapter(notifications);
+        notificationListView.setAdapter(notificationListViewAdapter);
     }
 }
 
@@ -94,7 +98,6 @@ class NotificationListViewAdapter extends BaseAdapter {
                     item.setUnread(false);
                     notifyDataSetChanged();
                 }
-
             }
         });
 

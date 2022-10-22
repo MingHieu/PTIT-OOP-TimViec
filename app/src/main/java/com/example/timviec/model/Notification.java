@@ -59,4 +59,15 @@ public class Notification {
     public void setUnread(Boolean unread) {
         this.unread = unread;
     }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", time=" + time +
+                ", unread=" + unread +
+                '}';
+    }
 }

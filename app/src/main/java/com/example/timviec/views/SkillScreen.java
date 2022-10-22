@@ -138,15 +138,18 @@ class SkillListViewAdapter extends BaseAdapter {
     private final ArrayList<Skill> listItems;
     private int padding;
     private float radius;
+    private boolean showDescription;
 
     public SkillListViewAdapter(ArrayList<Skill> listItems) {
         this.listItems = listItems;
+        this.showDescription = false;
     }
 
     public SkillListViewAdapter(ArrayList<Skill> listItems, @Nullable int padding, @Nullable float radius) {
         this.listItems = listItems;
         this.padding = padding;
         this.radius = radius;
+        this.showDescription = true;
     }
 
     @Override
@@ -172,7 +175,7 @@ class SkillListViewAdapter extends BaseAdapter {
         ((TextView) itemView.findViewById(R.id.skill_item_name)).setText(item.getName());
         ((RatingBar) itemView.findViewById(R.id.skill_item_rate)).setRating(item.getRating());
 
-        if (!Utils.checkEmptyInput(item.getDescription())) {
+        if (!Utils.checkEmptyInput(item.getDescription()) && this.showDescription) {
             itemView.findViewById(R.id.skill_item_description).setVisibility(View.VISIBLE);
             ((TextView) itemView.findViewById(R.id.skill_item_description)).setText(item.getDescription());
         }

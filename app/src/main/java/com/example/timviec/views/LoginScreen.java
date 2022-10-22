@@ -2,6 +2,7 @@ package com.example.timviec.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -69,7 +70,6 @@ public class LoginScreen extends Utils.BaseActivity {
                 .enqueue(new Callback<API.LoginResponse>() {
                     @Override
                     public void onResponse(Call<API.LoginResponse> call, Response<API.LoginResponse> response) {
-                        mLoginButton.setLoading(false);
                         if (response.isSuccessful()) {
                             API.LoginResponse res = response.body();
 
@@ -82,8 +82,18 @@ public class LoginScreen extends Utils.BaseActivity {
                             user.setDetail(res.getDetail());
                             stateManager.setUser(user);
 
-                            Intent i = new Intent(LoginScreen.this, BottomTab.class);
-                            startActivity(i);
+                            ApiService.apiService.updateFCM(new API.UpdateFCMBody(stateManager.getFCMToken())).enqueue(new Callback<API.Response>() {
+                                @Override
+                                public void onResponse(Call<API.Response> call, Response<API.Response> response) {
+                                    mLoginButton.setLoading(false);
+                                    goToHome();
+                                }
+
+                                @Override
+                                public void onFailure(Call<API.Response> call, Throwable t) {
+                                    Log.i("DebugTag", t.getMessage());
+                                }
+                            });
                         } else {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -102,6 +112,11 @@ public class LoginScreen extends Utils.BaseActivity {
                         Utils.handleFailure(LoginScreen.this, t);
                     }
                 });
+    }
+
+    private void goToHome(){
+        Intent i = new Intent(LoginScreen.this, BottomTab.class);
+        startActivity(i);
     }
 
     private void goToSignup() {

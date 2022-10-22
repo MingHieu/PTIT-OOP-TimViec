@@ -54,62 +54,79 @@ public class MainActivity extends Utils.BaseActivity {
                     }
                 });
 
-                FirebaseMessaging.getInstance().getToken()
-                        .addOnCompleteListener(new OnCompleteListener<String>() {
-                            @Override
-                            public void onComplete(@NonNull Task<String> task) {
-                                if (!task.isSuccessful()) {
-                                    Log.i("DebugTag", "Fetching FCM registration token failed", task.getException());
-                                    goToLogin();
-                                }
-
-                                // Get new FCM registration token
-                                String token = task.getResult();
-                                Log.i("DebugTag", "FCM Token: " + token);
-
-                                String authToken = storageService.getString("authToken");
-                                Log.i("DebugTag", "Authentication token: " + authToken);
-                                if (authToken != null) {
-                                    stateManager.setAuthToken(authToken);
-                                    ApiService.apiService.getUserDetail().enqueue(new Callback<API.UserDetailResponse>() {
-                                        @Override
-                                        public void onResponse(Call<API.UserDetailResponse> call, Response<API.UserDetailResponse> response) {
-                                            if (response.isSuccessful()) {
-                                                API.UserDetailResponse res = response.body();
-                                                API.UserDetailResponse.UserDetailResponseData data = res.getData();
-
-                                                User user = stateManager.getUser();
-                                                user.setDetail(data.getDetail());
-                                                user.setRoleId(data.getRole());
-
-                                                goToHome();
-
-                                            } else {
-                                                try {
-                                                    JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                                                    Log.e("DebugTag", jsonObject.getString("message"));
-                                                    goToLogin();
-                                                } catch (Exception e) {
-                                                    Log.e("DebugTag", e.getMessage());
-                                                    goToLogin();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<API.UserDetailResponse> call, Throwable t) {
-                                            Log.e("DebugTag", t.toString());
-                                            goToLogin();
-                                        }
-                                    });
-
-                                } else {
-                                    goToLogin();
-                                }
-                            }
-                        });
+                getFCMToken();
+                checkAlreadyLogin();
             }
         }, 1000);
+    }
+
+    private void getFCMToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.i("DebugTag", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        Log.i("DebugTag", "FCM Token: " + token);
+                        stateManager.setFCMToken(token);
+                    }
+                });
+
+        FirebaseMessaging.getInstance().subscribeToTopic("all").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (!task.isSuccessful()) {
+                    Log.i("DebugTag", "Subscribe to FCM topic failed", task.getException());
+                    return;
+                }
+                Log.i("DebugTag", "Subscribe to FCM topic: " + task.getResult());
+            }
+        });
+    }
+
+    private void checkAlreadyLogin() {
+        String authToken = storageService.getString("authToken");
+        Log.i("DebugTag", "Authentication token: " + authToken);
+        if (authToken != null) {
+            stateManager.setAuthToken(authToken);
+            ApiService.apiService.getUserDetail().enqueue(new Callback<API.UserDetailResponse>() {
+                @Override
+                public void onResponse(Call<API.UserDetailResponse> call, Response<API.UserDetailResponse> response) {
+                    if (response.isSuccessful()) {
+                        API.UserDetailResponse res = response.body();
+                        API.UserDetailResponse.UserDetailResponseData data = res.getData();
+
+                        User user = stateManager.getUser();
+                        user.setDetail(data.getDetail());
+                        user.setRoleId(data.getRole());
+
+                        goToHome();
+                    } else {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                            Log.e("DebugTag", jsonObject.getString("message"));
+                            goToLogin();
+                        } catch (Exception e) {
+                            Log.e("DebugTag", e.getMessage());
+                            goToLogin();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<API.UserDetailResponse> call, Throwable t) {
+                    Log.e("DebugTag", t.toString());
+                    goToLogin();
+                }
+            });
+        } else {
+            goToLogin();
+        }
     }
 
     private void goToLogin() {
