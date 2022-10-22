@@ -5,8 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.components.CustomButton;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HistoryFragment extends Utils.BaseFragment {
 
@@ -27,6 +31,15 @@ public class HistoryFragment extends Utils.BaseFragment {
 
         setUpScreen(view, "Lịch sử");
 
+        ((CustomButton) view.findViewById(R.id.fragment_history_button)).setHandleOnClick(new Runnable() {
+            @Override
+            public void run() {
+                BottomNavigationView bottomTab = getActivity().findViewById(R.id.bottom_tab);
+                ViewPager2 vp = getActivity().findViewById(R.id.bottom_tab_view_pager);
+                vp.setCurrentItem(0);
+                bottomTab.setSelectedItemId(R.id.home_screen);
+            }
+        });
 
         return view;
     }

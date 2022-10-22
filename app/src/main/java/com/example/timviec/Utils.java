@@ -171,11 +171,6 @@ public class Utils {
             if (actionBarBackButton != null) {
                 actionBarBackButton.setVisibility(View.GONE);
             }
-
-            LinearLayout actionBarBorder = view.findViewById(R.id.action_bar_border);
-            if (actionBarBorder != null) {
-                actionBarBorder.setVisibility(View.GONE);
-            }
         }
     }
 
