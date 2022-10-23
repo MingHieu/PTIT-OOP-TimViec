@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class FcmToken {
-    private String fcm;
+    private String fcmToken;
+    private String content;
 }

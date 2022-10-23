@@ -26,7 +26,7 @@ public class UserService implements UserServiceInterface {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
         User user = entityManager.find(User.class, userDetails.getId());
-        user.setFcmToken(fcmToken.getFcm());
+        user.setFcmToken(fcmToken.getFcmToken());
         userRepository.save(user);
     }
 }
