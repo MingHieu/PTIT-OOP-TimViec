@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.findjb.findjob.Fcm.FCMService;
 import com.findjb.findjob.JWT.JwtUtils;
 import com.findjb.findjob.JWT.JWTServices.UserDetailsImplement;
 import com.findjb.findjob.Model.Enterprise;
 import com.findjb.findjob.Model.Freelancer;
 import com.findjb.findjob.Repositories.RoleRepository;
 import com.findjb.findjob.Repositories.UserRepository;
+import com.findjb.findjob.Request.FcmNotification;
 import com.findjb.findjob.Request.LoginRequest;
 import com.findjb.findjob.Responses.DataResponse;
 import com.findjb.findjob.Responses.JwtResponse;
@@ -54,6 +56,9 @@ public class AuthController {
         @Autowired
         JwtUtils jwtUtils;
 
+        @Autowired
+        FCMService fcmService;
+
         @PostMapping({ "/login" })
         public ResponseEntity<Object> authenticateUser(@RequestBody LoginRequest loginRequest) throws Exception {
                 try {
@@ -70,6 +75,7 @@ public class AuthController {
                                         .collect(Collectors.toList());
                         String role = roles.get(0);
                         Long role_id = roleRepository.findByName(role).getId();
+                        String fcmToken = userRepository.findById(userDetails.getId()).get().getFcmToken();
                         Object detail = new Object();
                         if (role_id == 2) {
                                 detail = entityManager.find(Enterprise.class, userDetails.getId());
@@ -82,6 +88,8 @@ public class AuthController {
                         // userDetails.getUsername(),
                         // detail,
                         // role_id));
+                        FcmNotification fcmNotification = new FcmNotification(fcmToken, "Đăng nhập thành công");
+                        fcmService.pushNotification(fcmNotification);
                         return new ResponseEntity<Object>(
                                         new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), role_id,
                                                         detail),

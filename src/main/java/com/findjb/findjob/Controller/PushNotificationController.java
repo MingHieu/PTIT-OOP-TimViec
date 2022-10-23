@@ -10,11 +10,11 @@ import com.findjb.findjob.Request.FcmToken;
 
 @RestController
 public class PushNotificationController {
-    @Autowired
-    private FCMService fcmService;
+    // @Autowired
+    // private FCMService fcmService;
 
-    @PostMapping("/notification")
-    public String sendSampleNotification(@RequestBody FcmToken pnsRequest) {
-        return fcmService.pushNotification(pnsRequest);
-    }
+    // @PostMapping("/notification")
+    // public String sendSampleNotification(@RequestBody FcmToken pnsRequest) {
+    //     return fcmService.pushNotification(pnsRequest);
+    // }
 }
