@@ -51,16 +51,7 @@ public class SkillScreen extends Utils.BaseActivity {
 
         setUpScreen("Kỹ năng");
 
-        skillItems = user.getDetail().getSkills();
         skillListView = findViewById(R.id.skill_screen_list);
-        skillListView.setPadding(
-                (int) Utils.convertDpToPixel(10, this),
-                (int) Utils.convertDpToPixel(20, this),
-                (int) Utils.convertDpToPixel(10, this),
-                0);
-        skillListView.setDivider(new ColorDrawable(Color.TRANSPARENT));  //hide the divider
-        skillListView.setDividerHeight((int) Utils.convertDpToPixel(20, this));
-
 
         findViewById(R.id.skill_screen_add_button).setOnClickListener(new View.OnClickListener() {
             @Override

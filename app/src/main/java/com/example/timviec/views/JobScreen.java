@@ -41,13 +41,6 @@ public class JobScreen extends Utils.BaseActivity {
         }
 
         jobListView = findViewById(R.id.job_sceen_list);
-        jobListView.setPadding(
-                (int) Utils.convertDpToPixel(10, this),
-                (int) Utils.convertDpToPixel(10, this),
-                (int) Utils.convertDpToPixel(10, this),
-                0);
-        jobListView.setDivider(new ColorDrawable(Color.TRANSPARENT)); // hide the divider
-        jobListView.setDividerHeight((int) Utils.convertDpToPixel(20, this));
         JobListViewAdapter = new JobListViewAdapter(
                 jobItems,
                 (int) Utils.convertDpToPixel(10, this),

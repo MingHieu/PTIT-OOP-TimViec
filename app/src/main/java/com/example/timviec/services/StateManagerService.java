@@ -4,7 +4,6 @@ import com.example.timviec.model.Notification;
 import com.example.timviec.model.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class StateManagerService {
     private User user;
@@ -17,8 +16,8 @@ public class StateManagerService {
         authToken = "";
         FCMToken = "";
         notifications = new ArrayList<Notification>();
-        notifications.add(new Notification(1, "Test 1", "Test", new Date(), true));
-        notifications.add(new Notification(2, "Test 1", "Test", new Date(), false));
+//        notifications.add(new Notification(1, "Test 1", "Test", new Date(), true));
+//        notifications.add(new Notification(2, "Test 1", "Test", new Date(), false));
     }
 
     public User getUser() {

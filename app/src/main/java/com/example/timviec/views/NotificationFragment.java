@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
-import com.example.timviec.components.NonScrollListView;
 import com.example.timviec.model.Notification;
 import com.example.timviec.services.StateManagerService;
 
@@ -23,7 +24,8 @@ public class NotificationFragment extends Utils.BaseFragment {
     private StateManagerService stateManager = App.getContext().getStateManager();
     private ArrayList<Notification> notifications = stateManager.getNotifications();
     private NotificationListViewAdapter notificationListViewAdapter;
-    private NonScrollListView notificationListView;
+    private ListView notificationListView;
+    private LinearLayout emptyNotiView;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -41,6 +43,15 @@ public class NotificationFragment extends Utils.BaseFragment {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
 
         notificationListView = view.findViewById(R.id.fragment_notification_list);
+        emptyNotiView = view.findViewById(R.id.fragment_notification_empty);
+
+        if (notifications.size() == 0) {
+            emptyNotiView.setVisibility(View.VISIBLE);
+            notificationListView.setVisibility(View.GONE);
+        }else{
+            emptyNotiView.setVisibility(View.GONE);
+            notificationListView.setVisibility(View.VISIBLE);
+        }
 
         view.findViewById(R.id.fragment_notification_read_all).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +71,15 @@ public class NotificationFragment extends Utils.BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        notificationListViewAdapter = new NotificationListViewAdapter(notifications);
-        notificationListView.setAdapter(notificationListViewAdapter);
+
+        if (notifications.size() != 0) {
+            if (notificationListView.getVisibility() == View.GONE) {
+                notificationListView.setVisibility(View.VISIBLE);
+                emptyNotiView.setVisibility(View.GONE);
+            }
+            notificationListViewAdapter = new NotificationListViewAdapter(notifications);
+            notificationListView.setAdapter(notificationListViewAdapter);
+        }
     }
 }
 

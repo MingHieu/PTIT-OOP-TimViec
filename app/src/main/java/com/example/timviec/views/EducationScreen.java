@@ -50,13 +50,6 @@ public class EducationScreen extends Utils.BaseActivity {
         setUpScreen("Học vấn");
 
         educationListView = findViewById(R.id.education_screen_list);
-        educationListView.setPadding(
-                (int) Utils.convertDpToPixel(10, this),
-                (int) Utils.convertDpToPixel(20, this),
-                (int) Utils.convertDpToPixel(10, this),
-                0);
-        educationListView.setDivider(new ColorDrawable(Color.TRANSPARENT));  //hide the divider
-        educationListView.setDividerHeight((int) Utils.convertDpToPixel(20, this));
 
         findViewById(R.id.education_screen_add_button).setOnClickListener(new View.OnClickListener() {
             @Override

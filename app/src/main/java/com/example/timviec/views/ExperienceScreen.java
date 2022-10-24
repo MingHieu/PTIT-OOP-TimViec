@@ -50,13 +50,6 @@ public class ExperienceScreen extends Utils.BaseActivity {
         setUpScreen("Kinh nghiệm");
 
         experienceListView = findViewById(R.id.experience_screen_list);
-        experienceListView.setPadding(
-                (int) Utils.convertDpToPixel(10, this),
-                (int) Utils.convertDpToPixel(20, this),
-                (int) Utils.convertDpToPixel(10, this),
-                0);
-        experienceListView.setDivider(new ColorDrawable(Color.TRANSPARENT));  //hide the divider
-        experienceListView.setDividerHeight((int) Utils.convertDpToPixel(20, this));
 
         findViewById(R.id.experience_screen_add_button).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -52,8 +52,7 @@
         <entry key="app/src/main/res/layout-w1240dp/activity_login_screen.xml" value="0.1813922356091031" />
         <entry key="app/src/main/res/layout/activity_bottom_tab.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_education_edit_screen.xml" value="0.22870370370370371" />
-        <entry key="app/src/main/res/layout/activity_education_screen.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_enterprise_edit_screen.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/layout/activity_education_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_expeirence_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_experience_edit_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_experience_screen.xml" value="0.28229166666666666" />
@@ -61,7 +60,7 @@
         <entry key="app/src/main/res/layout/activity_job_detail.xml" value="0.2657407407407407" />
         <entry key="app/src/main/res/layout/activity_job_details.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_job_edit_screen.xml" value="0.2657407407407407" />
-        <entry key="app/src/main/res/layout/activity_job_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_job_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_login_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_logout_screen.xml" value="0.32229167796947333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -72,21 +71,20 @@
         <entry key="app/src/main/res/layout/activity_signup_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_signup_user_screen.xml" value="0.22870370370370371" />
         <entry key="app/src/main/res/layout/activity_skill_edit_screen.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_skill_screen.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_skill_screen.xml" value="0.21967213114754097" />
         <entry key="app/src/main/res/layout/activity_user_edit_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/border.xml" value="0.2682291666666667" />
         <entry key="app/src/main/res/layout/component_sample.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/content_product_screen.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/custom_action_bar.xml" value="0.28125" />
         <entry key="app/src/main/res/layout/custom_dialog.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/education_item.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/experience_item.xml" value="0.22870370370370371" />
+        <entry key="app/src/main/res/layout/education_item.xml" value="0.22870370370370371" />
+        <entry key="app/src/main/res/layout/experience_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_enterprise.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.28229166666666666" />
-        <entry key="app/src/main/res/layout/fragment_history.xml" value="0.21944444444444444" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_job_detail_company.xml" value="0.23020833333333332" />
-        <entry key="app/src/main/res/layout/fragment_job_detail_information.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_job_detail_company.xml" value="0.2657407407407407" />
+        <entry key="app/src/main/res/layout/fragment_job_detail_information.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_job_details_company.xml" value="0.3225814819335938" />
         <entry key="app/src/main/res/layout/fragment_job_detalils_information.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.1" />
@@ -96,7 +94,7 @@
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1068840579710145" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.28229166666666666" />
-        <entry key="app/src/main/res/layout/fragment_user.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_user.xml" value="0.1" />
         <entry key="app/src/main/res/layout/job_item.xml" value="0.22870370370370371" />
         <entry key="app/src/main/res/layout/logout_confirm_dialog.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/notification_item.xml" value="0.25" />
@@ -106,7 +104,7 @@
         <entry key="app/src/main/res/layout/sample_job_card.xml" value="0.21135029354207435" />
         <entry key="app/src/main/res/layout/sample_search_input.xml" value="0.2682291666666667" />
         <entry key="app/src/main/res/layout/sample_setting_selection.xml" value="0.28229166666666666" />
-        <entry key="app/src/main/res/layout/skill_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/skill_item.xml" value="0.18820224719101122" />
         <entry key="app/src/main/res/layout/spinner_item_selected.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_tab.xml" value="0.28125" />
       </map>
