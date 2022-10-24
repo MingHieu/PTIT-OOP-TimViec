@@ -55,8 +55,8 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
         if (extras != null) {
             if (createNew) {
                 mExperience = new Experience();
-                deleteButton.setmText("Huỷ");
-                approveButton.setmText("Thêm mới");
+                deleteButton.setButtonText("Huỷ");
+                approveButton.setButtonText("Thêm mới");
             } else {
                 mExperience = new Experience(
                         extras.getInt("id"),

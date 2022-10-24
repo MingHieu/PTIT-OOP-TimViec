@@ -11,6 +11,7 @@
     <include layout="@layout/custom_action_bar" />
 
     <LinearLayout
+        android:id="@+id/fragment_history_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/surface"
@@ -33,11 +34,12 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/fragment_history_empty_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingHorizontal="40dp"
-            android:text="Bạn hãy ứng tuyển hoặc theo dõi các bài tuyển dụng để tìm kiếm cơ hội việc làm nhé."
+            android:text="Hàng ngàn cơ hội việc làm đang chào đón.\nBạn hãy ứng tuyển để tìm kiếm cơ hội việc làm ngay nhé."
             android:textAlignment="center"
             android:textColor="@color/on_surface"
             android:textSize="16dp" />

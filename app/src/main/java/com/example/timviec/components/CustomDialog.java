@@ -46,9 +46,9 @@ public class CustomDialog {
         textView.setText(message);
 
         if (buttonTitle != null) {
-            confirmButton.setmText(buttonTitle);
+            confirmButton.setButtonText(buttonTitle);
         } else {
-            confirmButton.setmText("Xác nhận");
+            confirmButton.setButtonText("Xác nhận");
         }
 
         confirmButton.setHandleOnClick(new Runnable() {

@@ -4,15 +4,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
+import com.example.timviec.model.User;
+import com.example.timviec.services.StateManagerService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HistoryFragment extends Utils.BaseFragment {
+
+    private StateManagerService stateManager = App.getContext().getStateManager();
+    private User user = stateManager.getUser();
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -31,15 +38,40 @@ public class HistoryFragment extends Utils.BaseFragment {
 
         setUpScreen(view, "Lịch sử");
 
-        ((CustomButton) view.findViewById(R.id.fragment_history_button)).setHandleOnClick(new Runnable() {
-            @Override
-            public void run() {
-                BottomNavigationView bottomTab = getActivity().findViewById(R.id.bottom_tab);
-                ViewPager2 vp = getActivity().findViewById(R.id.bottom_tab_view_pager);
-                vp.setCurrentItem(0);
-                bottomTab.setSelectedItemId(R.id.home_screen);
+        if (false) {
+            view.findViewById(R.id.fragment_history_empty).setVisibility(View.GONE);
+        } else {
+            TextView emptyDescription = view.findViewById(R.id.fragment_history_empty_description);
+            CustomButton button = view.findViewById(R.id.fragment_history_button);
+
+            if (user.getRoleId() == 1) {
+                emptyDescription.setText("Hàng ngàn cơ hội việc làm đang chào đón.\nBạn hãy ứng tuyển để tìm kiếm cơ hội việc làm ngay nhé.");
+                button.setButtonText("Tìm việc ngay");
+                button.setHandleOnClick(new Runnable() {
+                    @Override
+                    public void run() {
+                        BottomNavigationView bottomTab = getActivity().findViewById(R.id.bottom_tab);
+                        ViewPager2 vp = getActivity().findViewById(R.id.bottom_tab_view_pager);
+                        vp.setCurrentItem(0);
+                        bottomTab.setSelectedItemId(R.id.home_screen);
+                    }
+                });
             }
-        });
+
+            if (user.getRoleId() == 2) {
+                emptyDescription.setText("Vẫn chưa có người ứng tuyển.\nBạn hãy đăng các bài tuyển dụng mới để tìm kiếm nhân sự nhé.");
+                button.setButtonText("Tạo bài tuyển dụng");
+                button.setHandleOnClick(new Runnable() {
+                    @Override
+                    public void run() {
+                        BottomNavigationView bottomTab = getActivity().findViewById(R.id.bottom_tab);
+                        ViewPager2 vp = getActivity().findViewById(R.id.bottom_tab_view_pager);
+                        vp.setCurrentItem(3);
+                        bottomTab.setSelectedItemId(R.id.user_screen);
+                    }
+                });
+            }
+        }
 
         return view;
     }

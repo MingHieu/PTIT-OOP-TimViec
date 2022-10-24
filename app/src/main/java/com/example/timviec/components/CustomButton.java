@@ -17,11 +17,12 @@ import com.example.timviec.R;
  * TODO: document your custom view class.
  */
 public class CustomButton extends FrameLayout {
-    private String mText;
+    private String buttonText;
     private CardView mBtn;
     private CardView mBtnInner;
     private TextView mBtnText;
     private LinearLayout mLoadingView;
+    private int color;
 
     public CustomButton(Context context) {
         super(context);
@@ -45,13 +46,13 @@ public class CustomButton extends FrameLayout {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.CustomButton, defStyle, 0);
 
-        mText = a.getString(R.styleable.CustomButton_custom_button_text);
+        buttonText = a.getString(R.styleable.CustomButton_custom_button_text);
         mBtn = findViewById(R.id.custom_button_wrapper);
         mBtnInner = findViewById(R.id.custom_button_inner_wrapper);
         mBtnText = findViewById(R.id.custom_button_text);
-        mBtnText.setText(mText);
+        mBtnText.setText(buttonText);
 
-        int color = a.getColor(R.styleable.CustomButton_custom_button_color, getResources().getColor(R.color.primary));
+        color = a.getColor(R.styleable.CustomButton_custom_button_color, getResources().getColor(R.color.primary));
         mBtn.setCardBackgroundColor(color);
         mBtnInner.setCardBackgroundColor(color);
 
@@ -86,9 +87,9 @@ public class CustomButton extends FrameLayout {
         });
     }
 
-    public void setmText(String mText) {
-        this.mText = mText;
-        mBtnText.setText(mText);
+    public void setButtonText(String buttonText) {
+        this.buttonText = buttonText;
+        mBtnText.setText(buttonText);
     }
 
     public void setLoading(Boolean loading) {
@@ -105,5 +106,27 @@ public class CustomButton extends FrameLayout {
             mBtnInner.getBackground().setAlpha(255);
             mBtn.setClickable(true);
         }
+    }
+
+    /**
+     * @param buttonType 0 | 1
+     */
+    public void setButtonType(int buttonType) {
+        switch (buttonType) {
+            case 0:
+                mBtnInner.setCardBackgroundColor(color);
+                mBtnText.setTextColor(getResources().getColor(R.color.white));
+                break;
+            case 1:
+                mBtnInner.setCardBackgroundColor(getResources().getColor(R.color.white));
+                mBtnText.setTextColor(color);
+                break;
+        }
+    }
+
+    public void setColor(int color){
+        this.color = color;
+        mBtn.setCardBackgroundColor(color);
+        mBtnInner.setCardBackgroundColor(color);
     }
 }

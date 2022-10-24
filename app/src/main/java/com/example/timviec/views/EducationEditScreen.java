@@ -58,8 +58,8 @@ public class EducationEditScreen extends Utils.BaseActivity {
         if (extras != null) {
             if (createNew) {
                 mEducation = new Education();
-                deleteButton.setmText("Huỷ");
-                approveButton.setmText("Thêm mới");
+                deleteButton.setButtonText("Huỷ");
+                approveButton.setButtonText("Thêm mới");
             } else {
                 mEducation = new Education(
                         extras.getInt("id"),

@@ -91,10 +91,12 @@ public class LoginScreen extends Utils.BaseActivity {
 
                                 @Override
                                 public void onFailure(Call<API.Response> call, Throwable t) {
+                                    mLoginButton.setLoading(false);
                                     Log.i("DebugTag", t.getMessage());
                                 }
                             });
                         } else {
+                            mLoginButton.setLoading(false);
                             try {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());
                                 CustomDialog dialog = new CustomDialog(LoginScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);

@@ -49,8 +49,8 @@ public class SkillEditScreen extends Utils.BaseActivity {
         if (extras != null) {
             if (createNew) {
                 mSkill = new Skill();
-                deleteButton.setmText("Huỷ");
-                approveButton.setmText("Thêm mới");
+                deleteButton.setButtonText("Huỷ");
+                approveButton.setButtonText("Thêm mới");
             } else {
                 mSkill = new Skill(
                         extras.getInt("id"),

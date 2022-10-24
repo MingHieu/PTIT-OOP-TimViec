@@ -69,7 +69,19 @@ public class API {
         }
     }
 
-    public static class UpdateFCMBody{
+    public static class UpdateEnterpriseBody {
+        private String avatar, name, address, phone_number, introduction;
+
+        public UpdateEnterpriseBody(String avatar, String name, String address, String phone_number, String introduction) {
+            this.avatar = avatar;
+            this.name = name;
+            this.address = address;
+            this.phone_number = phone_number;
+            this.introduction = introduction;
+        }
+    }
+
+    public static class UpdateFCMBody {
         private String fcm;
 
         public UpdateFCMBody(String fcm) {

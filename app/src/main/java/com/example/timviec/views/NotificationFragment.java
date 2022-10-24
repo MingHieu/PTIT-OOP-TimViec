@@ -1,7 +1,6 @@
 package com.example.timviec.views;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +41,18 @@ public class NotificationFragment extends Utils.BaseFragment {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
 
         notificationListView = view.findViewById(R.id.fragment_notification_list);
+
+        view.findViewById(R.id.fragment_notification_read_all).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (Notification x : notifications) {
+                    if (x.getUnread()) {
+                        x.setUnread(false);
+                    }
+                }
+                notificationListViewAdapter.notifyDataSetChanged();
+            }
+        });
 
         return view;
     }

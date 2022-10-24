@@ -27,8 +27,8 @@ public class JobEditScreen extends Utils.BaseActivity {
         if (extras != null) {
             if (createNew) {
                 mJob = new Job();
-                delateButton.setmText("Huỷ");
-                approveButton.setmText("Thêm mới");
+                delateButton.setButtonText("Huỷ");
+                approveButton.setButtonText("Thêm mới");
             } else {
                 mJob = new Job(
                         extras.getString("name"),
