@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.timviec.App;
+import com.example.timviec.Constant;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.LoadingDialog;
@@ -90,7 +91,7 @@ public class MainActivity extends Utils.BaseActivity {
     }
 
     private void checkAlreadyLogin() {
-        String authToken = storageService.getString("authToken");
+        String authToken = storageService.getString(Constant.AUTH_TOKEN);
         Log.i("DebugTag", "Authentication token: " + authToken);
         if (authToken != null) {
             stateManager.setAuthToken(authToken);

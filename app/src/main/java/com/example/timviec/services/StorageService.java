@@ -10,6 +10,10 @@ public class StorageService {
         sharedPref = context.getSharedPreferences("com.example.timviec", Context.MODE_PRIVATE);
     }
 
+    public void removeItem(String key) {
+        sharedPref.edit().remove(key).apply();
+    }
+
     public void setString(String key, String value) {
         sharedPref.edit().putString(key, value).apply();
     }

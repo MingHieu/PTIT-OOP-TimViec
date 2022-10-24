@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.timviec.App;
+import com.example.timviec.Constant;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
@@ -75,7 +76,7 @@ public class LoginScreen extends Utils.BaseActivity {
 
                             String authToken = res.getToken();
                             stateManager.setAuthToken(authToken);
-                            storageService.setString("authToken", authToken);
+                            storageService.setString(Constant.AUTH_TOKEN, authToken);
 
                             User user = new User();
                             user.setRoleId(res.getRole());
