@@ -30,6 +30,38 @@ public class API {
         }
     }
 
+    public static class CreateFreelancerBody {
+        private String name;
+        private String email;
+        private String password;
+
+        public CreateFreelancerBody(String name, String email, String password) {
+            this.name = name;
+            this.email = email;
+            this.password = password;
+        }
+    }
+
+    public static class SignupUserResponse {
+        private int ID;
+        private int role;
+        private String email;
+        private String token;
+        private User.UserDetail detail;
+
+        public int getRole() {
+            return role;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getToken() {
+            return token;
+        }
+    }
+
     public static class UserDetailResponse {
 
         private Boolean status;

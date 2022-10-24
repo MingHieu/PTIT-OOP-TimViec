@@ -47,6 +47,9 @@ public interface ApiService {
     @GET("auth/user/detail")
     Call<API.UserDetailResponse> getUserDetail();
 
+    @POST("user/freelancer/create")
+    Call<API.SignupUserResponse> createFreelancer(@Body API.CreateFreelancerBody body);
+
     @PUT("user/freelancer/update")
     Call<API.Response> updateFreelancer(@Body API.UpdateFreelancerBody body);
 
