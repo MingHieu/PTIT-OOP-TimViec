@@ -33,6 +33,7 @@ import com.findjb.findjob.Responses.DataResponse;
 import com.findjb.findjob.Responses.JwtResponse;
 import com.findjb.findjob.Responses.ObjectResponse;
 import com.findjb.findjob.Responses.StatusResponse;
+import com.google.firebase.FirebaseException;
 
 @RestController
 @RequestMapping({ "/api/auth" })
@@ -75,7 +76,6 @@ public class AuthController {
                                         .collect(Collectors.toList());
                         String role = roles.get(0);
                         Long role_id = roleRepository.findByName(role).getId();
-                        String fcmToken = userRepository.findById(userDetails.getId()).get().getFcmToken();
                         Object detail = new Object();
                         if (role_id == 2) {
                                 detail = entityManager.find(Enterprise.class, userDetails.getId());
@@ -83,19 +83,19 @@ public class AuthController {
                         } else {
                                 detail = entityManager.find(Freelancer.class, userDetails.getId());
                         }
-                        // return ResponseEntity.ok(new JwtResponse(jwt,
-                        // userDetails.getId(),
-                        // userDetails.getUsername(),
-                        // detail,
-                        // role_id));
-                        FcmNotification fcmNotification = new FcmNotification(fcmToken, "Đăng nhập thành công");
-                        fcmService.pushNotification(fcmNotification);
+                        try{
+                                String fcmToken = userRepository.findById(userDetails.getId()).get().getFcmToken();
+                                FcmNotification fcmNotification = new FcmNotification(fcmToken, "Đăng nhập thành công");
+                                fcmService.pushNotification(fcmNotification);
+                        }
+                        catch(Exception e){
+                        }
                         return new ResponseEntity<Object>(
                                         new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), role_id,
                                                         detail),
                                         HttpStatus.OK);
                 } catch (Exception e) {
-                        return new ResponseEntity<Object>(new StatusResponse(false, "Đăng nhập thất bại"),
+                        return new ResponseEntity<Object>(new StatusResponse(false, e.getMessage()),
                                         HttpStatus.UNAUTHORIZED);
                 }
         }
