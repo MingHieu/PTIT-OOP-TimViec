@@ -60,6 +60,14 @@ public class LoginScreen extends Utils.BaseActivity {
                 goToSignup();
             }
         });
+
+        findViewById(R.id.login_forgot_pass_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomDialog dialog = new CustomDialog(LoginScreen.this, "Chức năng đang phát triển", null, CustomDialog.DialogType.WARNING);
+                dialog.show();
+            }
+        });
     }
 
     private void login() {

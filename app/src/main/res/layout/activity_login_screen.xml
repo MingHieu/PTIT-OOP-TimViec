@@ -43,6 +43,7 @@
             app:custom_input_type="password" />
 
         <TextView
+            android:id="@+id/login_forgot_pass_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
