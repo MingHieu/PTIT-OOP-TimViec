@@ -42,7 +42,9 @@ public class EnterpriseService implements EnterpriseServiceInterface {
         Optional<Role> role = this.roleRepository.findById(2L);
         Role thisRole = role.get();
         User user = User.builder().username(newEnterprise.getEmail())
-                .password(this.passwordEncoder.encode(newEnterprise.getPassword())).role(thisRole)
+                .password(this.passwordEncoder.encode(newEnterprise.getPassword()))
+                .fcmToken(newEnterprise.getFcmToken())
+                .role(thisRole)
                 .build();
         userRepository.save(user);
         Enterprise enterprise = Enterprise.builder()

@@ -35,7 +35,9 @@ public class FreelancerService implements FreelancerServiceInterface {
         Optional<Role> role = this.roleRepository.findById(1L);
         Role freelancerRole = role.get();
         User user = User.builder().username(newFreelancer.getEmail())
-                .password(this.passwordEncoder.encode(newFreelancer.getPassword())).role(freelancerRole)
+                .password(this.passwordEncoder.encode(newFreelancer.getPassword()))
+                .fcmToken(newFreelancer.getFcmToken())
+                .role(freelancerRole)
                 .build();
         userRepository.save(user);
         Freelancer freelancer = Freelancer.builder()

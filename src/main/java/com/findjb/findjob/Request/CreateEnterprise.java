@@ -26,4 +26,6 @@ public class CreateEnterprise {
     @NotNull
     @Size(max = 200,message = "Địa chỉ quá dài")
     private String address;
+
+    private String fcmToken;
 }
