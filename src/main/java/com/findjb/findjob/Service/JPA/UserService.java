@@ -1,7 +1,5 @@
 package com.findjb.findjob.Service.JPA;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,8 +14,6 @@ import com.findjb.findjob.Service.UserServiceInterface;
 
 @Service
 public class UserService implements UserServiceInterface {
-    @PersistenceContext
-    private EntityManager entityManager;
     @Autowired
     private UserRepository userRepository;
 
@@ -25,7 +21,7 @@ public class UserService implements UserServiceInterface {
     public void setFcmToken(FcmToken fcmToken) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
-        User user = entityManager.find(User.class, userDetails.getId());
+        User user = userRepository.findById(userDetails.getId()).get();
         user.setFcmToken(fcmToken.getFcmToken());
         userRepository.save(user);
     }
