@@ -85,7 +85,7 @@ public class AuthController {
                         }
                         try{
                                 String fcmToken = userRepository.findById(userDetails.getId()).get().getFcmToken();
-                                FcmNotification fcmNotification = new FcmNotification(fcmToken, "Đăng nhập thành công");
+                                FcmNotification fcmNotification = new FcmNotification(fcmToken, "Đăng nhập thành công", "", null);
                                 fcmService.pushNotification(fcmNotification);
                         }
                         catch(Exception e){

@@ -11,7 +11,8 @@ import com.google.firebase.messaging.Message;
 public class FCMService {
     public String pushNotification(FcmNotification pnsRequest) {
         Message message = Message.builder()
-                .putData("content", pnsRequest.getContent())
+                .setTitle(pnsRequest.getTitle())
+                .setBody(pnsRequest.getMessage())
                 .setToken(pnsRequest.getFcmToken())
                 .build();
 
