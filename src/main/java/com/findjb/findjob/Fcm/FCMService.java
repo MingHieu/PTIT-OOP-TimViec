@@ -12,7 +12,7 @@ public class FCMService {
     public String pushNotification(FcmNotification pnsRequest) {
         Message message = Message.builder()
                 .setTitle(pnsRequest.getTitle())
-                .setBody(pnsRequest.getMessage())
+                .setBody(pnsRequest.getBody())
                 .setToken(pnsRequest.getFcmToken())
                 .build();
 
