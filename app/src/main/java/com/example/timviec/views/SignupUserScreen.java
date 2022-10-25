@@ -15,6 +15,7 @@ import com.example.timviec.router.BottomTab;
 import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
 import com.example.timviec.services.StorageService;
+
 import org.json.JSONObject;
 
 import retrofit2.Call;
@@ -62,7 +63,7 @@ public class SignupUserScreen extends Utils.BaseActivity {
                     @Override
                     public void onResponse(Call<API.SignupUserResponse> call, Response<API.SignupUserResponse> response) {
                         if (response.isSuccessful()) {
-                            API.SignupUserResponse res= response.body();
+                            API.SignupUserResponse res = response.body();
 
                             String authToken = res.getToken();
                             stateManager.setAuthToken(authToken);

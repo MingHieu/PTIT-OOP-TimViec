@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/notification_card_content"
+            android:id="@+id/notification_card_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Notification Content"

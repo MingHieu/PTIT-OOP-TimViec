@@ -43,6 +43,7 @@ public class SettingScreen extends Utils.BaseActivity {
             @Override
             public void run() {
                 storage.removeItem(Constant.AUTH_TOKEN);
+                mAlertDialog.dismiss();
                 Intent i = new Intent(SettingScreen.this, SelectRoleScreen.class);
                 startActivity(i);
                 finish();

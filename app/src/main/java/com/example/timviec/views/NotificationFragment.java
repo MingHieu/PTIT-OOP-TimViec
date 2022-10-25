@@ -48,7 +48,7 @@ public class NotificationFragment extends Utils.BaseFragment {
         if (notifications.size() == 0) {
             emptyNotiView.setVisibility(View.VISIBLE);
             notificationListView.setVisibility(View.GONE);
-        }else{
+        } else {
             emptyNotiView.setVisibility(View.GONE);
             notificationListView.setVisibility(View.VISIBLE);
         }
@@ -112,7 +112,7 @@ class NotificationListViewAdapter extends BaseAdapter {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
         ((TextView) itemView.findViewById(R.id.notification_card_title)).setText(item.getTitle());
-        ((TextView) itemView.findViewById(R.id.notification_card_content)).setText(item.getContent());
+        ((TextView) itemView.findViewById(R.id.notification_card_body)).setText(item.getBody());
         ((TextView) itemView.findViewById(R.id.notification_card_time)).setText(dateFormat.format(item.getTime()));
         if (!item.getUnread()) {
             itemView.findViewById(R.id.notification_card_unread).setVisibility(View.GONE);

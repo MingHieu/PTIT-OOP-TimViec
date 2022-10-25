@@ -24,13 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.timviec.components.CustomDialog;
-import com.example.timviec.model.API;
-
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-
-import retrofit2.Response;
 
 public class Utils {
     /**
@@ -68,6 +63,18 @@ public class Utils {
         byte[] imageByteArray = stream.toByteArray();
         String img_str = Base64.encodeToString(imageByteArray, 0);
         return img_str;
+    }
+
+    public static void handleFailure(Activity activity, Throwable t) {
+        Log.e("DebugTag", t.toString());
+        CustomDialog dialog = new CustomDialog(activity, t.getMessage(), null, CustomDialog.DialogType.ERROR);
+        dialog.show();
+    }
+
+    public static Boolean checkEmptyInput(String input) {
+        if (input == null) return true;
+        if (input.equals("")) return true;
+        return false;
     }
 
     static public class BaseActivity extends AppCompatActivity {
@@ -172,18 +179,6 @@ public class Utils {
                 actionBarBackButton.setVisibility(View.GONE);
             }
         }
-    }
-
-    public static void handleFailure(Activity activity, Throwable t) {
-        Log.e("DebugTag", t.toString());
-        CustomDialog dialog = new CustomDialog(activity, t.getMessage(), null, CustomDialog.DialogType.ERROR);
-        dialog.show();
-    }
-
-    public static Boolean checkEmptyInput(String input) {
-        if (input == null) return true;
-        if (input.equals("")) return true;
-        return false;
     }
 }
 

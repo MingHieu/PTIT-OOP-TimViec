@@ -124,7 +124,7 @@ public class CustomButton extends FrameLayout {
         }
     }
 
-    public void setColor(int color){
+    public void setColor(int color) {
         this.color = color;
         mBtn.setCardBackgroundColor(color);
         mBtnInner.setCardBackgroundColor(color);

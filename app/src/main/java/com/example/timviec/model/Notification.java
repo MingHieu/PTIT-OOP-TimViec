@@ -5,17 +5,17 @@ import java.util.Date;
 public class Notification {
     private int id;
     private String title = "";
-    private String content = "";
+    private String body = "";
     private Date time = new Date();
     private Boolean unread = true;
 
     public Notification() {
     }
 
-    public Notification(int id, String title, String content, Date time, Boolean unread) {
+    public Notification(int id, String title, String body, Date time, Boolean unread) {
         this.id = id;
         this.title = title;
-        this.content = content;
+        this.body = body;
         this.time = time;
         this.unread = unread;
     }
@@ -36,12 +36,12 @@ public class Notification {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getBody() {
+        return body;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public Date getTime() {
@@ -58,16 +58,5 @@ public class Notification {
 
     public void setUnread(Boolean unread) {
         this.unread = unread;
-    }
-
-    @Override
-    public String toString() {
-        return "Notification{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", time=" + time +
-                ", unread=" + unread +
-                '}';
     }
 }

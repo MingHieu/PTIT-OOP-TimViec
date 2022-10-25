@@ -20,13 +20,11 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class EnterpriseFragment extends Utils.BaseFragment {
-    private StateManagerService stateManager = App.getContext().getStateManager();
-    private User user = stateManager.getUser();
-
     ArrayList<Job> jobItems;
     JobListViewAdapter jobListViewAdapter;
     NonScrollListView jobListView;
-
+    private StateManagerService stateManager = App.getContext().getStateManager();
+    private User user = stateManager.getUser();
     private ImageView avatarView;
     private TextView nameView;
     private TextView descriptionView;

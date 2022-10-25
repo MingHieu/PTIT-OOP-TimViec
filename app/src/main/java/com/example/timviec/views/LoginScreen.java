@@ -125,7 +125,7 @@ public class LoginScreen extends Utils.BaseActivity {
                 });
     }
 
-    private void goToHome(){
+    private void goToHome() {
         Intent i = new Intent(LoginScreen.this, BottomTab.class);
         startActivity(i);
     }

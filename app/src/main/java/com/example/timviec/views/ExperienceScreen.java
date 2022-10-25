@@ -2,8 +2,6 @@ package com.example.timviec.views;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,11 +34,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ExperienceScreen extends Utils.BaseActivity {
+    private final StateManagerService stateManager = App.getContext().getStateManager();
+    private final User user = stateManager.getUser();
     private ArrayList<Experience> experienceItems;
     private ExperienceListViewAdapter experienceListViewAdapter;
     private ListView experienceListView;
-    private final StateManagerService stateManager = App.getContext().getStateManager();
-    private final User user = stateManager.getUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

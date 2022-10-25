@@ -18,9 +18,6 @@ import com.example.timviec.services.ApiService;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
