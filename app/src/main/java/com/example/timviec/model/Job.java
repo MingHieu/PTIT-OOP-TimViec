@@ -1,40 +1,59 @@
 package com.example.timviec.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Job {
-    private String name = "";
-    private String expectSalary = "";
+    private String companyAvatar = null;
+    private String companyName = null;
+    private String name = null;
+    private String salary = null;
+    private String type = null;
     private int quantity = 0;
-    private String description = "";
-    private String requirement = "";
-    private String benefit = "";
-    private Date createAt;
-    private Date expired;
+    private Integer gender = null;
+    private String experience = null;
+    private String position = null;
+    private String address = null;
+    private String description = null;
+    private String requirement = null;
+    private String benefit = null;
+    private Date createAt = new Date();
+    private Date expired = new Date();
 
     public Job() {
     }
 
-    public Job(String name, String expectSalary, int quantity, String description, String requirement, String benefit, String createAt, String expired) {
+    public Job(String companyAvatar, String companyName, String name, String salary, String type, int quantity, Integer gender, String experience, String position, String address, String description, String requirement, String benefit, Date createAt, Date expired) {
+        this.companyAvatar = companyAvatar;
+        this.companyName = companyName;
         this.name = name;
-        this.expectSalary = expectSalary;
+        this.salary = salary;
+        this.type = type;
         this.quantity = quantity;
+        this.gender = gender;
+        this.experience = experience;
+        this.position = position;
+        this.address = address;
         this.description = description;
         this.requirement = requirement;
         this.benefit = benefit;
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
-            this.expired = simpleDateFormat.parse(expired);
-        } catch (Exception e) {
+        this.createAt = createAt;
+        this.expired = expired;
+    }
 
-        }
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
-            this.createAt = simpleDateFormat.parse(createAt);
-        } catch (Exception e) {
+    public String getCompanyAvatar() {
+        return companyAvatar;
+    }
 
-        }
+    public void setCompanyAvatar(String companyAvatar) {
+        this.companyAvatar = companyAvatar;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getName() {
@@ -45,12 +64,20 @@ public class Job {
         this.name = name;
     }
 
-    public String getExpectSalary() {
-        return expectSalary;
+    public String getSalary() {
+        return salary;
     }
 
-    public void setExpectSalary(String expectSalary) {
-        this.expectSalary = expectSalary;
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getQuantity() {
@@ -61,11 +88,43 @@ public class Job {
         this.quantity = quantity;
     }
 
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public void setDesription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -89,25 +148,15 @@ public class Job {
         return createAt;
     }
 
-    public void setCreateAt(String createAt) {
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
-            this.createAt = simpleDateFormat.parse(createAt);
-        } catch (Exception e) {
-
-        }
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
     public Date getExpired() {
         return expired;
     }
 
-    public void setExpired(String expired) {
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
-            this.expired = simpleDateFormat.parse(expired);
-        } catch (Exception e) {
-
-        }
+    public void setExpired(Date expired) {
+        this.expired = expired;
     }
 }

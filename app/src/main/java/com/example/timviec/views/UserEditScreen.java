@@ -101,7 +101,6 @@ public class UserEditScreen extends Utils.BaseActivity {
             @Override
             public void run() {
                 onBackPressed();
-                finish();
             }
         });
 

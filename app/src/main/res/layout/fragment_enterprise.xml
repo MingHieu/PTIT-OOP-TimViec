@@ -108,12 +108,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:background="@color/surface"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/surface"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp">
 
@@ -142,8 +142,10 @@
                 android:id="@+id/fragment_enterprise_jobs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:divider="@color/transparent"
+                android:dividerHeight="10dp"
                 android:listSelector="@android:color/transparent"
-                android:paddingHorizontal="20dp"
+                android:paddingBottom="10dp"
                 android:scrollbars="none" />
 
         </LinearLayout>

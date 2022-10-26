@@ -86,7 +86,6 @@ public class EnterpriseEditScreen extends Utils.BaseActivity {
             @Override
             public void run() {
                 onBackPressed();
-                finish();
             }
         });
 

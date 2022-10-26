@@ -118,7 +118,6 @@ public class EducationEditScreen extends Utils.BaseActivity {
             public void run() {
                 if (createNew) {
                     onBackPressed();
-                    finish();
                 } else {
                     deleteEducation();
                 }
@@ -136,7 +135,7 @@ public class EducationEditScreen extends Utils.BaseActivity {
             }
         });
 
-        loadingDialog = new LoadingDialog(EducationEditScreen.this);
+        loadingDialog = new LoadingDialog(this);
     }
 
     private void createNewEducation() {
@@ -246,7 +245,6 @@ public class EducationEditScreen extends Utils.BaseActivity {
                 dialog.hide();
                 setResult(RESULT_OK);
                 onBackPressed();
-                finish();
             }
         });
         dialog.show();

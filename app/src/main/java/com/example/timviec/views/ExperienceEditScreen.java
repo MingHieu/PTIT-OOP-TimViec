@@ -101,7 +101,6 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
             public void run() {
                 if (createNew) {
                     onBackPressed();
-                    finish();
                 } else {
                     deleteExperience();
                 }
@@ -119,7 +118,7 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
             }
         });
 
-        loadingDialog = new LoadingDialog(ExperienceEditScreen.this);
+        loadingDialog = new LoadingDialog(this);
     }
 
     private void createNewExperience() {
@@ -230,7 +229,6 @@ public class ExperienceEditScreen extends Utils.BaseActivity {
                 dialog.hide();
                 setResult(RESULT_OK);
                 onBackPressed();
-                finish();
             }
         });
 

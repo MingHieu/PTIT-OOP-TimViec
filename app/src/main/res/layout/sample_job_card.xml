@@ -29,6 +29,7 @@
                 app:cardElevation="1dp">
 
                 <ImageView
+                    android:id="@+id/job_card_job_avatar"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_margin="5dp"

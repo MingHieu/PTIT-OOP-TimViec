@@ -204,7 +204,6 @@ public class SkillEditScreen extends Utils.BaseActivity {
                 dialog.hide();
                 setResult(RESULT_OK);
                 onBackPressed();
-                finish();
             }
         });
         dialog.show();

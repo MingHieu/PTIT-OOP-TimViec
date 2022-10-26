@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class JobScreen extends Utils.BaseActivity {
     ArrayList<Job> jobItems;
@@ -39,12 +42,6 @@ public class JobScreen extends Utils.BaseActivity {
         }
 
         jobListView = findViewById(R.id.job_sceen_list);
-        JobListViewAdapter = new JobListViewAdapter(
-                jobItems,
-                (int) Utils.convertDpToPixel(10, this),
-                Utils.convertDpToPixel(6, this),
-                new Intent(JobScreen.this, JobEditScreen.class));
-        jobListView.setAdapter(JobListViewAdapter);
 
         findViewById(R.id.job_screen_and_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,24 +51,36 @@ public class JobScreen extends Utils.BaseActivity {
                 startActivity(i);
             }
         });
+
+        setupView();
+    }
+
+    private void setupView() {
+        JobListViewAdapter = new JobListViewAdapter(jobItems);
+        jobListView.setAdapter(JobListViewAdapter);
+        jobListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Job item = (Job) adapterView.getItemAtPosition(i);
+                Intent intent = new Intent(JobScreen.this, JobEditScreen.class);
+                intent.putExtra("job", new Gson().toJson(item));
+                startActivityForResult(intent, 0);
+            }
+        });
     }
 }
 
 class JobListViewAdapter extends BaseAdapter {
     private final ArrayList<Job> listItems;
-    private int padding;
-    private float radius;
-    private Intent intentNavigateTo;
+    private Boolean radius = true;
 
     public JobListViewAdapter(ArrayList<Job> listItems) {
         this.listItems = listItems;
     }
 
-    public JobListViewAdapter(ArrayList<Job> listItems, int padding, float radius, Intent intentNavigateTo) {
+    public JobListViewAdapter(ArrayList<Job> listItems, Boolean radius) {
         this.listItems = listItems;
-        this.padding = padding;
         this.radius = radius;
-        this.intentNavigateTo = intentNavigateTo;
     }
 
     @Override
@@ -91,44 +100,28 @@ class JobListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View itemView = view != null ? view : View.inflate(viewGroup.getContext(), R.layout.job_item, null);
+        View itemView = view != null ? view : View.inflate(viewGroup.getContext(), R.layout.sample_job_card, null);
         Job item = (Job) getItem(i);
-        ((TextView) itemView.findViewById(R.id.job_item_name)).setText(item.getName());
-        ((TextView) itemView.findViewById(R.id.job_item_expectSalary)).setText(item.getExpectSalary());
-        ((TextView) itemView.findViewById(R.id.job_item_quantity)).setText("" + item.getQuantity());
 
-        if (item.getDescription() != null && item.getDescription().length() > 0) {
-            ((TextView) itemView.findViewById(R.id.job_item_description)).setText(item.getDescription());
+        if (item.getCompanyAvatar() != null) {
+            Utils.setBase64UrlImageView(itemView.findViewById(R.id.job_card_job_avatar), item.getCompanyAvatar());
         } else {
-            ((TextView) itemView.findViewById(R.id.job_item_description)).setVisibility(View.GONE);
+            ((ImageView) itemView.findViewById(R.id.job_card_job_avatar)).setImageResource(R.drawable.ic_company);
         }
+        ((TextView) itemView.findViewById(R.id.job_card_job_name)).setText(item.getName());
+        ((TextView) itemView.findViewById(R.id.job_card_job_company)).setText(item.getCompanyName());
+        ((TextView) itemView.findViewById(R.id.job_card_job_money)).setText(item.getSalary());
+        ((TextView) itemView.findViewById(R.id.job_card_job_address)).setText(item.getAddress());
+        ((TextView) itemView.findViewById(R.id.job_card_job_time)).setText("Còn " +
+                TimeUnit.DAYS.convert(
+                        item.getExpired().getTime() - item.getCreateAt().getTime(),
+                        TimeUnit.MILLISECONDS) + " ngày để ứng tuyển");
 
-        if (padding > 0) {
-            itemView.findViewById(R.id.job_item_wrapper).setPadding(padding, padding, padding, padding);
+        if (!radius) {
+            CardView cardView = itemView.findViewById(R.id.job_card);
+            cardView.setRadius(0);
+            cardView.setElevation(0);
         }
-
-        if (radius > 0) {
-            ((CardView) itemView.findViewById(R.id.job_item)).setRadius(radius);
-        }
-
-        if (intentNavigateTo != null) {
-            itemView.findViewById(R.id.job_item_wrapper).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    intentNavigateTo.putExtra("name", item.getName());
-                    intentNavigateTo.putExtra("expectSalary", item.getExpectSalary());
-                    intentNavigateTo.putExtra("quantity", item.getQuantity());
-                    intentNavigateTo.putExtra("description", item.getDescription());
-                    intentNavigateTo.putExtra("requirement", item.getRequirement());
-                    intentNavigateTo.putExtra("benefit", item.getBenefit());
-                    intentNavigateTo.putExtra("creatAt", item.getCreateAt());
-                    intentNavigateTo.putExtra("expired", item.getExpired());
-
-                    view.getContext().startActivity(intentNavigateTo);
-                }
-            });
-        }
-
 
         return itemView;
     }
