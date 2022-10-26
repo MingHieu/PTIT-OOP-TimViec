@@ -45,11 +45,16 @@ public class PostService implements PostServiceInterface {
     }
 
     @Override
-    public List<PostResponse> getAllPost() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
-        Enterprise enterprise = enterpriseRepository.findById(userDetails.getId()).get();
-        List<Post> listPosts = postRepository.findByEnterpriseId(enterprise.getId());
+    public List<PostResponse> getAllPostByEnterprise(Boolean isEnterprise) {
+        List<Post> listPosts = new ArrayList<>();
+        if (isEnterprise == true) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+            Enterprise enterprise = enterpriseRepository.findById(userDetails.getId()).get();
+            listPosts = postRepository.findByEnterpriseId(enterprise.getId());
+        } else {
+            listPosts = postRepository.findAll();
+        }
         List<PostResponse> listResponse = new ArrayList<>();
         for (Post p : listPosts) {
             Enterprise e = p.getEnterprise();

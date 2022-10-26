@@ -9,7 +9,7 @@ import com.findjb.findjob.Responses.PostResponse;
 public interface PostServiceInterface {
     void createNewPost(PostRequest postRequest);
 
-    List<PostResponse> getAllPost();
+    List<PostResponse> getAllPostByEnterprise(Boolean enterprise);
 
     Post getPostDetail(Long id);
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.findjb.findjob.Request.PostRequest;
@@ -30,9 +31,9 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Object> getAllExperience() {
+    public ResponseEntity<Object> getAllExperience(@RequestParam(required = false) Boolean enterprise) {
         return new ResponseEntity<Object>(
-                new ObjectResponse(true, "Lấy danh sách thành công", postService.getAllPost()),
+                new ObjectResponse(true, "Lấy danh sách thành công", postService.getAllPostByEnterprise(enterprise)),
                 HttpStatus.OK);
     }
 
