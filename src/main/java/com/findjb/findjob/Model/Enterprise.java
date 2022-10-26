@@ -55,7 +55,6 @@ public class Enterprise {
     @MapsId
     private User user;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL)
     private List<Post> posts;
 }

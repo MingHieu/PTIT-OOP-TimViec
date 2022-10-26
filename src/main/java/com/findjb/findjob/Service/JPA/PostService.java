@@ -58,18 +58,12 @@ public class PostService implements PostServiceInterface {
         List<PostResponse> listResponse = new ArrayList<>();
         for (Post p : listPosts) {
             Enterprise e = p.getEnterprise();
-            String type = new String();
-            if (p.getType() == 1) {
-                type = "Part time";
-            } else {
-                type = "Full time";
-            }
             PostResponse pr = PostResponse.builder()
                     .name(p.getName())
                     .companyName(e.getName())
                     .comapyAvatar(e.getAvatar())
                     .salary(p.getSalary())
-                    .type(type)
+                    .type(p.getType())
                     .quantity(p.getQuantity())
                     .experience(p.getExperience())
                     .position(p.getPosition())

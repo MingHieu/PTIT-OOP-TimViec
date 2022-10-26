@@ -14,6 +14,6 @@ public class PostRequest {
     String benefit;
     String experience;
     String position;
-    Integer type;
+    String type;
     Date expired;
 }

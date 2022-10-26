@@ -46,7 +46,7 @@ public class Post {
     @Column(name = "experience")
     private String experience;
     @Column(name = "type")
-    private Integer type;
+    private String type;
     @Column(name = "benefit")
     private String benefit;
     @CreationTimestamp
