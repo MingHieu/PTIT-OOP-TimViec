@@ -1,5 +1,7 @@
 package com.findjb.findjob.Request;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -10,4 +12,8 @@ public class PostRequest {
     String description;
     String requirement;
     String benefit;
+    String experience;
+    String position;
+    Integer type;
+    Date expired;
 }

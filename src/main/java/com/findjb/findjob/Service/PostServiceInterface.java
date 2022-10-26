@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.findjb.findjob.Model.Post;
 import com.findjb.findjob.Request.PostRequest;
+import com.findjb.findjob.Responses.PostResponse;
 
 public interface PostServiceInterface {
     void createNewPost(PostRequest postRequest);
 
-    List<Post> getAllPost();
+    List<PostResponse> getAllPost();
 
     Post getPostDetail(Long id);
 

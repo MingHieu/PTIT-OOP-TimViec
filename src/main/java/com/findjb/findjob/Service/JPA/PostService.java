@@ -1,5 +1,6 @@
 package com.findjb.findjob.Service.JPA;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.findjb.findjob.Model.Post;
 import com.findjb.findjob.Repositories.EnterpriseRepository;
 import com.findjb.findjob.Repositories.PostRepository;
 import com.findjb.findjob.Request.PostRequest;
+import com.findjb.findjob.Responses.PostResponse;
 import com.findjb.findjob.Service.PostServiceInterface;
 
 @Service
@@ -32,18 +34,51 @@ public class PostService implements PostServiceInterface {
                 .quantity(postRequest.getQuantity())
                 .description(postRequest.getDescription())
                 .requirement(postRequest.getRequirement())
+                .experience(postRequest.getExperience())
+                .position(postRequest.getPosition())
                 .benefit(postRequest.getBenefit())
+                .type(postRequest.getType())
+                .expired_at(postRequest.getExpired())
                 .enterprise(enterprise)
                 .build();
         postRepository.save(newPost);
     }
 
     @Override
-    public List<Post> getAllPost() {
+    public List<PostResponse> getAllPost() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
         Enterprise enterprise = enterpriseRepository.findById(userDetails.getId()).get();
-        return postRepository.findByEnterpriseId(enterprise.getId());
+        List<Post> listPosts = postRepository.findByEnterpriseId(enterprise.getId());
+        List<PostResponse> listResponse = new ArrayList<>();
+        for (Post p : listPosts) {
+            Enterprise e = p.getEnterprise();
+            String type = new String();
+            if (p.getType() == 1) {
+                type = "Part time";
+            } else {
+                type = "Full time";
+            }
+            PostResponse pr = PostResponse.builder()
+                    .name(p.getName())
+                    .companyName(e.getName())
+                    .comapyAvatar(e.getAvatar())
+                    .salary(p.getSalary())
+                    .type(type)
+                    .quantity(p.getQuantity())
+                    .experience(p.getExperience())
+                    .position(p.getPosition())
+                    .address(e.getAddress())
+                    .description(p.getDescription())
+                    .requirement(p.getRequirement())
+                    .benefit(p.getBenefit())
+                    .createAt(p.getCreated_at())
+                    .expired(p.getExpired_at())
+                    .address(e.getAddress())
+                    .build();
+            listResponse.add(pr);
+        }
+        return listResponse;
     }
 
     @Override

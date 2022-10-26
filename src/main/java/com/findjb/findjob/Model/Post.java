@@ -41,6 +41,12 @@ public class Post {
     private String description;
     @Column(name = "requirement")
     private String requirement;
+    @Column(name = "position")
+    private String position;
+    @Column(name = "experience")
+    private String experience;
+    @Column(name = "type")
+    private Integer type;
     @Column(name = "benefit")
     private String benefit;
     @CreationTimestamp
