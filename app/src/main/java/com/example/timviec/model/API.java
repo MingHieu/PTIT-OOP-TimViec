@@ -68,12 +68,14 @@ public class API {
         private String name;
         private String email;
         private String password;
+        private String address;
         private String fcmToken;
 
-        public CreateEnterpriseBody(String name, String email, String password, String fcmToken) {
+        public CreateEnterpriseBody(String name, String email, String password,String address, String fcmToken) {
             this.name = name;
             this.email = email;
             this.password = password;
+            this.address = address;
             this.fcmToken = fcmToken;
         }
     }
