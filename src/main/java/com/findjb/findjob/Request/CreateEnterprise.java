@@ -23,7 +23,7 @@ public class CreateEnterprise {
     @Size(min = 8, message = "Mật khẩu không phải có ít nhất {min} kí tự")
     private String password;
 
-    @NotNull
+    @NotNull(message = "Địa chỉ không được để trống")
     @Size(max = 200,message = "Địa chỉ quá dài")
     private String address;
 

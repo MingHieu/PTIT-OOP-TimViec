@@ -41,6 +41,8 @@ public class Post {
     private String description;
     @Column(name = "requirement")
     private String requirement;
+    @Column(name = "gender")
+    private String gender;
     @Column(name = "position")
     private String position;
     @Column(name = "experience")

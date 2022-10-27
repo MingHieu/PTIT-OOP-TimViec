@@ -11,6 +11,7 @@ public class PostRequest {
     Integer quantity;
     String description;
     String requirement;
+    String gender;
     String benefit;
     String experience;
     String position;

@@ -16,6 +16,7 @@ public class PostResponse {
     Integer quantity;
     String experience;
     String position;
+    String gender;
     String address;
     String description;
     String requirement;
