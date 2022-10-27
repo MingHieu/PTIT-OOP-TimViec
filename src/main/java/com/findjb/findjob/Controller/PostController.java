@@ -31,7 +31,7 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Object> getAllExperience(@RequestParam(required = false) Boolean enterprise) {
+    public ResponseEntity<Object> getAllExperience(@RequestParam(required = false) String enterprise) {
         return new ResponseEntity<Object>(
                 new ObjectResponse(true, "Lấy danh sách thành công", postService.getAllPostByEnterprise(enterprise)),
                 HttpStatus.OK);

@@ -46,9 +46,9 @@ public class PostService implements PostServiceInterface {
     }
 
     @Override
-    public List<PostResponse> getAllPostByEnterprise(Boolean isEnterprise) {
+    public List<PostResponse> getAllPostByEnterprise(String isEnterprise) {
         List<Post> listPosts = new ArrayList<>();
-        if (isEnterprise == true) {
+        if (isEnterprise == "true") {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
             Enterprise enterprise = enterpriseRepository.findById(userDetails.getId()).get();
@@ -62,7 +62,7 @@ public class PostService implements PostServiceInterface {
             PostResponse pr = PostResponse.builder()
                     .name(p.getName())
                     .companyName(e.getName())
-                    .comapyAvatar(e.getAvatar())
+                    .companyAvatar(e.getAvatar())
                     .salary(p.getSalary())
                     .type(p.getType())
                     .quantity(p.getQuantity())
@@ -83,8 +83,28 @@ public class PostService implements PostServiceInterface {
     }
 
     @Override
-    public Post getPostDetail(Long id) {
-        return postRepository.findById(id).get();
+    public PostResponse getPostDetail(Long id) {
+        Post p =  postRepository.findById(id).get();
+        Enterprise e = p.getEnterprise();
+        PostResponse postResponse = PostResponse.builder()
+                .name(p.getName())
+                .companyName(e.getName())
+                .companyAvatar(e.getAvatar())
+                .salary(p.getSalary())
+                .type(p.getType())
+                .quantity(p.getQuantity())
+                .experience(p.getExperience())
+                .position(p.getPosition())
+                .address(e.getAddress())
+                .description(p.getDescription())
+                .requirement(p.getRequirement())
+                .gender(p.getGender())
+                .benefit(p.getBenefit())
+                .createAt(p.getCreated_at())
+                .expired(p.getExpired())
+                .address(e.getAddress())
+                .build();
+        return postResponse;
     }
 
     @Override

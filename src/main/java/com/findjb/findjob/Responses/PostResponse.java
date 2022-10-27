@@ -10,7 +10,7 @@ import lombok.Data;
 public class PostResponse {
     String name;
     String companyName;
-    String comapyAvatar;
+    String companyAvatar;
     String salary;
     String type;
     Integer quantity;
