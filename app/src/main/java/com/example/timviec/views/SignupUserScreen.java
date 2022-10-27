@@ -1,7 +1,7 @@
 package com.example.timviec.views;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.timviec.App;
 import com.example.timviec.R;
@@ -9,9 +9,8 @@ import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
 import com.example.timviec.components.CustomDialog;
 import com.example.timviec.components.CustomInput;
+import com.example.timviec.components.LoadingDialog;
 import com.example.timviec.model.API;
-import com.example.timviec.model.User;
-import com.example.timviec.router.BottomTab;
 import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
 import com.example.timviec.services.StorageService;
@@ -31,6 +30,8 @@ public class SignupUserScreen extends Utils.BaseActivity {
     private CustomButton mSignupButton;
     private StateManagerService stateManager = App.getContext().getStateManager();
     private StorageService storageService = App.getContext().getStorageService();
+    private LoadingDialog loadingDialog;
+    private CustomDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,30 +53,33 @@ public class SignupUserScreen extends Utils.BaseActivity {
             }
         });
 
+        loadingDialog = new LoadingDialog(this);
     }
 
     private void signup() {
-        ApiService.apiService.createFreelancer(new API.CreateFreelancerBody(
-                        mName.getValue(),
-                        mEmail.getValue(),
-                        mPassword.getValue()))
+        if (!handleValidate()) return;
+
+        loadingDialog.show();
+
+        ApiService.apiService.createFreelancer(getField())
                 .enqueue(new Callback<API.SignupUserResponse>() {
                     @Override
                     public void onResponse(Call<API.SignupUserResponse> call, Response<API.SignupUserResponse> response) {
+                        loadingDialog.hide();
                         if (response.isSuccessful()) {
-                            API.SignupUserResponse res = response.body();
+//                            API.SignupUserResponse res = response.body();
+//
+//                            String authToken = res.getToken();
+//                            stateManager.setAuthToken(authToken);
+//                            storageService.setString("authToken", authToken);
+//
+//                            User user = new User();
+//                            user.setRoleId(res.getRole());
+//                            stateManager.setUser(user);
+                            Log.i("DebugTag", response.body().toString());
 
-                            String authToken = res.getToken();
-                            stateManager.setAuthToken(authToken);
-                            storageService.setString("authToken", authToken);
-
-                            User user = new User();
-                            user.setRoleId(res.getRole());
-//                            user.setDetail(res.getEmail());
-                            stateManager.setUser(user);
-
-                            Intent i = new Intent(SignupUserScreen.this, BottomTab.class);
-                            startActivity(i);
+//                            Intent i = new Intent(SignupUserScreen.this, BottomTab.class);
+//                            startActivity(i);
                         } else {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -90,9 +94,39 @@ public class SignupUserScreen extends Utils.BaseActivity {
 
                     @Override
                     public void onFailure(Call<API.SignupUserResponse> call, Throwable t) {
-                        mSignupButton.setLoading(false);
+                        loadingDialog.hide();
                         Utils.handleFailure(SignupUserScreen.this, t);
                     }
                 });
+    }
+
+    private API.CreateFreelancerBody getField() {
+        return new API.CreateFreelancerBody(
+                mName.getValue(),
+                mEmail.getValue(),
+                mPassword.getValue(),
+                stateManager.getFCMToken());
+    }
+
+    private Boolean validateField() {
+        if (Utils.checkEmptyInput(mName.getValue())) return false;
+        if (Utils.checkEmptyInput(mEmail.getValue())) return false;
+        if (Utils.checkEmptyInput(mPassword.getValue())) return false;
+        if (Utils.checkEmptyInput(mRepeatPassword.getValue())) return false;
+        return true;
+    }
+
+    private Boolean handleValidate() {
+        if (!validateField()) {
+            dialog = new CustomDialog(this, "Hãy điền đầy đủ thông tin", null, CustomDialog.DialogType.WARNING);
+            dialog.show();
+            return false;
+        }
+        if (!mPassword.getValue().equals(mRepeatPassword.getValue())) {
+            dialog = new CustomDialog(this, "Mật khẩu không khớp", null, CustomDialog.DialogType.WARNING);
+            dialog.show();
+            return false;
+        }
+        return true;
     }
 }

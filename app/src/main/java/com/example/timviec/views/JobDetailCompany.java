@@ -38,10 +38,10 @@ public class JobDetailCompany extends Utils.BaseFragment {
         ((TextView) view.findViewById(R.id.job_detail_company_introduction)).setText("");
         NonScrollListView jobListView = view.findViewById(R.id.job_detail_company_job_list);
         ArrayList<Job> jobs = new ArrayList<>();
-        jobs.add(new Job("", "VNPT", "Lập trình viên Java", "Up to 1000$", "Full time",
+        jobs.add(new Job(null,"", "VNPT", "Lập trình viên Java", "Up to 1000$", "Full time",
                 5, null, "Trên 1 năm kinh nghiệm", "Giám đốc",
                 "Hà Nội", null, null, null, new Date(), new Date()));
-        jobs.add(new Job("", "VNPT", "Lập trình viên Java", "Up to 1000$", "Full time",
+        jobs.add(new Job(null,"", "VNPT", "Lập trình viên Java", "Up to 1000$", "Full time",
                 5, null, "Trên 1 năm kinh nghiệm", "Giám đốc",
                 "Hà Nội", null, null, null, new Date(), new Date()));
         JobListViewAdapter jobListViewAdapter = new JobListViewAdapter(jobs);

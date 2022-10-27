@@ -4,6 +4,7 @@ import com.example.timviec.App;
 import com.example.timviec.model.API;
 import com.example.timviec.model.Education;
 import com.example.timviec.model.Experience;
+import com.example.timviec.model.Job;
 import com.example.timviec.model.Skill;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,6 +24,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
     Gson gson = new GsonBuilder()
@@ -46,7 +48,7 @@ public interface ApiService {
     @GET("auth/user/detail")
     Call<API.UserDetailResponse> getUserDetail();
 
-    @POST("user/freelancer/create")
+    @POST("user/create/freelancer")
     Call<API.SignupUserResponse> createFreelancer(@Body API.CreateFreelancerBody body);
 
     @PUT("user/freelancer/update")
@@ -93,6 +95,21 @@ public interface ApiService {
 
     @DELETE("experience/delete/{id}")
     Call<API.Response> deleteExperience(@Path("id") Integer id);
+
+    @POST("post/create")
+    Call<API.Response> createPost(@Body API.postBody body);
+
+    @GET("post/all")
+    Call<API.getAllPostResponse> getAllPost(@Query("enterprise") Boolean enterprise);
+
+    @GET("post/{id}")
+    Call<API.getPostResponse> getDetailPost(@Path("id") Integer id);
+
+    @PUT("post/update/{id}")
+    Call<API.Response> updatePost(@Path("id") Integer id, @Body API.postBody body);
+
+    @DELETE("post/delete/{id}")
+    Call<API.Response> deletePost(@Path("id") Integer id);
 }
 
 class ApiServiceInterceptor implements Interceptor {

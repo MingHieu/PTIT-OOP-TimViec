@@ -34,11 +34,13 @@ public class API {
         private String name;
         private String email;
         private String password;
+        private String fcmToken;
 
-        public CreateFreelancerBody(String name, String email, String password) {
+        public CreateFreelancerBody(String name, String email, String password, String fcmToken) {
             this.name = name;
             this.email = email;
             this.password = password;
+            this.fcmToken = fcmToken;
         }
     }
 
@@ -156,6 +158,69 @@ public class API {
         private ArrayList<Experience> data;
 
         public ArrayList<Experience> getData() {
+            return data;
+        }
+    }
+
+    public static class postBody {
+        private Integer id;
+        private String name, salary, type, experience,
+                position, address, description, requirement, benefit, expired;
+        private int quantity;
+        private Integer gender;
+
+        public postBody(Integer id, String name, String salary, String type, String experience, String position, String address, String description, String requirement, String benefit, String expired, int quantity, Integer gender) {
+            this.id = id;
+            this.name = name;
+            this.salary = salary;
+            this.type = type;
+            this.experience = experience;
+            this.position = position;
+            this.address = address;
+            this.description = description;
+            this.requirement = requirement;
+            this.benefit = benefit;
+            this.expired = expired;
+            this.quantity = quantity;
+            this.gender = gender;
+        }
+
+        @Override
+        public String toString() {
+            return "postBody{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", salary='" + salary + '\'' +
+                    ", type='" + type + '\'' +
+                    ", experience='" + experience + '\'' +
+                    ", position='" + position + '\'' +
+                    ", address='" + address + '\'' +
+                    ", description='" + description + '\'' +
+                    ", requirement='" + requirement + '\'' +
+                    ", benefit='" + benefit + '\'' +
+                    ", expired='" + expired + '\'' +
+                    ", quantity=" + quantity +
+                    ", gender=" + gender +
+                    '}';
+        }
+    }
+
+    public static class getAllPostResponse {
+        private Boolean status;
+        private String message;
+        private ArrayList<Job> data;
+
+        public ArrayList<Job> getData() {
+            return data;
+        }
+    }
+
+    public static class getPostResponse {
+        private Boolean status;
+        private String message;
+        private Job data;
+
+        public Job getData() {
             return data;
         }
     }

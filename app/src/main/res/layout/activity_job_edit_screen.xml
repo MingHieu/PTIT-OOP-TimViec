@@ -189,6 +189,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:custom_input_placeholder="VD: 06/09/2022"
+                        app:custom_input_required="true"
                         app:custom_input_text="Thời gian hết hạn"
                         app:custom_input_type="date" />
                 </LinearLayout>

@@ -40,6 +40,8 @@ public class User {
         private ArrayList<Education> educations;
         private ArrayList<Skill> skills;
         private ArrayList<Experience> experiences;
+        @SerializedName("posts")
+        private ArrayList<Job> jobs;
 
         public Integer getId() {
             return id;
@@ -143,6 +145,14 @@ public class User {
 
         public void setExperiences(ArrayList<Experience> experiences) {
             this.experiences = experiences;
+        }
+
+        public ArrayList<Job> getJobs() {
+            return jobs;
+        }
+
+        public void setJobs(ArrayList<Job> jobs) {
+            this.jobs = jobs;
         }
     }
 }

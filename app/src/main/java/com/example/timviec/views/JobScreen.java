@@ -1,7 +1,9 @@
 package com.example.timviec.views;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,21 +12,38 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.components.CustomDialog;
+import com.example.timviec.components.LoadingDialog;
+import com.example.timviec.model.API;
+import com.example.timviec.model.Education;
 import com.example.timviec.model.Job;
+import com.example.timviec.model.User;
+import com.example.timviec.services.ApiService;
+import com.example.timviec.services.StateManagerService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class JobScreen extends Utils.BaseActivity {
     ArrayList<Job> jobItems;
     JobListViewAdapter JobListViewAdapter;
     ListView jobListView;
+    private StateManagerService stateManager = App.getContext().getStateManager();
+    private User user = stateManager.getUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +51,6 @@ public class JobScreen extends Utils.BaseActivity {
         setContentView(R.layout.activity_job_screen);
 
         setUpScreen("Công việc");
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            jobItems = new Gson().fromJson(extras.getString("jobItems"), new TypeToken<ArrayList<Job>>() {
-            }.getType());
-        } else {
-            jobItems = new ArrayList<Job>();
-        }
 
         jobListView = findViewById(R.id.job_sceen_list);
 
@@ -56,6 +67,7 @@ public class JobScreen extends Utils.BaseActivity {
     }
 
     private void setupView() {
+        jobItems = user.getDetail().getJobs();
         JobListViewAdapter = new JobListViewAdapter(jobItems);
         jobListView.setAdapter(JobListViewAdapter);
         jobListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,6 +77,44 @@ public class JobScreen extends Utils.BaseActivity {
                 Intent intent = new Intent(JobScreen.this, JobEditScreen.class);
                 intent.putExtra("job", new Gson().toJson(item));
                 startActivityForResult(intent, 0);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != Activity.RESULT_OK) return;
+        Log.i("DebugTag", "OK");
+
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
+
+        ApiService.apiService.getAllPost(true).enqueue(new Callback<API.getAllPostResponse>() {
+            @Override
+            public void onResponse(Call<API.getAllPostResponse> call, Response<API.getAllPostResponse> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    ArrayList<Job> jobs = response.body().getData();
+                    user.getDetail().setJobs(jobs);
+                    setupView();
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        CustomDialog dialog = new CustomDialog(JobScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
+                        dialog.show();
+                    } catch (Exception e) {
+                        CustomDialog dialog = new CustomDialog(JobScreen.this, e.getMessage(), null, null);
+                        dialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.getAllPostResponse> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(JobScreen.this, t);
             }
         });
     }

@@ -31,6 +31,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             app:custom_input_placeholder="VD: Nguyễn Văn A"
+            app:custom_input_required="true"
             app:custom_input_text="Họ và tên"
             app:custom_input_type="text" />
 
@@ -39,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:custom_input_placeholder="VD: nguyenvana@gmail.com"
+            app:custom_input_required="true"
             app:custom_input_text="Email"
             app:custom_input_type="text" />
 
@@ -47,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:custom_input_placeholder="Nhập mật khẩu"
+            app:custom_input_required="true"
             app:custom_input_text="Mật khẩu"
             app:custom_input_type="password" />
 
@@ -55,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:custom_input_placeholder="Nhập lại mật khẩu"
+            app:custom_input_required="true"
             app:custom_input_text="Xác nhận mật khẩu"
             app:custom_input_type="password" />
 

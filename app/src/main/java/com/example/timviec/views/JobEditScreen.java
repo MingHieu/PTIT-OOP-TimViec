@@ -15,15 +15,18 @@ import com.example.timviec.components.LoadingDialog;
 import com.example.timviec.model.API;
 import com.example.timviec.model.Job;
 import com.example.timviec.model.User;
+import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class JobEditScreen extends Utils.BaseActivity {
@@ -80,10 +83,7 @@ public class JobEditScreen extends Utils.BaseActivity {
         salaryView.setValue(mJob.getSalary());
 
         typeView = findViewById(R.id.job_edit_type);
-        typeView.setSelectOption(this, new String[]{
-                "Toàn thời gian",
-                "Bán thời gian",
-                "Làm việc từ xa"}, mJob.getType());
+        typeView.setSelectOption(this, new String[]{"Toàn thời gian", "Bán thời gian", "Làm việc từ xa"}, mJob.getType());
 
         quantityView = findViewById(R.id.job_edit_quantity);
         quantityView.setValue("" + mJob.getQuantity());
@@ -92,25 +92,18 @@ public class JobEditScreen extends Utils.BaseActivity {
         if (mJob.getGender() != null) {
             switch (mJob.getGender()) {
                 case 1:
-                    ((RadioButton)findViewById(R.id.job_edit_gender_male)).setChecked(true);
+                    ((RadioButton) findViewById(R.id.job_edit_gender_male)).setChecked(true);
                     break;
                 case 2:
-                    ((RadioButton)findViewById(R.id.job_edit_gender_female)).setChecked(true);
+                    ((RadioButton) findViewById(R.id.job_edit_gender_female)).setChecked(true);
                     break;
                 default:
-                    ((RadioButton)findViewById(R.id.job_edit_gender_none)).setChecked(true);
+                    ((RadioButton) findViewById(R.id.job_edit_gender_none)).setChecked(true);
             }
         }
 
         experienceView = findViewById(R.id.job_edit_experience);
-        experienceView.setSelectOption(this, new String[]{
-                "Không yêu cầu",
-                "Trên 1 năm",
-                "Trên 2 năm",
-                "Trên 3 năm",
-                "Trên 4 năm",
-                "Trên 5 năm",
-        }, mJob.getExperience());
+        experienceView.setSelectOption(this, new String[]{"Không yêu cầu", "Trên 1 năm", "Trên 2 năm", "Trên 3 năm", "Trên 4 năm", "Trên 5 năm",}, mJob.getExperience());
 
         positionView = findViewById(R.id.job_edit_position);
         positionView.setValue(mJob.getPosition());
@@ -156,32 +149,99 @@ public class JobEditScreen extends Utils.BaseActivity {
     }
 
     private void createJob() {
+        if (!handleValidate()) return;
+
+        loadingDialog.show();
+
+        ApiService.apiService.createPost(getField()).enqueue(new Callback<API.Response>() {
+            @Override
+            public void onResponse(Call<API.Response> call, Response<API.Response> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    handleSuccess(response);
+                } else {
+                    handleError(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.Response> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(JobEditScreen.this, t);
+            }
+        });
     }
 
     private void updateJob() {
+        if (!handleValidate()) return;
+
+        loadingDialog.show();
+
+        ApiService.apiService.updatePost(mJob.getId(), getField()).enqueue(new Callback<API.Response>() {
+            @Override
+            public void onResponse(Call<API.Response> call, Response<API.Response> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    handleSuccess(response);
+                } else {
+                    handleError(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.Response> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(JobEditScreen.this, t);
+            }
+        });
     }
 
     private void deleteJob() {
+        loadingDialog.show();
+
+        ApiService.apiService.deletePost(mJob.getId()).enqueue(new Callback<API.Response>() {
+            @Override
+            public void onResponse(Call<API.Response> call, Response<API.Response> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    handleSuccess(response);
+                } else {
+                    handleError(response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.Response> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(JobEditScreen.this, t);
+            }
+        });
     }
 
-    private Job getField() throws Exception {
-        return new Job(user.getDetail().getAvatar(),
-                user.getDetail().getName(),
-                nameView.getValue(),
-                salaryView.getValue(),
-                typeView.getValue(),
-                Integer.parseInt(quantityView.getValue()),
-                genderView.getCheckedRadioButtonId() == R.id.edit_user_gender_male ? 1 :
-                        genderView.getCheckedRadioButtonId() == R.id.edit_user_gender_female ? 2 : null,
-                experienceView.getValue(),
-                positionView.getValue(),
-                addressView.getValue(),
-                descriptionView.getValue(),
-                requirementView.getValue(),
-                benefitView.getValue(),
-                new Date(),
-                new SimpleDateFormat("yyyy-MM-dd").parse(expiredView.getValue())
-        );
+    private API.postBody getField() {
+        try {
+            DateFormat originalFormat = new SimpleDateFormat("dd/MM/yyyy");
+            DateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
+            return new API.postBody(
+                    mJob.getId(),
+                    nameView.getValue(),
+                    salaryView.getValue(),
+                    typeView.getValue(),
+                    experienceView.getValue(),
+                    positionView.getValue(),
+                    addressView.getValue(),
+                    descriptionView.getValue(),
+                    requirementView.getValue(),
+                    benefitView.getValue(),
+                    targetFormat.format(originalFormat.parse(expiredView.getValue())),
+                    Integer.parseInt(quantityView.getValue()),
+                    genderView.getCheckedRadioButtonId() == R.id.job_edit_gender_male ? 1 :
+                            genderView.getCheckedRadioButtonId() == R.id.job_edit_gender_female ? 2 : 3);
+        } catch (Exception e) {
+            Log.e("DebugTag", e.getMessage());
+            return null;
+        }
+
     }
 
     private Boolean validateField() {
@@ -195,6 +255,7 @@ public class JobEditScreen extends Utils.BaseActivity {
         if (Utils.checkEmptyInput(descriptionView.getValue())) return false;
         if (Utils.checkEmptyInput(requirementView.getValue())) return false;
         if (Utils.checkEmptyInput(benefitView.getValue())) return false;
+        if (Utils.checkEmptyInput(expiredView.getValue())) return false;
 
         return true;
     }

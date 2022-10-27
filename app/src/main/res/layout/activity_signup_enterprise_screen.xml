@@ -41,6 +41,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     app:custom_input_placeholder="VD: CÔNG TY TNHH TIMVIEC "
+                    app:custom_input_required="true"
                     app:custom_input_text="Công ty"
                     app:custom_input_type="text" />
 
@@ -51,7 +52,8 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     app:custom_input_placeholder="VD : Km10 Nguyễn Trãi "
-                    app:custom_input_text="Địa điểm làm việc"
+                    app:custom_input_required="true"
+                    app:custom_input_text="Địa chỉ "
                     app:custom_input_type="text" />
 
                 <com.example.timviec.components.CustomInput
@@ -59,6 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:custom_input_placeholder="VD: nguyenvana@gmail.com"
+                    app:custom_input_required="true"
                     app:custom_input_text="Email"
                     app:custom_input_type="text" />
 
@@ -67,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:custom_input_placeholder="Nhập mật khẩu"
+                    app:custom_input_required="true"
                     app:custom_input_text="Mật khẩu"
                     app:custom_input_type="password" />
 
@@ -75,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:custom_input_placeholder="Nhập lại mật khẩu"
+                    app:custom_input_required="true"
                     app:custom_input_text="Xác nhận mật khẩu"
                     app:custom_input_type="password" />
 

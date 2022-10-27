@@ -70,7 +70,7 @@ public class JobDetailScreen extends Utils.BaseActivity {
             });
         }
 
-        mJob = new Job("", "VNPT", "Lập trình viên Java", "Up to 1000$", "Full time",
+        mJob = new Job(null,"", "VNPT", "Lập trình viên Java", "Up to 1000$", "Full time",
                 5, null, "Trên 1 năm kinh nghiệm", "Giám đốc",
                 "Hà Nội", null, null, null, new Date(), new Date());
         if (mJob.getCompanyAvatar() != null) {

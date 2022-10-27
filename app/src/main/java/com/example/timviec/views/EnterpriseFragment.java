@@ -37,13 +37,6 @@ public class EnterpriseFragment extends Utils.BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        jobItems = new ArrayList<Job>();
-        jobItems.add(new Job("", "VNPT", "Lập trình viên Java", "Up to 1000$", "Full time",
-                5, null, "Trên 1 năm kinh nghiệm", "Giám đốc",
-                "Hà Nội", null, null, null, new Date(), new Date()));
-        jobItems.add(new Job("", "VNPT", "Lập trình viên Java", "Up to 1000$", "Full time",
-                5, 1, "Trên 1 năm kinh nghiệm", "Giám đốc",
-                "Hà Nội", null, null, null, new Date(), new Date()));
     }
 
     @Override
@@ -64,7 +57,6 @@ public class EnterpriseFragment extends Utils.BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), JobScreen.class);
-                i.putExtra("jobItems", new Gson().toJson(jobItems));
                 startActivity(i);
             }
         });
@@ -94,6 +86,7 @@ public class EnterpriseFragment extends Utils.BaseFragment {
         nameView.setText(user.getDetail().getName());
         descriptionView.setText(user.getDetail().getIntroduction());
 
+        jobItems = user.getDetail().getJobs();
         jobListViewAdapter = new JobListViewAdapter(jobItems, false);
         jobListView.setAdapter(jobListViewAdapter);
     }

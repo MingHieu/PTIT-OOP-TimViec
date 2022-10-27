@@ -1,8 +1,13 @@
 package com.example.timviec.model;
 
+import androidx.annotation.Nullable;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Job {
+    private Integer id = null;
     private String companyAvatar = null;
     private String companyName = null;
     private String name = null;
@@ -16,13 +21,15 @@ public class Job {
     private String description = null;
     private String requirement = null;
     private String benefit = null;
-    private Date createAt = new Date();
+    @SerializedName("created_at")
+    private Date createAt = null;
     private Date expired = new Date();
 
     public Job() {
     }
 
-    public Job(String companyAvatar, String companyName, String name, String salary, String type, int quantity, Integer gender, String experience, String position, String address, String description, String requirement, String benefit, Date createAt, Date expired) {
+    public Job(Integer id, String companyAvatar, String companyName, String name, String salary, String type, int quantity, Integer gender, String experience, String position, String address, String description, String requirement, String benefit, Date createAt, Date expired) {
+        this.id = id;
         this.companyAvatar = companyAvatar;
         this.companyName = companyName;
         this.name = name;
@@ -38,6 +45,14 @@ public class Job {
         this.benefit = benefit;
         this.createAt = createAt;
         this.expired = expired;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCompanyAvatar() {
