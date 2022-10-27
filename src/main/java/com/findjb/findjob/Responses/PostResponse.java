@@ -21,6 +21,6 @@ public class PostResponse {
     String description;
     String requirement;
     String benefit;
-    Date createAt;
+    Date create_at;
     Date expired;
 }

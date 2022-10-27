@@ -8,6 +8,7 @@ import lombok.Data;
 public class PostRequest {
     String name;
     String salary;
+    String address;
     Integer quantity;
     String description;
     String requirement;

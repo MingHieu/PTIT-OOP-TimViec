@@ -31,6 +31,7 @@ public class PostService implements PostServiceInterface {
         Enterprise enterprise = enterpriseRepository.findById(userDetails.getId()).get();
         Post newPost = Post.builder().name(postRequest.getName())
                 .salary(postRequest.getSalary())
+                .address(postRequest.getAddress())
                 .quantity(postRequest.getQuantity())
                 .description(postRequest.getDescription())
                 .requirement(postRequest.getRequirement())
@@ -68,12 +69,12 @@ public class PostService implements PostServiceInterface {
                     .quantity(p.getQuantity())
                     .experience(p.getExperience())
                     .position(p.getPosition())
-                    .address(e.getAddress())
+                    .address(p.getAddress())
                     .description(p.getDescription())
                     .requirement(p.getRequirement())
                     .gender(p.getGender())
                     .benefit(p.getBenefit())
-                    .createAt(p.getCreated_at())
+                    .create_at(p.getCreated_at())
                     .expired(p.getExpired())
                     .address(e.getAddress())
                     .build();
@@ -100,7 +101,7 @@ public class PostService implements PostServiceInterface {
                 .requirement(p.getRequirement())
                 .gender(p.getGender())
                 .benefit(p.getBenefit())
-                .createAt(p.getCreated_at())
+                .create_at(p.getCreated_at())
                 .expired(p.getExpired())
                 .address(e.getAddress())
                 .build();
