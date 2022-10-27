@@ -64,6 +64,40 @@ public class API {
         }
     }
 
+    public static class CreateEnterpriseBody {
+        private String name;
+        private String email;
+        private String password;
+        private String fcmToken;
+
+        public CreateEnterpriseBody(String name, String email, String password, String fcmToken) {
+            this.name = name;
+            this.email = email;
+            this.password = password;
+            this.fcmToken = fcmToken;
+        }
+    }
+
+    public static class SignupEnterpriseResponse {
+        private int ID;
+        private int role;
+        private String email;
+        private String token;
+        private User.UserDetail detail;
+
+        public int getRole() {
+            return role;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getToken() {
+            return token;
+        }
+    }
+
     public static class UserDetailResponse {
 
         private Boolean status;

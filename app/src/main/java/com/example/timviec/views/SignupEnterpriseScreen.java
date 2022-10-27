@@ -1,13 +1,26 @@
 package com.example.timviec.views;
 
-import android.content.Intent;
-import android.os.Bundle;
 
+import android.os.Bundle;
+import android.util.Log;
+
+import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
+import com.example.timviec.components.CustomDialog;
 import com.example.timviec.components.CustomInput;
-import com.example.timviec.router.BottomTab;
+import com.example.timviec.components.LoadingDialog;
+import com.example.timviec.model.API;
+import com.example.timviec.services.ApiService;
+import com.example.timviec.services.StateManagerService;
+import com.example.timviec.services.StorageService;
+
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignupEnterpriseScreen extends Utils.BaseActivity {
     private CustomInput mName;
@@ -16,6 +29,11 @@ public class SignupEnterpriseScreen extends Utils.BaseActivity {
     private CustomInput mPassword;
     private CustomInput mRepeatPassword;
     private CustomButton mSignupButton;
+    private final StateManagerService stateManager = App.getContext().getStateManager();
+    private final StorageService storageService = App.getContext().getStorageService();
+
+    private LoadingDialog loadingDialog;
+    private CustomDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +55,81 @@ public class SignupEnterpriseScreen extends Utils.BaseActivity {
             }
         });
 
+        loadingDialog = new LoadingDialog(this);
     }
 
     private void signup() {
-        Intent i = new Intent(this, BottomTab.class);
-        startActivity(i);
+        if (!handleValidate()) return;
+
+        ApiService.apiService.createEnterprise(getField())
+                .enqueue(new Callback<API.SignupEnterpriseResponse>() {
+                    @Override
+                    public void onResponse(Call<API.SignupEnterpriseResponse> call, Response<API.SignupEnterpriseResponse> response) {
+                        loadingDialog.hide();
+                        if (response.isSuccessful()) {
+//                            API.SignupUserResponse res = response.body();
+//
+//                            String authToken = res.getToken();
+//                            stateManager.setAuthToken(authToken);
+//                            storageService.setString("authToken", authToken);
+//
+//                            User user = new User();
+//                            user.setRoleId(res.getRole());
+//                            stateManager.setUser(user);
+                            Log.i("DebugTag", response.body().toString());
+
+//                            Intent i = new Intent(SignupUserScreen.this, BottomTab.class);
+//                            startActivity(i);
+                        } else {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                CustomDialog dialog = new CustomDialog(SignupEnterpriseScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
+                                dialog.show();
+                            } catch (Exception e) {
+                                CustomDialog dialog = new CustomDialog(SignupEnterpriseScreen.this, e.getMessage(), null, null);
+                                dialog.show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<API.SignupEnterpriseResponse> call, Throwable t) {
+                        loadingDialog.hide();
+                        Utils.handleFailure(SignupEnterpriseScreen.this, t);
+                    }
+                });
     }
+
+    private API.CreateEnterpriseBody getField() {
+        return new API.CreateEnterpriseBody(
+                mName.getValue(),
+                mEmail.getValue(),
+                mPassword.getValue(),
+                stateManager.getFCMToken());
+    }
+
+    private Boolean validateField() {
+        if (Utils.checkEmptyInput(mName.getValue())) return false;
+        if (Utils.checkEmptyInput(mEmail.getValue())) return false;
+        if (Utils.checkEmptyInput(mPassword.getValue())) return false;
+        return !Utils.checkEmptyInput(mRepeatPassword.getValue());
+    }
+
+    private Boolean handleValidate() {
+        if (!validateField()) {
+            dialog = new CustomDialog(this, "Hãy diền đầy đủ thông tin", null, CustomDialog.DialogType.ERROR);
+            dialog.show();
+            return false;
+        }
+
+        if (mPassword.getValue().equals(mRepeatPassword.getValue())) {
+            dialog = new CustomDialog(this, "Mật khẩu không khớp", null, CustomDialog.DialogType.ERROR);
+            dialog.show();
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

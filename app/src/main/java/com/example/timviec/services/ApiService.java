@@ -54,6 +54,9 @@ public interface ApiService {
     @PUT("user/freelancer/update")
     Call<API.Response> updateFreelancer(@Body API.UpdateFreelancerBody body);
 
+    @POST("user/create/enterprise")
+    Call<API.SignupEnterpriseResponse> createEnterprise(@Body API.CreateEnterpriseBody body);
+
     @PUT("user/enterprise/update")
     Call<API.Response> updateEnterprise(@Body API.UpdateEnterpriseBody body);
 
