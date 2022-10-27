@@ -38,7 +38,7 @@ public class PostService implements PostServiceInterface {
                 .position(postRequest.getPosition())
                 .benefit(postRequest.getBenefit())
                 .type(postRequest.getType())
-                .expired_at(postRequest.getExpired())
+                .expired(postRequest.getExpired())
                 .enterprise(enterprise)
                 .build();
         postRepository.save(newPost);
@@ -72,7 +72,7 @@ public class PostService implements PostServiceInterface {
                     .requirement(p.getRequirement())
                     .benefit(p.getBenefit())
                     .createAt(p.getCreated_at())
-                    .expired(p.getExpired_at())
+                    .expired(p.getExpired())
                     .address(e.getAddress())
                     .build();
             listResponse.add(pr);

@@ -51,8 +51,8 @@ public class Post {
     private String benefit;
     @CreationTimestamp
     private Date created_at;
-    @Column(name = "expired_at")
-    private Date expired_at;
+    @Column(name = "expired")
+    private Date expired;
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "enterprise_id", nullable = false)
