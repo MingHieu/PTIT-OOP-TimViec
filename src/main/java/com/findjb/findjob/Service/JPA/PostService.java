@@ -74,7 +74,7 @@ public class PostService implements PostServiceInterface {
                     .requirement(p.getRequirement())
                     .gender(p.getGender())
                     .benefit(p.getBenefit())
-                    .create_at(p.getCreated_at())
+                    .created_at(p.getCreated_at())
                     .expired(p.getExpired())
                     .address(e.getAddress())
                     .build();
@@ -101,7 +101,7 @@ public class PostService implements PostServiceInterface {
                 .requirement(p.getRequirement())
                 .gender(p.getGender())
                 .benefit(p.getBenefit())
-                .create_at(p.getCreated_at())
+                .created_at(p.getCreated_at())
                 .expired(p.getExpired())
                 .address(e.getAddress())
                 .build();
