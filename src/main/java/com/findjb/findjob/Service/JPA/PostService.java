@@ -112,6 +112,7 @@ public class PostService implements PostServiceInterface {
     public void updatePost(Long id, PostRequest postRequest) {
         Post post = postRepository.findById(id).get();
         post.setName(postRequest.getName());
+        post.setAddress(postRequest.getAddress());
         post.setSalary(postRequest.getSalary());
         post.setQuantity(postRequest.getQuantity());
         post.setDescription(postRequest.getDescription());
