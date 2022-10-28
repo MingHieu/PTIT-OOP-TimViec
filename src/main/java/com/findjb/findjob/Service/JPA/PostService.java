@@ -61,6 +61,7 @@ public class PostService implements PostServiceInterface {
         for (Post p : listPosts) {
             Enterprise e = p.getEnterprise();
             PostResponse pr = PostResponse.builder()
+                    .id(p.getId())
                     .name(p.getName())
                     .companyName(e.getName())
                     .companyAvatar(e.getAvatar())
@@ -85,9 +86,10 @@ public class PostService implements PostServiceInterface {
 
     @Override
     public PostResponse getPostDetail(Long id) {
-        Post p =  postRepository.findById(id).get();
+        Post p = postRepository.findById(id).get();
         Enterprise e = p.getEnterprise();
         PostResponse postResponse = PostResponse.builder()
+                .id(p.getId())
                 .name(p.getName())
                 .companyName(e.getName())
                 .companyAvatar(e.getAvatar())
@@ -114,10 +116,14 @@ public class PostService implements PostServiceInterface {
         post.setName(postRequest.getName());
         post.setAddress(postRequest.getAddress());
         post.setSalary(postRequest.getSalary());
+        post.setPosition(postRequest.getPosition());
         post.setQuantity(postRequest.getQuantity());
+        post.setGender(postRequest.getGender());
+        post.setExperience(postRequest.getExperience());
         post.setDescription(postRequest.getDescription());
         post.setRequirement(postRequest.getRequirement());
         post.setBenefit(postRequest.getBenefit());
+        post.setType(postRequest.getType());
         postRepository.save(post);
     }
 

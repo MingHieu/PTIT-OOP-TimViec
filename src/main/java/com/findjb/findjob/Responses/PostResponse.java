@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 @Builder
 public class PostResponse {
+    Long id;
     String name;
     String companyName;
     String companyAvatar;
