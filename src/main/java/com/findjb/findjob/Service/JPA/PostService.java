@@ -122,6 +122,7 @@ public class PostService implements PostServiceInterface {
         post.setRequirement(postRequest.getRequirement());
         post.setBenefit(postRequest.getBenefit());
         post.setType(postRequest.getType());
+        post.setExpired(postRequest.getExpired());
         postRepository.save(post);
     }
 
