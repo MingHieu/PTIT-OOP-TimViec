@@ -1,7 +1,6 @@
 package com.findjb.findjob.Service;
 
 import java.util.List;
-
 import com.findjb.findjob.Request.PostRequest;
 import com.findjb.findjob.Responses.PostResponse;
 

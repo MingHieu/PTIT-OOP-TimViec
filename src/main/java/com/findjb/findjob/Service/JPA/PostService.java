@@ -77,7 +77,6 @@ public class PostService implements PostServiceInterface {
                     .benefit(p.getBenefit())
                     .created_at(p.getCreated_at())
                     .expired(p.getExpired())
-                    .address(e.getAddress())
                     .build();
             listResponse.add(pr);
         }
@@ -93,19 +92,18 @@ public class PostService implements PostServiceInterface {
                 .name(p.getName())
                 .companyName(e.getName())
                 .companyAvatar(e.getAvatar())
+                .address(p.getAddress())
                 .salary(p.getSalary())
                 .type(p.getType())
                 .quantity(p.getQuantity())
                 .experience(p.getExperience())
                 .position(p.getPosition())
-                .address(e.getAddress())
                 .description(p.getDescription())
                 .requirement(p.getRequirement())
                 .gender(p.getGender())
                 .benefit(p.getBenefit())
                 .created_at(p.getCreated_at())
                 .expired(p.getExpired())
-                .address(e.getAddress())
                 .build();
         return postResponse;
     }
