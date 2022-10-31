@@ -1,7 +1,9 @@
 package com.findjb.findjob.Service;
 
 import java.util.List;
+
 import com.findjb.findjob.Request.PostRequest;
+import com.findjb.findjob.Responses.PostDetailResponse;
 import com.findjb.findjob.Responses.PostResponse;
 
 public interface PostServiceInterface {
@@ -9,7 +11,7 @@ public interface PostServiceInterface {
 
     List<PostResponse> getAllPostByEnterprise(String enterprise);
 
-    PostResponse getPostDetail(Long id);
+    PostDetailResponse getPostDetail(Long id);
 
     void updatePost(Long id, PostRequest postRequest);
 

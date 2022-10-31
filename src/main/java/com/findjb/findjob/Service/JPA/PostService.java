@@ -14,6 +14,7 @@ import com.findjb.findjob.Model.Post;
 import com.findjb.findjob.Repositories.EnterpriseRepository;
 import com.findjb.findjob.Repositories.PostRepository;
 import com.findjb.findjob.Request.PostRequest;
+import com.findjb.findjob.Responses.PostDetailResponse;
 import com.findjb.findjob.Responses.PostResponse;
 import com.findjb.findjob.Service.PostServiceInterface;
 
@@ -84,28 +85,11 @@ public class PostService implements PostServiceInterface {
     }
 
     @Override
-    public PostResponse getPostDetail(Long id) {
+    public PostDetailResponse getPostDetail(Long id) {
         Post p = postRepository.findById(id).get();
         Enterprise e = p.getEnterprise();
-        PostResponse postResponse = PostResponse.builder()
-                .id(p.getId())
-                .name(p.getName())
-                .companyName(e.getName())
-                .companyAvatar(e.getAvatar())
-                .address(p.getAddress())
-                .salary(p.getSalary())
-                .type(p.getType())
-                .quantity(p.getQuantity())
-                .experience(p.getExperience())
-                .position(p.getPosition())
-                .description(p.getDescription())
-                .requirement(p.getRequirement())
-                .gender(p.getGender())
-                .benefit(p.getBenefit())
-                .created_at(p.getCreated_at())
-                .expired(p.getExpired())
-                .build();
-        return postResponse;
+        List<Post> related = postRepository.findByIdNot(id);
+        return new PostDetailResponse(p, e, related);
     }
 
     @Override
