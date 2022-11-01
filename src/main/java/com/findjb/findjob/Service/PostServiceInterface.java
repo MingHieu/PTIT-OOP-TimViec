@@ -1,15 +1,14 @@
 package com.findjb.findjob.Service;
 
-import java.util.List;
 
 import com.findjb.findjob.Request.PostRequest;
+import com.findjb.findjob.Responses.PaginateResponse;
 import com.findjb.findjob.Responses.PostDetailResponse;
-import com.findjb.findjob.Responses.PostResponse;
 
 public interface PostServiceInterface {
     void createNewPost(PostRequest postRequest);
 
-    List<PostResponse> getAllPostByEnterprise(String enterprise);
+    PaginateResponse getAllPostByEnterprise(String enterprise,Integer pageNo,Integer pageSize,String name);
 
     PostDetailResponse getPostDetail(Long id);
 

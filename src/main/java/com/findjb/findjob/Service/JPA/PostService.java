@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import com.findjb.findjob.Model.Post;
 import com.findjb.findjob.Repositories.EnterpriseRepository;
 import com.findjb.findjob.Repositories.PostRepository;
 import com.findjb.findjob.Request.PostRequest;
+import com.findjb.findjob.Responses.PaginateResponse;
 import com.findjb.findjob.Responses.PostDetailResponse;
 import com.findjb.findjob.Responses.PostResponse;
 import com.findjb.findjob.Service.PostServiceInterface;
@@ -48,15 +52,19 @@ public class PostService implements PostServiceInterface {
     }
 
     @Override
-    public List<PostResponse> getAllPostByEnterprise(String isEnterprise) {
-        List<Post> listPosts = new ArrayList<>();
+    public PaginateResponse getAllPostByEnterprise(String isEnterprise, Integer pageNo, Integer pageSize, String name) {
+        Integer size = pageSize != null ? pageSize : 15;
+        Pageable paginate = PageRequest.of(pageNo, size);
+        Page<Post> listPosts;
         if (isEnterprise == "true") {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
             Enterprise enterprise = enterpriseRepository.findById(userDetails.getId()).get();
-            listPosts = postRepository.findByEnterpriseId(enterprise.getId());
+            listPosts = postRepository.findByEnterpriseId(enterprise.getId(), paginate);
+        } else if (name != null) {
+            listPosts = postRepository.findByNameContaining(name, paginate);
         } else {
-            listPosts = postRepository.findAll();
+            listPosts = postRepository.findAll(paginate);
         }
         List<PostResponse> listResponse = new ArrayList<>();
         for (Post p : listPosts) {
@@ -81,7 +89,8 @@ public class PostService implements PostServiceInterface {
                     .build();
             listResponse.add(pr);
         }
-        return listResponse;
+        return new PaginateResponse(true, "Lấy danh sách thành công", listResponse, listPosts.getNumber(),
+                listPosts.getSize(), listPosts.getTotalElements());
     }
 
     @Override

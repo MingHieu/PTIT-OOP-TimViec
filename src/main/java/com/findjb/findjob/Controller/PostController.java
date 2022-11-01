@@ -25,27 +25,30 @@ public class PostController {
     private PostService postService;
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createNewExperience(@RequestBody PostRequest postRequest) {
+    public ResponseEntity<Object> createNewPost(@RequestBody PostRequest postRequest) {
         postService.createNewPost(postRequest);
         return new ResponseEntity<Object>(new StatusResponse(true, "Tạo mới thành công"), HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Object> getAllExperience(@RequestParam(required = false) String enterprise) {
+    public ResponseEntity<Object> getAllPost(@RequestParam(required = false) String enterprise,
+            @RequestParam(name = "pageNo") Integer pageNo,
+            @RequestParam(name = "pageSize", required = false) Integer pageSize,
+            @RequestParam(name = "name",required = false) String name) {
         return new ResponseEntity<Object>(
-                new ObjectResponse(true, "Lấy danh sách thành công", postService.getAllPostByEnterprise(enterprise)),
+                postService.getAllPostByEnterprise(enterprise,pageNo,pageSize,name),
                 HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getDetailExperience(@PathVariable Long id) {
+    public ResponseEntity<Object> getDetailPost(@PathVariable Long id) {
         return new ResponseEntity<Object>(
                 new ObjectResponse(true, "Lấy danh sách thành công", postService.getPostDetail(id)),
                 HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Object> updateExperience(@PathVariable Long id,
+    public ResponseEntity<Object> updatePost(@PathVariable Long id,
             @RequestBody PostRequest postRequest) {
         postService.updatePost(id, postRequest);
         return new ResponseEntity<Object>(new StatusResponse(true, "Cập nhật thành công"), HttpStatus.OK);
