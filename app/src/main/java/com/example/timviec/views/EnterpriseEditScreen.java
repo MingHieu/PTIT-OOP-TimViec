@@ -119,6 +119,7 @@ public class EnterpriseEditScreen extends Utils.BaseActivity {
                                 @Override
                                 public void run() {
                                     dialog.hide();
+                                    setResult(RESULT_OK);
                                     onBackPressed();
                                 }
                             });

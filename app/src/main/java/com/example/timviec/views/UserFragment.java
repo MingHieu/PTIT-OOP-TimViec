@@ -1,5 +1,6 @@
 package com.example.timviec.views;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.example.timviec.App;
 import com.example.timviec.R;
@@ -40,7 +43,6 @@ public class UserFragment extends Utils.BaseFragment {
     private TextView nameView;
     private TextView descriptionView;
 
-
     public UserFragment() {
         // Required empty public constructor
     }
@@ -60,7 +62,7 @@ public class UserFragment extends Utils.BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), UserEditScreen.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_TYPE.INFORMATION);
             }
         });
 
@@ -68,7 +70,7 @@ public class UserFragment extends Utils.BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), EducationScreen.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_TYPE.EDUCATION);
             }
         });
 
@@ -76,7 +78,7 @@ public class UserFragment extends Utils.BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), ExperienceScreen.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_TYPE.EXPERIENCE);
             }
         });
 
@@ -84,7 +86,7 @@ public class UserFragment extends Utils.BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), SkillScreen.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_TYPE.SKILL);
             }
         });
 
@@ -95,17 +97,42 @@ public class UserFragment extends Utils.BaseFragment {
         experienceListView = view.findViewById(R.id.fragment_user_experience);
         skillListView = view.findViewById(R.id.fragment_user_skill);
 
+        setInformation();
+        setEducation();
+        setExperience();
+        setSkill();
+
         return view;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        setupView();
+        if (resultCode != Activity.RESULT_OK) return;
+
+        if (requestCode == REQUEST_TYPE.INFORMATION) {
+            setInformation();
+            return;
+        }
+
+        if (requestCode == REQUEST_TYPE.EDUCATION) {
+            setEducation();
+            return;
+        }
+
+        if (requestCode == REQUEST_TYPE.EXPERIENCE) {
+            setExperience();
+            return;
+        }
+
+        if (requestCode == REQUEST_TYPE.SKILL) {
+            setSkill();
+            return;
+        }
     }
 
-    private void setupView() {
+    private void setInformation() {
         String avatar = user.getDetail().getAvatar();
         if (avatar != null) {
             Utils.setBase64UrlImageView(avatarView, avatar);
@@ -114,18 +141,31 @@ public class UserFragment extends Utils.BaseFragment {
         }
         nameView.setText(user.getDetail().getName());
         descriptionView.setText(user.getDetail().getIntroduction());
+    }
 
+    private void setEducation() {
         educationItems = user.getDetail().getEducations();
         educationListViewAdapter = new EducationListViewAdapter(educationItems);
         educationListView.setAdapter(educationListViewAdapter);
+    }
 
+    private void setExperience() {
         experienceItems = user.getDetail().getExperiences();
         experienceListViewAdapter = new ExperienceListViewAdapter(experienceItems);
         experienceListView.setAdapter(experienceListViewAdapter);
+    }
 
+    private void setSkill() {
         skillItems = user.getDetail().getSkills();
         skillListViewAdapter = new SkillListViewAdapter(skillItems);
         skillListView.setAdapter(skillListViewAdapter);
+    }
+
+    private static class REQUEST_TYPE {
+        static int INFORMATION = 0;
+        static int EDUCATION = 1;
+        static int EXPERIENCE = 2;
+        static int SKILL = 3;
     }
 }
 

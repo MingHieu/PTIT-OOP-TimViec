@@ -18,23 +18,35 @@ import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
+import com.example.timviec.components.CustomDialog;
+import com.example.timviec.components.LoadingDialog;
+import com.example.timviec.model.API;
 import com.example.timviec.model.Job;
+import com.example.timviec.model.User;
+import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.Date;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class JobDetailScreen extends Utils.BaseActivity {
 
+    public Job job;
+    public User.UserDetail enterprise;
+    public ArrayList<Job> relatedJob;
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
     private StateManagerService stateManager = App.getContext().getStateManager();
     private boolean applyPost = false;
     private CustomButton applyButton;
     private CustomButton messageButton;
-
-    public Job mJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +82,55 @@ public class JobDetailScreen extends Utils.BaseActivity {
             });
         }
 
-        mJob = new Job(null,"", "VNPT", "Lập trình viên Java", "Up to 1000$", "Full time",
-                5, null, "Trên 1 năm kinh nghiệm", "Giám đốc",
-                "Hà Nội", null, null, null, new Date(), new Date());
-        if (mJob.getCompanyAvatar() != null) {
-            Utils.setBase64UrlImageView(findViewById(R.id.job_detail_company_logo), mJob.getCompanyAvatar());
+        Bundle extras = getIntent().getExtras();
+        int jobId = extras.getInt("jobId");
+
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
+
+        ApiService.apiService.getDetailPost(jobId).enqueue(new Callback<API.getPostResponse>() {
+            @Override
+            public void onResponse(Call<API.getPostResponse> call, Response<API.getPostResponse> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    API.getPostResponse res = response.body();
+
+                    job = res.getData().getJob();
+                    enterprise = res.getData().getEnterprise();
+                    relatedJob = res.getData().getRelatedJob();
+
+                    setupView();
+                    setUpTabView();
+
+
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        CustomDialog dialog = new CustomDialog(JobDetailScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
+                        dialog.show();
+                    } catch (Exception e) {
+                        CustomDialog dialog = new CustomDialog(JobDetailScreen.this, e.getMessage(), null, null);
+                        dialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.getPostResponse> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(JobDetailScreen.this, t);
+            }
+        });
+    }
+
+    private void setupView() {
+        if (job.getCompanyAvatar() != null) {
+            Utils.setBase64UrlImageView(findViewById(R.id.job_detail_company_logo), job.getCompanyAvatar());
         } else {
             ((ImageView) findViewById(R.id.job_detail_company_logo)).setImageResource(R.drawable.ic_company);
         }
-
-        ((TextView) findViewById(R.id.job_detail_job_name)).setText(mJob.getName());
-        ((TextView) findViewById(R.id.job_detail_company_name)).setText(mJob.getCompanyName());
-
-        setUpTabView();
+        ((TextView) findViewById(R.id.job_detail_job_name)).setText(job.getName());
+        ((TextView) findViewById(R.id.job_detail_company_name)).setText(job.getCompanyName());
     }
 
     private void setUpTabView() {

@@ -1,5 +1,6 @@
 package com.example.timviec.views;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
@@ -15,10 +18,8 @@ import com.example.timviec.components.NonScrollListView;
 import com.example.timviec.model.Job;
 import com.example.timviec.model.User;
 import com.example.timviec.services.StateManagerService;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class EnterpriseFragment extends Utils.BaseFragment {
     ArrayList<Job> jobItems;
@@ -49,7 +50,7 @@ public class EnterpriseFragment extends Utils.BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), EnterpriseEditScreen.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_TYPE.INFORMATION);
             }
         });
 
@@ -57,7 +58,7 @@ public class EnterpriseFragment extends Utils.BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), JobScreen.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_TYPE.JOB);
             }
         });
 
@@ -66,17 +67,30 @@ public class EnterpriseFragment extends Utils.BaseFragment {
         nameView = view.findViewById(R.id.fragment_enterprise_name);
         descriptionView = view.findViewById(R.id.fragment_enterprise_description);
 
+        setInformation();
+        setJob();
+
         return view;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        setupView();
+        if (resultCode != Activity.RESULT_OK) return;
+
+        if (requestCode == REQUEST_TYPE.INFORMATION) {
+            setInformation();
+            return;
+        }
+
+        if (requestCode == REQUEST_TYPE.JOB) {
+            setJob();
+            return;
+        }
     }
 
-    private void setupView() {
+    private void setInformation() {
         String avatar = user.getDetail().getAvatar();
         if (avatar != null) {
             Utils.setBase64UrlImageView(avatarView, avatar);
@@ -85,9 +99,16 @@ public class EnterpriseFragment extends Utils.BaseFragment {
         }
         nameView.setText(user.getDetail().getName());
         descriptionView.setText(user.getDetail().getIntroduction());
+    }
 
+    private void setJob() {
         jobItems = user.getDetail().getJobs();
         jobListViewAdapter = new JobListViewAdapter(jobItems, false);
         jobListView.setAdapter(jobListViewAdapter);
+    }
+
+    private static class REQUEST_TYPE {
+        static int INFORMATION = 0;
+        static int JOB = 1;
     }
 }

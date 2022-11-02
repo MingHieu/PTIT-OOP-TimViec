@@ -1,5 +1,7 @@
 package com.example.timviec.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class API {
@@ -218,25 +220,6 @@ public class API {
             this.quantity = quantity;
             this.gender = gender;
         }
-
-        @Override
-        public String toString() {
-            return "postBody{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    ", salary='" + salary + '\'' +
-                    ", type='" + type + '\'' +
-                    ", experience='" + experience + '\'' +
-                    ", position='" + position + '\'' +
-                    ", address='" + address + '\'' +
-                    ", description='" + description + '\'' +
-                    ", requirement='" + requirement + '\'' +
-                    ", benefit='" + benefit + '\'' +
-                    ", expired='" + expired + '\'' +
-                    ", quantity=" + quantity +
-                    ", gender=" + gender +
-                    '}';
-        }
     }
 
     public static class getAllPostResponse {
@@ -252,10 +235,30 @@ public class API {
     public static class getPostResponse {
         private Boolean status;
         private String message;
-        private Job data;
+        private Data data;
 
-        public Job getData() {
+        public Data getData() {
             return data;
+        }
+
+        public static class Data {
+            @SerializedName("detail")
+            private Job job;
+            private User.UserDetail enterprise;
+            @SerializedName("related_post")
+            private ArrayList<Job> relatedJob;
+
+            public Job getJob() {
+                return job;
+            }
+
+            public User.UserDetail getEnterprise() {
+                return enterprise;
+            }
+
+            public ArrayList<Job> getRelatedJob() {
+                return relatedJob;
+            }
         }
     }
 }

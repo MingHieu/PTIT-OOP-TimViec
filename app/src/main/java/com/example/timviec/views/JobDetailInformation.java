@@ -63,12 +63,13 @@ public class JobDetailInformation extends Utils.BaseFragment {
             }
         });
 
-        mJob = ((JobDetailScreen) getActivity()).mJob;
+        mJob = ((JobDetailScreen) getActivity()).job;
 
         ((TextView) view.findViewById(R.id.job_detail_information_salary)).setText(mJob.getSalary());
         ((TextView) view.findViewById(R.id.job_detail_information_working_type)).setText(mJob.getType());
-        ((TextView) view.findViewById(R.id.job_details_information_quantity)).setText("" + mJob.getQuantity());
-        ((TextView) view.findViewById(R.id.job_details_information_experience)).setText(mJob.getExperience());
+        ((TextView) view.findViewById(R.id.job_detail_information_quantity)).setText("" + mJob.getQuantity());
+        ((TextView) view.findViewById(R.id.job_detail_information_gender)).setText(mJob.getGender() == 1 ? "Nam" : mJob.getGender() == 2 ? "Nữ" : "Không yêu cầu");
+        ((TextView) view.findViewById(R.id.job_detail_information_experience)).setText(mJob.getExperience());
         ((TextView) view.findViewById(R.id.job_detail_information_position)).setText(mJob.getPosition());
         ((TextView) view.findViewById(R.id.job_detail_information_address)).setText(mJob.getAddress());
         ((TextView) view.findViewById(R.id.job_detail_information_description)).setText(mJob.getDescription());

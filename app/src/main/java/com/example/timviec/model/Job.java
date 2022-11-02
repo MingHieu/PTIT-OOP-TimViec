@@ -1,7 +1,5 @@
 package com.example.timviec.model;
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;

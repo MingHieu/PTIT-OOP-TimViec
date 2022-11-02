@@ -78,7 +78,7 @@
                     android:id="@+id/fragment_enterprise_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="PFT Telecom"
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/on_background"
                     android:textSize="24dp"
@@ -95,7 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
-                    android:text="\tCông ty Cổ phần Viễn thông FPT (tên gọi tắt là FPT Telecom) hiện là một trong những nhà cung cấp dịch vụ Viễn thông và Internet hàng đầu khu vực."
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/on_background"
                     android:textSize="16dp" />

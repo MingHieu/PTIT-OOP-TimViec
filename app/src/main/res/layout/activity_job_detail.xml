@@ -43,7 +43,7 @@
                         android:id="@+id/job_detail_job_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="JAVA DEVELOPMENT [HCM - ĐN - HN - REMOTE]"
+                        android:text=""
                         android:textColor="@color/on_background"
                         android:textSize="20dp"
                         android:textStyle="bold" />
@@ -52,7 +52,7 @@
                         android:id="@+id/job_detail_company_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="KMS TECNOLOGY VIETNAM"
+                        android:text=""
                         android:textColor="@color/gray_600" />
                 </LinearLayout>
             </LinearLayout>

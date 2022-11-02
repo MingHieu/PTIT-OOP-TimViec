@@ -91,6 +91,7 @@ public class ExperienceScreen extends Utils.BaseActivity {
 
         if (resultCode != Activity.RESULT_OK) return;
         Log.i("DebugTag", "OK");
+        setResult(RESULT_OK);
 
         LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.show();

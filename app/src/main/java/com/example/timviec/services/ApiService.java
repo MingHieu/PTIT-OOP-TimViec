@@ -4,7 +4,6 @@ import com.example.timviec.App;
 import com.example.timviec.model.API;
 import com.example.timviec.model.Education;
 import com.example.timviec.model.Experience;
-import com.example.timviec.model.Job;
 import com.example.timviec.model.Skill;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

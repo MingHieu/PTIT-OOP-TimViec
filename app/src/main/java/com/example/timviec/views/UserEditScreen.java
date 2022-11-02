@@ -138,6 +138,7 @@ public class UserEditScreen extends Utils.BaseActivity {
                                 @Override
                                 public void run() {
                                     dialog.hide();
+                                    setResult(RESULT_OK);
                                     onBackPressed();
                                 }
                             });

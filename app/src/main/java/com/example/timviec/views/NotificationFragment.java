@@ -65,13 +65,6 @@ public class NotificationFragment extends Utils.BaseFragment {
             }
         });
 
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         if (notifications.size() != 0) {
             if (notificationListView.getVisibility() == View.GONE) {
                 notificationListView.setVisibility(View.VISIBLE);
@@ -80,7 +73,10 @@ public class NotificationFragment extends Utils.BaseFragment {
             notificationListViewAdapter = new NotificationListViewAdapter(notifications);
             notificationListView.setAdapter(notificationListViewAdapter);
         }
+
+        return view;
     }
+
 }
 
 class NotificationListViewAdapter extends BaseAdapter {

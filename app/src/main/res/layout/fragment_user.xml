@@ -77,7 +77,7 @@
                     android:id="@+id/fragment_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lê Minh Hiếu"
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/on_background"
                     android:textSize="24dp"
@@ -94,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
-                    android:text="“Tôi mong muốn có thể hoàn thành tốt công việc mà cấp trên giao phó, đạt được KPI và tạo dựng được mối quan hệ thân thiết, tương trợ lẫn nhau giữa các đồng nghiệp”"
+                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@color/on_background"
                     android:textSize="16dp" />

@@ -112,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:custom_input_border_color="@color/gray_400"
-                    app:custom_input_placeholder="VD: 23 Thái Hà, Đống Đa, Hà Nội"
+                    app:custom_input_placeholder="VD: Km10 Nguyễn Trãi"
                     app:custom_input_radius="false"
                     app:custom_input_required="true"
                     app:custom_input_text="Địa chỉ doanh nghiệp"

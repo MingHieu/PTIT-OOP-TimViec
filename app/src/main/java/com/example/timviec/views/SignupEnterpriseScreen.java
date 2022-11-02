@@ -23,15 +23,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignupEnterpriseScreen extends Utils.BaseActivity {
+    private final StateManagerService stateManager = App.getContext().getStateManager();
+    private final StorageService storageService = App.getContext().getStorageService();
     private CustomInput mName;
     private CustomInput mAddress;
     private CustomInput mEmail;
     private CustomInput mPassword;
     private CustomInput mRepeatPassword;
     private CustomButton mSignupButton;
-    private final StateManagerService stateManager = App.getContext().getStateManager();
-    private final StorageService storageService = App.getContext().getStorageService();
-
     private LoadingDialog loadingDialog;
     private CustomDialog dialog;
 

@@ -46,90 +46,98 @@
                 android:id="@+id/fragment_home_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Lê Minh Hiếu"
+                android:text=""
                 android:textColor="@color/on_surface"
                 android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/fragment_home_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:overScrollMode="never">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/fragment_home_loadmore"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="10dp">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/primary"
-                app:cardCornerRadius="6dp"
-                app:cardElevation="0dp">
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
 
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_marginTop="20dp"
+                    app:cardBackgroundColor="@color/primary"
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="0dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:text="Tìm kiếm công việc phù hợp với bạn"
-                        android:textColor="@color/on_primary"
-                        android:textSize="16dp" />
+                        android:orientation="vertical"
+                        android:padding="15dp">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/fragment_home_search"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/surface"
-                        app:cardCornerRadius="6dp"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="15dp">
+                            android:layout_marginBottom="15dp"
+                            android:text="Tìm kiếm công việc phù hợp với bạn"
+                            android:textColor="@color/on_primary"
+                            android:textSize="16dp" />
 
-                            <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:layout_marginRight="8dp"
-                                android:src="@drawable/ic_search"
-                                app:tint="@color/gray_600" />
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/fragment_home_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/surface"
+                            app:cardCornerRadius="6dp"
+                            app:cardElevation="0dp">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Từ khóa bạn đang tìm kiếm"
-                                android:textColor="@color/gray_600" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:padding="15dp">
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_marginRight="8dp"
+                                    android:src="@drawable/ic_search"
+                                    app:tint="@color/gray_600" />
 
-            <com.example.timviec.components.JobCard
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:job_card_job_address="Km 10 Nguyễn Trãi"
-                app:job_card_job_company="CÔNG TY TNHH TIMVIEC"
-                app:job_card_job_money="Trên 10 triệu"
-                app:job_card_job_name="Lập trình viên Android"
-                app:job_card_job_time="Còn 10 ngày để ứng tuyển" />
-        </LinearLayout>
-    </ScrollView>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Từ khóa bạn đang tìm kiếm"
+                                    android:textColor="@color/gray_600" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <com.example.timviec.components.NonScrollListView
+                    android:id="@+id/fragment_home_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:divider="@color/transparent"
+                    android:dividerHeight="20dp"
+                    android:paddingHorizontal="1dp"
+                    android:paddingVertical="20dp"
+                    android:scrollbars="none" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

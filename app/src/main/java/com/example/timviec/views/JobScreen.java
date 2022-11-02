@@ -21,13 +21,11 @@ import com.example.timviec.Utils;
 import com.example.timviec.components.CustomDialog;
 import com.example.timviec.components.LoadingDialog;
 import com.example.timviec.model.API;
-import com.example.timviec.model.Education;
 import com.example.timviec.model.Job;
 import com.example.timviec.model.User;
 import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
@@ -87,6 +85,7 @@ public class JobScreen extends Utils.BaseActivity {
 
         if (resultCode != Activity.RESULT_OK) return;
         Log.i("DebugTag", "OK");
+        setResult(RESULT_OK);
 
         LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.show();
@@ -162,10 +161,14 @@ class JobListViewAdapter extends BaseAdapter {
         ((TextView) itemView.findViewById(R.id.job_card_job_company)).setText(item.getCompanyName());
         ((TextView) itemView.findViewById(R.id.job_card_job_money)).setText(item.getSalary());
         ((TextView) itemView.findViewById(R.id.job_card_job_address)).setText(item.getAddress());
-        ((TextView) itemView.findViewById(R.id.job_card_job_time)).setText("Còn " +
-                TimeUnit.DAYS.convert(
-                        item.getExpired().getTime() - item.getCreateAt().getTime(),
-                        TimeUnit.MILLISECONDS) + " ngày để ứng tuyển");
+        long daysLeft = TimeUnit.DAYS.convert(
+                item.getExpired().getTime() - item.getCreateAt().getTime(),
+                TimeUnit.MILLISECONDS);
+        ((TextView) itemView.findViewById(R.id.job_card_job_time)).setText(
+                daysLeft > 0 ?
+                        "Còn " + daysLeft + " ngày để ứng tuyển" :
+                        "Đã hết thời gian ứng tuyển"
+        );
 
         if (!radius) {
             CardView cardView = itemView.findViewById(R.id.job_card);
