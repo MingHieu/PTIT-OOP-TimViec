@@ -60,6 +60,8 @@ public class SignupEnterpriseScreen extends Utils.BaseActivity {
     private void signup() {
         if (!handleValidate()) return;
 
+        loadingDialog.show();
+
         ApiService.apiService.createEnterprise(getField())
                 .enqueue(new Callback<API.SignupEnterpriseResponse>() {
                     @Override
@@ -104,6 +106,7 @@ public class SignupEnterpriseScreen extends Utils.BaseActivity {
                 mName.getValue(),
                 mEmail.getValue(),
                 mPassword.getValue(),
+                mAddress.getValue(),
                 stateManager.getFCMToken());
     }
 
@@ -111,6 +114,7 @@ public class SignupEnterpriseScreen extends Utils.BaseActivity {
         if (Utils.checkEmptyInput(mName.getValue())) return false;
         if (Utils.checkEmptyInput(mEmail.getValue())) return false;
         if (Utils.checkEmptyInput(mPassword.getValue())) return false;
+        if (Utils.checkEmptyInput(mAddress.getValue())) return false;
         return !Utils.checkEmptyInput(mRepeatPassword.getValue());
     }
 
@@ -121,7 +125,7 @@ public class SignupEnterpriseScreen extends Utils.BaseActivity {
             return false;
         }
 
-        if (mPassword.getValue().equals(mRepeatPassword.getValue())) {
+        if (!mPassword.getValue().equals(mRepeatPassword.getValue())) {
             dialog = new CustomDialog(this, "Mật khẩu không khớp", null, CustomDialog.DialogType.ERROR);
             dialog.show();
             return false;
