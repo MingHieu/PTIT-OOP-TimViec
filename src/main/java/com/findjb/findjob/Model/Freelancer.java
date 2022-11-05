@@ -71,5 +71,7 @@ public class Freelancer {
     private List<Skill> skills;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "freelancer")
     private List<Experience> experiences;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "freelancer")
+    @JsonIgnore
+    private List<ApplyPost> applyPosts;
 }

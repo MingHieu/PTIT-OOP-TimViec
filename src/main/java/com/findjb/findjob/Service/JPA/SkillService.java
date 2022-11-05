@@ -38,7 +38,7 @@ public class SkillService implements SkillServiceInterface {
 
     @Override
     public void updateSkill(SkillRequest skillRequest, Long id) {
-        Skill skill = skillRepository.findById(id).get();
+        Skill skill = skillRepository.getReferenceById(id);
         skill.setDescription(skillRequest.getDescription());
         skill.setRating(skillRequest.getRating());
         skill.setName(skillRequest.getName());

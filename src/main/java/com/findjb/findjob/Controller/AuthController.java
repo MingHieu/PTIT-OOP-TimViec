@@ -33,7 +33,6 @@ import com.findjb.findjob.Responses.DataResponse;
 import com.findjb.findjob.Responses.JwtResponse;
 import com.findjb.findjob.Responses.ObjectResponse;
 import com.findjb.findjob.Responses.StatusResponse;
-import com.google.firebase.FirebaseException;
 
 @RestController
 @RequestMapping({ "/api/auth" })

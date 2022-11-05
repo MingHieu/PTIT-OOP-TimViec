@@ -7,6 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PostDetailResponse {
     Object detail;
+    Object applicants;
     Object enterprise;
     Object related_post;
 }

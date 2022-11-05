@@ -24,9 +24,10 @@ public class FreelancerController {
     private FreelancerService freelancerService;
 
     @PostMapping({ "/create/freelancer" })
-    public ResponseEntity<Object> createNewFreelancer(@RequestBody @Valid CreateFreelancer freelancer) throws Exception {
+    public ResponseEntity<Object> createNewFreelancer(@RequestBody @Valid CreateFreelancer freelancer)
+            throws Exception {
         freelancerService.createNewFreelancer(freelancer);
-        return new ResponseEntity<Object>(new StatusResponse(true,"Đăng kí thành công"), HttpStatus.OK);
+        return new ResponseEntity<Object>(new StatusResponse(true, "Đăng kí thành công"), HttpStatus.OK);
     }
 
     @PutMapping("/freelancer/update")

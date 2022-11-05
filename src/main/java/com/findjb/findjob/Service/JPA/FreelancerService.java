@@ -52,7 +52,7 @@ public class FreelancerService implements FreelancerServiceInterface {
     public void updateFreelancer(UpdateFreelancer updateFreelancer) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
-        Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
+        Freelancer freelancer = freelancerRepository.getReferenceById(userDetails.getId());
         freelancer.setAddress(updateFreelancer.getAddress());
         freelancer.setName(updateFreelancer.getName());
         freelancer.setDob(updateFreelancer.getDob());
@@ -70,5 +70,4 @@ public class FreelancerService implements FreelancerServiceInterface {
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
         freelancerRepository.deleteById(userDetails.getId());
     }
-
 }

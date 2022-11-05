@@ -12,11 +12,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.findjb.findjob.JWT.JWTServices.UserDetailsImplement;
+import com.findjb.findjob.Model.ApplyPost;
 import com.findjb.findjob.Model.Enterprise;
+import com.findjb.findjob.Model.Freelancer;
 import com.findjb.findjob.Model.Post;
+import com.findjb.findjob.Model.CompositeKey.FreelancerPost;
+import com.findjb.findjob.Repositories.ApplyPostRepository;
 import com.findjb.findjob.Repositories.EnterpriseRepository;
+import com.findjb.findjob.Repositories.FreelancerRepository;
 import com.findjb.findjob.Repositories.PostRepository;
 import com.findjb.findjob.Request.PostRequest;
+import com.findjb.findjob.Responses.ApplicantResponse;
 import com.findjb.findjob.Responses.PaginateResponse;
 import com.findjb.findjob.Responses.PostDetailResponse;
 import com.findjb.findjob.Responses.PostResponse;
@@ -28,6 +34,10 @@ public class PostService implements PostServiceInterface {
     private PostRepository postRepository;
     @Autowired
     private EnterpriseRepository enterpriseRepository;
+    @Autowired
+    private FreelancerRepository freelancerRepository;
+    @Autowired
+    private ApplyPostRepository applyPostRepository;
 
     @Override
     public void createNewPost(PostRequest postRequest) {
@@ -98,12 +108,19 @@ public class PostService implements PostServiceInterface {
         Post p = postRepository.findById(id).get();
         Enterprise e = p.getEnterprise();
         List<Post> related = postRepository.findByIdNot(id);
-        return new PostDetailResponse(p, e, related);
+        List<ApplyPost> data = applyPostRepository.findByPostId(p.getId());
+        List<ApplicantResponse> applicants = new ArrayList<>();
+        for (ApplyPost ap : data) {
+            Freelancer freelancer = freelancerRepository.findById(ap.getFreelancer().getId()).get();
+            ApplicantResponse applicant = new ApplicantResponse(freelancer, ap.getStatus());
+            applicants.add(applicant);
+        }
+        return new PostDetailResponse(p, applicants, e, related);
     }
 
     @Override
     public void updatePost(Long id, PostRequest postRequest) {
-        Post post = postRepository.findById(id).get();
+        Post post = postRepository.getReferenceById(id);
         post.setName(postRequest.getName());
         post.setAddress(postRequest.getAddress());
         post.setSalary(postRequest.getSalary());
@@ -122,5 +139,32 @@ public class PostService implements PostServiceInterface {
     @Override
     public void deletePost(Long id) {
         postRepository.deleteById(id);
+    }
+
+    @Override
+    public void applyPost(Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+        Freelancer freelancer = freelancerRepository.findById(userDetails.getId()).get();
+        Post post = postRepository.findById(id).get();
+        ApplyPost applyPost = ApplyPost.builder().id(new FreelancerPost(freelancer.getId(), id)).freelancer(freelancer)
+                .post(post).status(0).build();
+        applyPostRepository.save(applyPost);
+    }
+
+    @Override
+    public void approvePost(Long postId, Long freelancerId) {
+        FreelancerPost compId = new FreelancerPost(freelancerId, postId);
+        ApplyPost applyPost = applyPostRepository.findById(compId).get();
+        applyPost.setStatus(1);
+        applyPostRepository.save(applyPost);
+    }
+
+    @Override
+    public void rejectPost(Long postId, Long freelancerId) {
+        FreelancerPost compId = new FreelancerPost(freelancerId, postId);
+        ApplyPost applyPost = applyPostRepository.findById(compId).get();
+        applyPost.setStatus(2);
+        applyPostRepository.save(applyPost);
     }
 }

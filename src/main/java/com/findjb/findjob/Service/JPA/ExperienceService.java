@@ -41,7 +41,7 @@ public class ExperienceService implements ExperienceServiceInterface {
 
     @Override
     public void updateExperience(ExperienceRequest updateExperience, Long id) {
-        Experience experience = experienceRepository.findById(id).get();
+        Experience experience = experienceRepository.getReferenceById(id);
         experience.setName(updateExperience.getName());
         experience.setPosition(updateExperience.getPosition());
         experience.setFromDate(updateExperience.getFromDate());

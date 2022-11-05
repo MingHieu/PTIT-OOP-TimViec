@@ -1,7 +1,9 @@
 package com.findjb.findjob.Model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -61,4 +64,7 @@ public class Post {
     @JsonIgnore
     @JoinColumn(name = "enterprise_id", nullable = false)
     private Enterprise enterprise;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "post")
+    @JsonIgnore
+    private List<ApplyPost> applyPosts;
 }
