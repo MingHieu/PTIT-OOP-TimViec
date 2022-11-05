@@ -103,7 +103,6 @@
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_placeholder="Tên doanh nghiệp"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Tên doanh nghiệp"
                     app:custom_input_type="text" />
 
@@ -114,7 +113,6 @@
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_placeholder="VD: Km10 Nguyễn Trãi"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Địa chỉ doanh nghiệp"
                     app:custom_input_type="text" />
 
@@ -124,7 +122,6 @@
                     android:layout_height="wrap_content"
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Email công ty"
                     app:custom_input_type="none" />>
 
@@ -135,7 +132,6 @@
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_placeholder="VD: 09xxxxxxxx"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Hotline"
                     app:custom_input_type="text" />
 
@@ -146,7 +142,6 @@
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_placeholder="Thêm mô tả để các ứng viên hiểu rõ hơn về doạnh nghiệp của bạn."
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Mô tả"
                     app:custom_input_type="textMultiLine" />
 

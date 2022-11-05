@@ -228,6 +228,12 @@ public class API {
         private Boolean status;
         private String message;
         private ArrayList<Job> data;
+        @SerializedName("page_number")
+        private int pageNumber;
+        @SerializedName("page_size")
+        private int pageSize;
+        @SerializedName("total_record_count")
+        private int totalRecordCount;
 
         public ArrayList<Job> getData() {
             return data;

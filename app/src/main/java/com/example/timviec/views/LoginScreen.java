@@ -14,6 +14,7 @@ import com.example.timviec.components.CustomButton;
 import com.example.timviec.components.CustomDialog;
 import com.example.timviec.components.CustomInput;
 import com.example.timviec.model.API;
+import com.example.timviec.model.Job;
 import com.example.timviec.model.User;
 import com.example.timviec.router.BottomTab;
 import com.example.timviec.services.ApiService;
@@ -90,6 +91,13 @@ public class LoginScreen extends Utils.BaseActivity {
                             user.setRoleId(res.getRole());
                             user.setDetail(res.getDetail());
                             stateManager.setUser(user);
+
+                            if (res.getRole() == 2) {
+                                for (Job job : stateManager.getUser().getDetail().getJobs()) {
+                                    job.setCompanyAvatar(user.getDetail().getAvatar());
+                                    job.setCompanyName(user.getDetail().getName());
+                                }
+                            }
 
                             ApiService.apiService.updateFCM(new API.UpdateFCMBody(stateManager.getFCMToken())).enqueue(new Callback<API.Response>() {
                                 @Override

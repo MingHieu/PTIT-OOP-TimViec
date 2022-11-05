@@ -107,8 +107,8 @@ public class EnterpriseFragment extends Utils.BaseFragment {
         jobListView.setAdapter(jobListViewAdapter);
     }
 
-    private static class REQUEST_TYPE {
-        static int INFORMATION = 0;
-        static int JOB = 1;
+    private interface REQUEST_TYPE {
+        int INFORMATION = 0;
+        int JOB = 1;
     }
 }

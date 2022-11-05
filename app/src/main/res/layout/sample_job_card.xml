@@ -33,7 +33,6 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_margin="5dp"
-                    android:layout_marginRight="10dp"
                     android:src="@drawable/ic_company" />
             </androidx.cardview.widget.CardView>
 

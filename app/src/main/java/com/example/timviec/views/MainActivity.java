@@ -12,6 +12,7 @@ import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.LoadingDialog;
 import com.example.timviec.model.API;
+import com.example.timviec.model.Job;
 import com.example.timviec.model.User;
 import com.example.timviec.router.BottomTab;
 import com.example.timviec.services.ApiService;
@@ -109,6 +110,13 @@ public class MainActivity extends Utils.BaseActivity {
                         User user = stateManager.getUser();
                         user.setDetail(data.getDetail());
                         user.setRoleId(data.getRole());
+
+                        if (data.getRole() == 2) {
+                            for (Job job : user.getDetail().getJobs()) {
+                                job.setCompanyAvatar(user.getDetail().getAvatar());
+                                job.setCompanyName(user.getDetail().getName());
+                            }
+                        }
 
                         goToHome();
                     } else {

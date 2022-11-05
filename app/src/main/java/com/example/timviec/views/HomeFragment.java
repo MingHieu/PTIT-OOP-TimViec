@@ -17,16 +17,25 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.components.CustomDialog;
 import com.example.timviec.components.NonScrollListView;
+import com.example.timviec.model.API;
 import com.example.timviec.model.Job;
 import com.example.timviec.model.User;
+import com.example.timviec.services.ApiService;
 import com.example.timviec.services.StateManagerService;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Utils.BaseFragment {
-    ArrayList<Job> jobItems;
-    JobListViewAdapter JobListViewAdapter;
+    private ArrayList<Job> jobItems;
+    private JobListViewAdapter jobListViewAdapter;
     private StateManagerService stateManager = App.getContext().getStateManager();
     private User user = stateManager.getUser();
     private ImageView mAvatar;
@@ -34,12 +43,14 @@ public class HomeFragment extends Utils.BaseFragment {
     private NonScrollListView jobListView;
     private ScrollView scrollView;
     private SwipeRefreshLayout refreshLayout;
-    private boolean loadingMore = false;
-    private boolean eod = false;
     private ViewTreeObserver.OnScrollChangedListener detectScrollToEnd;
     private String avatar;
     private String name;
 
+    private boolean loadingRefresh = false;
+    private boolean loadingMore = false;
+    private boolean eod = false;
+    private int page = 0;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -78,30 +89,9 @@ public class HomeFragment extends Utils.BaseFragment {
             }
         });
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.i(null, "Refreshing...");
-                resetData();
-            }
-        });
-
-        detectScrollToEnd = new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                if (!scrollView.canScrollVertically(1) && !loadingMore && !eod) {
-                    // bottom of scroll view
-                    Log.i(null, "Load more...");
-                    loadingMore = true;
-                    getMoreData();
-                }
-            }
-        };
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(detectScrollToEnd);
-
-        jobItems = user.getDetail().getJobs();
-        JobListViewAdapter = new JobListViewAdapter(jobItems);
-        jobListView.setAdapter(JobListViewAdapter);
+        jobItems = new ArrayList<>();
+        jobListViewAdapter = new JobListViewAdapter(jobItems);
+        jobListView.setAdapter(jobListViewAdapter);
         jobListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -111,6 +101,31 @@ public class HomeFragment extends Utils.BaseFragment {
                 startActivity(intent);
             }
         });
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (loadingRefresh) {
+                    return;
+                }
+                Log.i(null, "Refreshing...");
+                getData(true);
+            }
+        });
+
+        detectScrollToEnd = new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if (!scrollView.canScrollVertically(1) && !loadingMore && !eod) {
+                    if (loadingMore || loadingRefresh || eod) {
+                        return;
+                    }
+                    Log.i(null, "Load more...");
+                    getData(false);
+                }
+            }
+        };
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(detectScrollToEnd);
 
         setAvatar();
 
@@ -144,9 +159,63 @@ public class HomeFragment extends Utils.BaseFragment {
         mName.setText(name);
     }
 
-    private void resetData() {
-    }
+    private void getData(Boolean refresh) {
+        if (refresh) {
+            page = 0;
+            eod = false;
+            loadingMore = false;
+            loadingRefresh = true;
+            refreshLayout.setRefreshing(true);
+        } else {
+            loadingMore = true;
+        }
 
-    private void getMoreData() {
+        ApiService.apiService.getAllPost(false, page).enqueue(new Callback<API.getAllPostResponse>() {
+            @Override
+            public void onResponse(Call<API.getAllPostResponse> call, Response<API.getAllPostResponse> response) {
+                if (refresh) {
+                    refreshLayout.setRefreshing(false);
+                    loadingRefresh = false;
+                } else {
+                    loadingMore = false;
+                }
+
+                if (response.isSuccessful()) {
+                    ArrayList<Job> jobs = response.body().getData();
+                    if (jobs.size() == 0) {
+                        eod = true;
+                        return;
+                    }
+                    if (refresh) {
+                        jobItems = jobs;
+                    } else {
+                        jobItems.addAll(jobs);
+                    }
+                    jobListViewAdapter.notifyDataSetChanged();
+                    ++page;
+                } else {
+                    eod = true;
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        CustomDialog dialog = new CustomDialog(getActivity(), jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
+                        dialog.show();
+                    } catch (Exception e) {
+                        CustomDialog dialog = new CustomDialog(getActivity(), e.getMessage(), null, null);
+                        dialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.getAllPostResponse> call, Throwable t) {
+                if (refresh) {
+                    loadingRefresh = false;
+                } else {
+                    loadingMore = false;
+                }
+                eod = true;
+                Utils.handleFailure(getActivity(), t);
+            }
+        });
     }
 }

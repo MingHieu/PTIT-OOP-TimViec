@@ -161,11 +161,11 @@ public class UserFragment extends Utils.BaseFragment {
         skillListView.setAdapter(skillListViewAdapter);
     }
 
-    private static class REQUEST_TYPE {
-        static int INFORMATION = 0;
-        static int EDUCATION = 1;
-        static int EXPERIENCE = 2;
-        static int SKILL = 3;
+    private interface REQUEST_TYPE {
+        int INFORMATION = 0;
+        int EDUCATION = 1;
+        int EXPERIENCE = 2;
+        int SKILL = 3;
     }
 }
 

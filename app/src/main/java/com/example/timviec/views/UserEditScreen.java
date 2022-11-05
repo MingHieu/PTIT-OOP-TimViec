@@ -41,6 +41,7 @@ public class UserEditScreen extends Utils.BaseActivity {
     private CustomInput mDescription;
     private StateManagerService stateManager = App.getContext().getStateManager();
     private User user = stateManager.getUser();
+    private Boolean changeAvatar = false;
 
 
     @Override
@@ -111,7 +112,9 @@ public class UserEditScreen extends Utils.BaseActivity {
                 loadingDialog.show();
 
                 API.UpdateFreelancerBody body = new API.UpdateFreelancerBody(
-                        Utils.getBase64UrlImageView(mAvatar),
+                        changeAvatar ?
+                                Utils.getBase64UrlImageView(mAvatar) :
+                                user.getDetail().getAvatar(),
                         mName.getValue(),
                         mDob.getValue(),
                         mAddress.getValue(),
@@ -174,6 +177,7 @@ public class UserEditScreen extends Utils.BaseActivity {
         if (resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
             mAvatar.setImageURI(uri);
+            changeAvatar = true;
         }
     }
 }

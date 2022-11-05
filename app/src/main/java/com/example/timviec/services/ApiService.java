@@ -102,7 +102,7 @@ public interface ApiService {
     Call<API.Response> createPost(@Body API.postBody body);
 
     @GET("post/all")
-    Call<API.getAllPostResponse> getAllPost(@Query("enterprise") Boolean enterprise);
+    Call<API.getAllPostResponse> getAllPost(@Query("enterprise") Boolean enterprise, @Query("pageNo") int pageNo);
 
     @GET("post/{id}")
     Call<API.getPostResponse> getDetailPost(@Path("id") Integer id);

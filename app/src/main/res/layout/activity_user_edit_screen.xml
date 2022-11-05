@@ -100,7 +100,6 @@
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_placeholder="Họ và tên của bạn"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Họ và tên"
                     app:custom_input_type="text" />
 
@@ -111,7 +110,6 @@
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_placeholder="dd/mm/yyyy"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Ngày sinh"
                     app:custom_input_type="date" />
 
@@ -165,7 +163,6 @@
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_placeholder="VD: Km10 Nguyễn Trãi"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Địa chỉ hiện tại"
                     app:custom_input_type="text" />
 
@@ -175,7 +172,6 @@
                     android:layout_height="wrap_content"
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Email liên lạc"
                     app:custom_input_type="none" />
 
@@ -186,7 +182,6 @@
                     app:custom_input_border_color="@color/gray_400"
                     app:custom_input_placeholder="VD: 09xxxxxxxx"
                     app:custom_input_radius="false"
-                    app:custom_input_required="true"
                     app:custom_input_text="Số điện thoại liên lạc"
                     app:custom_input_type="text" />
 

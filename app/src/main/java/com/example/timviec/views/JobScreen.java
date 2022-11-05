@@ -57,7 +57,7 @@ public class JobScreen extends Utils.BaseActivity {
             public void onClick(View view) {
                 Intent i = new Intent(JobScreen.this, JobEditScreen.class);
                 i.putExtra("createNew", true);
-                startActivity(i);
+                startActivityForResult(i, 0);
             }
         });
 
@@ -90,7 +90,7 @@ public class JobScreen extends Utils.BaseActivity {
         LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.show();
 
-        ApiService.apiService.getAllPost(true).enqueue(new Callback<API.getAllPostResponse>() {
+        ApiService.apiService.getAllPost(true, 0).enqueue(new Callback<API.getAllPostResponse>() {
             @Override
             public void onResponse(Call<API.getAllPostResponse> call, Response<API.getAllPostResponse> response) {
                 loadingDialog.hide();
