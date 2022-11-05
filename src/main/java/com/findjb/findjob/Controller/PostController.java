@@ -92,9 +92,12 @@ public class PostController {
     public ResponseEntity<Object> rejectPost(@PathVariable Long post_id, @PathVariable Long freelancer_id) {
         postService.rejectPost(post_id, freelancer_id);
         String fcmToken = userRepository.findById(freelancer_id).get().getFcmToken();
-        FcmNotification fcmNotification = new FcmNotification(fcmToken, "Đơn xin việc đã bị từ chối",
-                "Hãy cải thiện lại hồ sơ của bạn và ứng tuyển lại nhé", null);
-        fcmService.pushNotification(fcmNotification);
+        try {
+            FcmNotification fcmNotification = new FcmNotification(fcmToken, "Đơn xin việc đã bị từ chối",
+                    "Hãy cải thiện lại hồ sơ của bạn và ứng tuyển lại nhé", null);
+            fcmService.pushNotification(fcmNotification);
+        } catch (Exception e) {
+        }
         return new ResponseEntity<Object>(new StatusResponse(true, "Thành công"), HttpStatus.OK);
     }
 }
