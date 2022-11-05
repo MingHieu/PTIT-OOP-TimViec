@@ -88,7 +88,7 @@ public class PostController {
         return new ResponseEntity<Object>(new StatusResponse(true, "Thành công"), HttpStatus.OK);
     }
 
-    @PutMapping("/{post_id}/approve/{freelancer_id}")
+    @PutMapping("/{post_id}/reject/{freelancer_id}")
     public ResponseEntity<Object> rejectPost(@PathVariable Long post_id, @PathVariable Long freelancer_id) {
         postService.rejectPost(post_id, freelancer_id);
         String fcmToken = userRepository.findById(freelancer_id).get().getFcmToken();
