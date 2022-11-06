@@ -1,5 +1,7 @@
 package com.findjb.findjob.Service.JPA;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.findjb.findjob.JWT.JWTServices.UserDetailsImplement;
+import com.findjb.findjob.Model.ApplyPost;
 import com.findjb.findjob.Model.Freelancer;
+import com.findjb.findjob.Model.Post;
 import com.findjb.findjob.Model.Role;
 import com.findjb.findjob.Model.User;
+import com.findjb.findjob.Repositories.ApplyPostRepository;
 import com.findjb.findjob.Repositories.FreelancerRepository;
+import com.findjb.findjob.Repositories.PostRepository;
 import com.findjb.findjob.Repositories.RoleRepository;
 import com.findjb.findjob.Repositories.UserRepository;
 import com.findjb.findjob.Request.CreateFreelancer;
@@ -29,6 +35,10 @@ public class FreelancerService implements FreelancerServiceInterface {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private FreelancerRepository freelancerRepository;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private ApplyPostRepository applyPostRepository;
 
     @Override
     public void createNewFreelancer(CreateFreelancer newFreelancer) {
@@ -74,5 +84,18 @@ public class FreelancerService implements FreelancerServiceInterface {
     @Override
     public Freelancer getFreelancerDetail(Long id) {
         return freelancerRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Post> getAllPostApply() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
+        List<ApplyPost> apply = applyPostRepository.findByFreelancerId(userDetails.getId());
+        List<Post> posts = new ArrayList<>();
+        for (ApplyPost a : apply) {
+            Post p = postRepository.findById(a.getPost().getId()).get();
+            posts.add(p);
+        }
+        return posts;
     }
 }

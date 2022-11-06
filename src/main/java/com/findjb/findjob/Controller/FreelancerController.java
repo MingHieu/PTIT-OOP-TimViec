@@ -50,4 +50,8 @@ public class FreelancerController {
         return new ResponseEntity<Object>(
                 new ObjectResponse(true, "Thành công", freelancerService.getFreelancerDetail(id)), HttpStatus.OK);
     }
+    @GetMapping("/freelancer/getPost")
+    public ResponseEntity<Object> getAllPost(){
+        return new ResponseEntity<Object>(new ObjectResponse(true,"Thành công",freelancerService.getAllPostApply()), HttpStatus.OK);
+    }
 }
