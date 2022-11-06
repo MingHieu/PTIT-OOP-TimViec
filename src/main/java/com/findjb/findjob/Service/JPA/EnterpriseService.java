@@ -95,5 +95,4 @@ public class EnterpriseService implements EnterpriseServiceInterface {
         Enterprise enterprise = enterpriseRepository.findById(id).get();
         return enterprise;
     }
-
 }

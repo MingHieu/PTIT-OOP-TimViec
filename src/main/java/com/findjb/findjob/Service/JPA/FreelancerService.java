@@ -70,4 +70,9 @@ public class FreelancerService implements FreelancerServiceInterface {
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
         freelancerRepository.deleteById(userDetails.getId());
     }
+
+    @Override
+    public Freelancer getFreelancerDetail(Long id) {
+        return freelancerRepository.findById(id).get();
+    }
 }

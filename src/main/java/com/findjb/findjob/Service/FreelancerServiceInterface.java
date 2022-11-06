@@ -1,5 +1,6 @@
 package com.findjb.findjob.Service;
 
+import com.findjb.findjob.Model.Freelancer;
 import com.findjb.findjob.Request.CreateFreelancer;
 import com.findjb.findjob.Request.UpdateFreelancer;
 
@@ -8,4 +9,5 @@ public interface FreelancerServiceInterface {
     void updateFreelancer(UpdateFreelancer updateFreelancer);
     void deleteFreelancer();
 
+    Freelancer getFreelancerDetail(Long id);
 }
