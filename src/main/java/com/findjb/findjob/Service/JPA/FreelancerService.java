@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.findjb.findjob.JWT.JWTServices.UserDetailsImplement;
 import com.findjb.findjob.Model.ApplyPost;
+import com.findjb.findjob.Model.Enterprise;
 import com.findjb.findjob.Model.Freelancer;
 import com.findjb.findjob.Model.Post;
 import com.findjb.findjob.Model.Role;
@@ -23,6 +24,7 @@ import com.findjb.findjob.Repositories.RoleRepository;
 import com.findjb.findjob.Repositories.UserRepository;
 import com.findjb.findjob.Request.CreateFreelancer;
 import com.findjb.findjob.Request.UpdateFreelancer;
+import com.findjb.findjob.Responses.PostResponse;
 import com.findjb.findjob.Service.FreelancerServiceInterface;
 
 @Service
@@ -87,14 +89,33 @@ public class FreelancerService implements FreelancerServiceInterface {
     }
 
     @Override
-    public List<Post> getAllPostApply() {
+    public List<PostResponse> getAllPostApply() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
         List<ApplyPost> apply = applyPostRepository.findByFreelancerId(userDetails.getId());
-        List<Post> posts = new ArrayList<>();
+        List<PostResponse> posts = new ArrayList<>();
         for (ApplyPost a : apply) {
             Post p = postRepository.findById(a.getPost().getId()).get();
-            posts.add(p);
+            Enterprise e = p.getEnterprise();
+            PostResponse ps = PostResponse.builder()
+                    .id(p.getId())
+                    .name(p.getName())
+                    .companyName(e.getName())
+                    .companyAvatar(e.getAvatar())
+                    .salary(p.getSalary())
+                    .type(p.getType())
+                    .quantity(p.getQuantity())
+                    .experience(p.getExperience())
+                    .position(p.getPosition())
+                    .address(p.getAddress())
+                    .description(p.getDescription())
+                    .requirement(p.getRequirement())
+                    .gender(p.getGender())
+                    .benefit(p.getBenefit())
+                    .created_at(p.getCreated_at())
+                    .expired(p.getExpired())
+                    .build();
+            posts.add(ps);
         }
         return posts;
     }
