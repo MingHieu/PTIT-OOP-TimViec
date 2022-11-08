@@ -1,9 +1,12 @@
 package com.example.timviec.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.viewpager2.widget.ViewPager2;
@@ -12,9 +15,12 @@ import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
 import com.example.timviec.components.CustomButton;
+import com.example.timviec.model.Job;
 import com.example.timviec.model.User;
 import com.example.timviec.services.StateManagerService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class HistoryFragment extends Utils.BaseFragment {
 
@@ -38,12 +44,33 @@ public class HistoryFragment extends Utils.BaseFragment {
 
         setUpScreen(view, "Lịch sử");
 
-        if (false) {
+        ListView listView = view.findViewById(R.id.fragment_history_list);
+        TextView emptyDescription = view.findViewById(R.id.fragment_history_empty_description);
+        CustomButton button = view.findViewById(R.id.fragment_history_button);
+        ArrayList<Job> jobs = new ArrayList<>();
+
+        if (user.getRoleId() == 1) {
+            jobs = user.getDetail().getApplyJobs();
+        }
+        if (user.getRoleId() == 2) {
+            jobs = user.getDetail().getJobs();
+        }
+
+        if (jobs.size() > 0) {
+            JobListViewAdapter jobListViewAdapter = new JobListViewAdapter(jobs);
+            listView.setAdapter(jobListViewAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Job item = (Job) adapterView.getItemAtPosition(i);
+                    Intent intent = new Intent(getActivity(), JobDetailScreen.class);
+                    intent.putExtra("jobId", item.getId());
+                    startActivity(intent);
+                }
+            });
             view.findViewById(R.id.fragment_history_empty).setVisibility(View.GONE);
         } else {
-            TextView emptyDescription = view.findViewById(R.id.fragment_history_empty_description);
-            CustomButton button = view.findViewById(R.id.fragment_history_button);
-
+            listView.setVisibility(View.GONE);
             if (user.getRoleId() == 1) {
                 emptyDescription.setText("Hàng ngàn cơ hội việc làm đang chào đón.\nBạn hãy ứng tuyển để tìm kiếm cơ hội việc làm ngay nhé.");
                 button.setButtonText("Tìm việc ngay");
@@ -57,9 +84,8 @@ public class HistoryFragment extends Utils.BaseFragment {
                     }
                 });
             }
-
             if (user.getRoleId() == 2) {
-                emptyDescription.setText("Vẫn chưa có người ứng tuyển.\nBạn hãy đăng các bài tuyển dụng mới để tìm kiếm nhân sự nhé.");
+                emptyDescription.setText("Vẫn chưa có bài tuyển dụng nào.\nBạn hãy đăng các bài tuyển dụng mới để tìm kiếm nhân sự nhé.");
                 button.setButtonText("Tạo bài tuyển dụng");
                 button.setHandleOnClick(new Runnable() {
                     @Override

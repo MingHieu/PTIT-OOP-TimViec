@@ -1,6 +1,7 @@
 package com.example.timviec.router;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -14,6 +15,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.timviec.App;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
+import com.example.timviec.components.LoadingDialog;
+import com.example.timviec.model.API;
+import com.example.timviec.services.ApiService;
+import com.example.timviec.services.StateManagerService;
 import com.example.timviec.views.EnterpriseFragment;
 import com.example.timviec.views.HistoryFragment;
 import com.example.timviec.views.HomeFragment;
@@ -22,24 +27,58 @@ import com.example.timviec.views.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BottomTab extends Utils.BaseActivity {
 
     private BottomNavigationView mBottomNav;
     private ViewPager2 mViewerPage;
+
+    private StateManagerService stateManager = App.getContext().getStateManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_tab);
 
-        mBottomNav = findViewById(R.id.bottom_tab);
-        mViewerPage = findViewById(R.id.bottom_tab_view_pager);
-        // Make content not stretch horizontally when over scroll
-        View child = mViewerPage.getChildAt(0);
-        if (child instanceof RecyclerView) {
-            child.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        }
-        setUpNavigation();
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
+
+        ApiService.apiService.getApplyPost().enqueue(new Callback<API.getAllPostResponse>() {
+            @Override
+            public void onResponse(Call<API.getAllPostResponse> call, Response<API.getAllPostResponse> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    stateManager.getUser().getDetail().setApplyJobs(response.body().getData());
+
+                    mBottomNav = findViewById(R.id.bottom_tab);
+                    mViewerPage = findViewById(R.id.bottom_tab_view_pager);
+                    // Make content not stretch horizontally when over scroll
+                    View child = mViewerPage.getChildAt(0);
+                    if (child instanceof RecyclerView) {
+                        child.setOverScrollMode(View.OVER_SCROLL_NEVER);
+                    }
+                    setUpNavigation();
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Log.i("DebugTag", jsonObject.getString("message"));
+                    } catch (Exception e) {
+                        Log.i("DebugTag", e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.getAllPostResponse> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(BottomTab.this, t);
+            }
+        });
     }
 
     public void setUpNavigation() {

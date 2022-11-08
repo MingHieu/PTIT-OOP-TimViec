@@ -3,6 +3,7 @@ package com.example.timviec.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Job {
     private Integer id = null;
@@ -43,6 +44,17 @@ public class Job {
         this.benefit = benefit;
         this.createAt = createAt;
         this.expired = expired;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Job that = (Job) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, companyAvatar, companyName, name, salary, type, quantity, gender, experience, position, address, description, requirement, benefit, createAt, expired);
     }
 
     public Integer getId() {

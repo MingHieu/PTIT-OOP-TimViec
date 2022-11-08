@@ -22,6 +22,7 @@
             android:clipToPadding="false"
             android:divider="@color/transparent"
             android:dividerHeight="20dp"
+            android:overScrollMode="never"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp" />
 

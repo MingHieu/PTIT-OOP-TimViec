@@ -133,7 +133,7 @@
                     android:clipToPadding="false"
                     android:divider="@color/transparent"
                     android:dividerHeight="20dp"
-                    android:paddingHorizontal="1dp"
+                    android:paddingHorizontal="2dp"
                     android:paddingVertical="20dp"
                     android:scrollbars="none" />
             </LinearLayout>

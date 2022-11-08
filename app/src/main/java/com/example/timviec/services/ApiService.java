@@ -112,6 +112,21 @@ public interface ApiService {
 
     @DELETE("post/delete/{id}")
     Call<API.Response> deletePost(@Path("id") Integer id);
+
+    @PUT("post/apply/{id}")
+    Call<API.Response> applyPost(@Path("id") Integer id);
+
+    @PUT("post/{postId}/approve/{userId}")
+    Call<API.Response> approvePost(@Path("postId") Integer postId, @Path("userId") Integer userId);
+
+    @PUT("post/{postId}/reject/{userId}")
+    Call<API.Response> rejectPost(@Path("postId") Integer postId, @Path("userId") Integer userId);
+
+    @GET("user/freelancer/getPost")
+    Call<API.getAllPostResponse> getApplyPost();
+
+    @GET("user/freelancer/{id}")
+    Call<API.UserPublic> getUserPublic(@Path("id") Integer id);
 }
 
 class ApiServiceInterceptor implements Interceptor {

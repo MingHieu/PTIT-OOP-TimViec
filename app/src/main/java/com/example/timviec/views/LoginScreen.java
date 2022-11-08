@@ -2,7 +2,6 @@ package com.example.timviec.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -99,19 +98,8 @@ public class LoginScreen extends Utils.BaseActivity {
                                 }
                             }
 
-                            ApiService.apiService.updateFCM(new API.UpdateFCMBody(stateManager.getFCMToken())).enqueue(new Callback<API.Response>() {
-                                @Override
-                                public void onResponse(Call<API.Response> call, Response<API.Response> response) {
-                                    mLoginButton.setLoading(false);
-                                    goToHome();
-                                }
-
-                                @Override
-                                public void onFailure(Call<API.Response> call, Throwable t) {
-                                    mLoginButton.setLoading(false);
-                                    Log.i("DebugTag", t.getMessage());
-                                }
-                            });
+                            ApiService.apiService.updateFCM(new API.UpdateFCMBody(stateManager.getFCMToken()));
+                            goToHome();
                         } else {
                             mLoginButton.setLoading(false);
                             try {

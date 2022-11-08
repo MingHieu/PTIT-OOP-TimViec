@@ -41,6 +41,8 @@ public class JobDetailScreen extends Utils.BaseActivity {
     public Job job;
     public User.UserDetail enterprise;
     public ArrayList<Job> relatedJob;
+    public ArrayList<API.getPostResponse.Data.Applicant> applicants;
+    LoadingDialog loadingDialog;
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
     private StateManagerService stateManager = App.getContext().getStateManager();
@@ -64,8 +66,6 @@ public class JobDetailScreen extends Utils.BaseActivity {
             messageButton = findViewById(R.id.job_detail_message_button);
             applyButton = findViewById(R.id.job_detail_apply_button);
 
-            handleApplyButton();
-
             messageButton.setHandleOnClick(new Runnable() {
                 @Override
                 public void run() {
@@ -76,7 +76,6 @@ public class JobDetailScreen extends Utils.BaseActivity {
             applyButton.setHandleOnClick(new Runnable() {
                 @Override
                 public void run() {
-                    applyPost = !applyPost;
                     handleApplyButton();
                 }
             });
@@ -85,7 +84,7 @@ public class JobDetailScreen extends Utils.BaseActivity {
         Bundle extras = getIntent().getExtras();
         int jobId = extras.getInt("jobId");
 
-        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog = new LoadingDialog(this);
         loadingDialog.show();
 
         ApiService.apiService.getDetailPost(jobId).enqueue(new Callback<API.getPostResponse>() {
@@ -98,10 +97,31 @@ public class JobDetailScreen extends Utils.BaseActivity {
                     job = res.getData().getJob();
                     enterprise = res.getData().getEnterprise();
                     relatedJob = res.getData().getRelatedJob();
+                    for (Job x : relatedJob) {
+                        x.setCompanyName(enterprise.getName());
+                        x.setCompanyAvatar(enterprise.getAvatar());
+                    }
+                    applicants = res.getData().getApplicants();
+
+                    for (Job x : stateManager.getUser().getDetail().getApplyJobs()) {
+                        if (x.equals(job)) {
+                            applyPost = true;
+                            break;
+                        }
+                    }
+
+                    if (stateManager.getUser().getRoleId() == 1) {
+                        if (applyPost) {
+                            applyButton.setButtonType(1);
+                            applyButton.setButtonText("Đã ứng tuyển");
+                        } else {
+                            applyButton.setButtonType(0);
+                            applyButton.setButtonText("Ứng tuyển");
+                        }
+                    }
 
                     setupView();
                     setUpTabView();
-
 
                 } else {
                     try {
@@ -124,13 +144,13 @@ public class JobDetailScreen extends Utils.BaseActivity {
     }
 
     private void setupView() {
-        if (job.getCompanyAvatar() != null) {
-            Utils.setBase64UrlImageView(findViewById(R.id.job_detail_company_logo), job.getCompanyAvatar());
+        if (enterprise.getAvatar() != null) {
+            Utils.setBase64UrlImageView(findViewById(R.id.job_detail_company_logo), enterprise.getAvatar());
         } else {
             ((ImageView) findViewById(R.id.job_detail_company_logo)).setImageResource(R.drawable.ic_company);
         }
         ((TextView) findViewById(R.id.job_detail_job_name)).setText(job.getName());
-        ((TextView) findViewById(R.id.job_detail_company_name)).setText(job.getCompanyName());
+        ((TextView) findViewById(R.id.job_detail_company_name)).setText(enterprise.getName());
     }
 
     private void setUpTabView() {
@@ -153,24 +173,42 @@ public class JobDetailScreen extends Utils.BaseActivity {
     }
 
     private void handleApplyButton() {
-        if (applyPost) {
-            applyButton.setButtonType(1);
-            applyButton.setButtonText("Đã ứng tuyển");
-        } else {
-            applyButton.setButtonType(0);
-            applyButton.setButtonText("Ứng tuyển");
-        }
+        if (applyPost) return;
+
+        loadingDialog.show();
+        ApiService.apiService.applyPost(job.getId()).enqueue(new Callback<API.Response>() {
+            @Override
+            public void onResponse(Call<API.Response> call, Response<API.Response> response) {
+                loadingDialog.hide();
+                if (response.isSuccessful()) {
+                    applyPost = true;
+                    applyButton.setButtonType(1);
+                    applyButton.setButtonText("Đã ứng tuyển");
+                    stateManager.getUser().getDetail().getApplyJobs().add(job);
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        CustomDialog dialog = new CustomDialog(JobDetailScreen.this, jsonObject.getString("message"), null, CustomDialog.DialogType.ERROR);
+                        dialog.show();
+                    } catch (Exception e) {
+                        CustomDialog dialog = new CustomDialog(JobDetailScreen.this, e.getMessage(), null, null);
+                        dialog.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<API.Response> call, Throwable t) {
+                loadingDialog.hide();
+                Utils.handleFailure(JobDetailScreen.this, t);
+            }
+        });
     }
 
     public void sendEmail(String email) {
         String subject = "Thắc mắc về bài tuyển dụng";
-        String body = String.format("Dear %s", email);
-        Uri uri = Uri.parse("mailto:")
-                .buildUpon()
-                .appendQueryParameter("to", email)
-                .appendQueryParameter("subject", subject)
-                .appendQueryParameter("body", body)
-                .build();
+        String body = String.format("Dear %s", enterprise.getName());
+        Uri uri = Uri.parse("mailto:").buildUpon().appendQueryParameter("to", email).appendQueryParameter("subject", subject).appendQueryParameter("body", body).build();
 
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, uri);
         startActivity(Intent.createChooser(emailIntent, "Gửi thắc mắc tới nhà tuyển dụng"));

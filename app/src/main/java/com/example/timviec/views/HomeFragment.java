@@ -160,6 +160,7 @@ public class HomeFragment extends Utils.BaseFragment {
     }
 
     private void getData(Boolean refresh) {
+        Log.i("DebugTag", "getData");
         if (refresh) {
             page = 0;
             eod = false;

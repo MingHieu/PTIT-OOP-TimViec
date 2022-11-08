@@ -73,7 +73,7 @@ public class API {
         private String address;
         private String fcmToken;
 
-        public CreateEnterpriseBody(String name, String email, String password,String address, String fcmToken) {
+        public CreateEnterpriseBody(String name, String email, String password, String address, String fcmToken) {
             this.name = name;
             this.email = email;
             this.password = password;
@@ -123,6 +123,16 @@ public class API {
             public User.UserDetail getDetail() {
                 return detail;
             }
+        }
+    }
+
+    public static class UserPublic {
+        private Boolean status;
+        private String message;
+        private User.UserDetail data;
+
+        public User.UserDetail getData() {
+            return data;
         }
     }
 
@@ -253,6 +263,7 @@ public class API {
             @SerializedName("detail")
             private Job job;
             private User.UserDetail enterprise;
+            private ArrayList<Applicant> applicants;
             @SerializedName("related_post")
             private ArrayList<Job> relatedJob;
 
@@ -266,6 +277,25 @@ public class API {
 
             public ArrayList<Job> getRelatedJob() {
                 return relatedJob;
+            }
+
+            public ArrayList<Applicant> getApplicants() {
+                return applicants;
+            }
+
+            public static class Applicant {
+                @SerializedName("applicant")
+                private User.UserDetail detail;
+                // 0: pending, 1: approved, 2: rejected
+                private int status;
+
+                public User.UserDetail getDetail() {
+                    return detail;
+                }
+
+                public int getStatus() {
+                    return status;
+                }
             }
         }
     }

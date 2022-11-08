@@ -176,6 +176,7 @@
             android:background="@color/gray_400" />
 
         <TextView
+            android:id="@+id/job_detail_company_list_view_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Việc làm cùng công ty"
@@ -184,14 +185,14 @@
             android:textStyle="bold" />
 
         <com.example.timviec.components.NonScrollListView
-            android:id="@+id/job_detail_company_job_list"
+            android:id="@+id/job_detail_company_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:divider="@color/transparent"
             android:dividerHeight="10dp"
             android:listSelector="@android:color/transparent"
-            android:paddingHorizontal="1dp"
+            android:paddingHorizontal="2dp"
             android:paddingVertical="10dp"
             android:scrollbars="none" />
     </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.timviec.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class User {
     private int roleId;
@@ -42,6 +43,13 @@ public class User {
         private ArrayList<Experience> experiences;
         @SerializedName("posts")
         private ArrayList<Job> jobs;
+        private ArrayList<Job> applyJobs;
+
+        @Override
+        public boolean equals(Object o) {
+            UserDetail that = (UserDetail) o;
+            return Objects.equals(id, that.id);
+        }
 
         public Integer getId() {
             return id;
@@ -153,6 +161,14 @@ public class User {
 
         public void setJobs(ArrayList<Job> jobs) {
             this.jobs = jobs;
+        }
+
+        public ArrayList<Job> getApplyJobs() {
+            return applyJobs;
+        }
+
+        public void setApplyJobs(ArrayList<Job> applyJobs) {
+            this.applyJobs = applyJobs;
         }
     }
 }
