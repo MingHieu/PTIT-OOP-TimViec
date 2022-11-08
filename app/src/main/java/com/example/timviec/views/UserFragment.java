@@ -145,19 +145,19 @@ public class UserFragment extends Utils.BaseFragment {
 
     private void setEducation() {
         educationItems = user.getDetail().getEducations();
-        educationListViewAdapter = new EducationListViewAdapter(educationItems);
+        educationListViewAdapter = new EducationListViewAdapter(educationItems, EducationListViewAdapter.SCREEN_TYPE.ANOTHER);
         educationListView.setAdapter(educationListViewAdapter);
     }
 
     private void setExperience() {
         experienceItems = user.getDetail().getExperiences();
-        experienceListViewAdapter = new ExperienceListViewAdapter(experienceItems);
+        experienceListViewAdapter = new ExperienceListViewAdapter(experienceItems, ExperienceListViewAdapter.SCREEN_TYPE.ANOTHER);
         experienceListView.setAdapter(experienceListViewAdapter);
     }
 
     private void setSkill() {
         skillItems = user.getDetail().getSkills();
-        skillListViewAdapter = new SkillListViewAdapter(skillItems);
+        skillListViewAdapter = new SkillListViewAdapter(skillItems, SkillListViewAdapter.SCREEN_TYPE.ANOTHER);
         skillListView.setAdapter(skillListViewAdapter);
     }
 

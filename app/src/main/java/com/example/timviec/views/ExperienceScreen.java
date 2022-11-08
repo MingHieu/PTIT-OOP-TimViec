@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,23 +65,9 @@ public class ExperienceScreen extends Utils.BaseActivity {
         experienceListViewAdapter = new ExperienceListViewAdapter(
                 experienceItems,
                 (int) Utils.convertDpToPixel(10, this),
-                Utils.convertDpToPixel(6, this));
+                Utils.convertDpToPixel(6, this),
+                ExperienceListViewAdapter.SCREEN_TYPE.EXPERIENCE_SCREEN);
         experienceListView.setAdapter(experienceListViewAdapter);
-        experienceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Experience item = (Experience) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(ExperienceScreen.this, ExperienceEditScreen.class);
-                intent.putExtra("id", item.getId());
-                intent.putExtra("name", item.getName());
-                intent.putExtra("position", item.getPosition());
-                intent.putExtra("from", item.getFromDate());
-                intent.putExtra("to", item.getToDate());
-                intent.putExtra("description", item.getDescription());
-                startActivityForResult(intent, 0);
-
-            }
-        });
     }
 
     @Override
@@ -130,17 +115,20 @@ class ExperienceListViewAdapter extends BaseAdapter {
     private int padding;
     private float radius;
     private boolean showDescription;
+    private int screenType;
 
-    public ExperienceListViewAdapter(ArrayList<Experience> listItems) {
+    public ExperienceListViewAdapter(ArrayList<Experience> listItems, int screenType) {
         this.listItems = listItems;
         this.showDescription = false;
+        this.screenType = screenType;
     }
 
-    public ExperienceListViewAdapter(ArrayList<Experience> listItems, @Nullable int padding, @Nullable float radius) {
+    public ExperienceListViewAdapter(ArrayList<Experience> listItems, int padding, float radius, int screenType) {
         this.listItems = listItems;
         this.padding = padding;
         this.radius = radius;
         this.showDescription = true;
+        this.screenType = screenType;
     }
 
     @Override
@@ -177,6 +165,32 @@ class ExperienceListViewAdapter extends BaseAdapter {
             ((CardView) itemView.findViewById(R.id.experience_item)).setRadius(radius);
         }
 
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (screenType == SCREEN_TYPE.EXPERIENCE_SCREEN) {
+                    Experience item = getItem(i);
+                    Intent intent = new Intent(itemView.getContext(), ExperienceEditScreen.class);
+                    intent.putExtra("id", item.getId());
+                    intent.putExtra("name", item.getName());
+                    intent.putExtra("position", item.getPosition());
+                    intent.putExtra("from", item.getFromDate());
+                    intent.putExtra("to", item.getToDate());
+                    intent.putExtra("description", item.getDescription());
+                    ((Activity) itemView.getContext()).startActivityForResult(intent, 0);
+                }
+
+                if (screenType == SCREEN_TYPE.ANOTHER) {
+
+                }
+            }
+        });
+
         return itemView;
+    }
+
+    public interface SCREEN_TYPE {
+        int EXPERIENCE_SCREEN = 0;
+        int ANOTHER = 999;
     }
 }

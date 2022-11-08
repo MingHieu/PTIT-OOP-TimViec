@@ -139,28 +139,30 @@ public class UserPublic extends Utils.BaseActivity {
 
     private void setEducation() {
         educationItems = user.getEducations();
-        educationListViewAdapter = new EducationListViewAdapter(educationItems);
+        educationListViewAdapter = new EducationListViewAdapter(educationItems, EducationListViewAdapter.SCREEN_TYPE.ANOTHER);
         educationListView.setAdapter(educationListViewAdapter);
     }
 
     private void setExperience() {
         experienceItems = user.getExperiences();
-        experienceListViewAdapter = new ExperienceListViewAdapter(experienceItems);
+        experienceListViewAdapter = new ExperienceListViewAdapter(experienceItems, ExperienceListViewAdapter.SCREEN_TYPE.ANOTHER);
         experienceListView.setAdapter(experienceListViewAdapter);
     }
 
     private void setSkill() {
         skillItems = user.getSkills();
-        skillListViewAdapter = new SkillListViewAdapter(skillItems);
+        skillListViewAdapter = new SkillListViewAdapter(skillItems, SkillListViewAdapter.SCREEN_TYPE.ANOTHER);
         skillListView.setAdapter(skillListViewAdapter);
     }
 }
 
 class UserListViewAdapter extends BaseAdapter {
     private final ArrayList<API.getPostResponse.Data.Applicant> listItems;
+    private Intent intent;
 
-    public UserListViewAdapter(ArrayList<API.getPostResponse.Data.Applicant> listItems) {
+    public UserListViewAdapter(ArrayList<API.getPostResponse.Data.Applicant> listItems,Intent intent) {
         this.listItems = listItems;
+        this.intent = intent;
     }
 
     @Override
@@ -189,6 +191,14 @@ class UserListViewAdapter extends BaseAdapter {
             ((ImageView) itemView.findViewById(R.id.user_item_avatar)).setImageResource(R.drawable.img_default_user);
         }
         ((TextView) itemView.findViewById(R.id.user_item_name)).setText(item.getDetail().getName());
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent.putExtra("userId", item.getDetail().getId());
+                itemView.getContext().startActivity(intent);
+            }
+        });
 
         return itemView;
     }

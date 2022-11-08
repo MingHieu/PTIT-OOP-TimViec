@@ -77,6 +77,16 @@ public class Utils {
         return false;
     }
 
+    public static class MyRunnable implements Runnable {
+
+        public MyRunnable(Object parameter) {
+            // store parameter for later user
+        }
+
+        public void run() {
+        }
+    }
+
     static public class BaseActivity extends AppCompatActivity {
 
         @Override

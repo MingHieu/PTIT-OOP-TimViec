@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -68,20 +67,9 @@ public class SkillScreen extends Utils.BaseActivity {
         skillListViewAdapter = new SkillListViewAdapter(
                 skillItems,
                 (int) Utils.convertDpToPixel(10, this),
-                Utils.convertDpToPixel(6, this));
+                Utils.convertDpToPixel(6, this)
+                , SkillListViewAdapter.SCREEN_TYPE.SKILL_SCREEN);
         skillListView.setAdapter(skillListViewAdapter);
-        skillListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Skill item = (Skill) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(SkillScreen.this, SkillEditScreen.class);
-                intent.putExtra("id", item.getId());
-                intent.putExtra("name", item.getName());
-                intent.putExtra("rate", item.getRating());
-                intent.putExtra("description", item.getDescription());
-                startActivityForResult(intent, 0);
-            }
-        });
     }
 
     @Override
@@ -129,17 +117,20 @@ class SkillListViewAdapter extends BaseAdapter {
     private int padding;
     private float radius;
     private boolean showDescription;
+    private int screenType;
 
-    public SkillListViewAdapter(ArrayList<Skill> listItems) {
+    public SkillListViewAdapter(ArrayList<Skill> listItems, int screenType) {
         this.listItems = listItems;
         this.showDescription = false;
+        this.screenType = screenType;
     }
 
-    public SkillListViewAdapter(ArrayList<Skill> listItems, @Nullable int padding, @Nullable float radius) {
+    public SkillListViewAdapter(ArrayList<Skill> listItems, int padding, float radius, int screenType) {
         this.listItems = listItems;
         this.padding = padding;
         this.radius = radius;
         this.showDescription = true;
+        this.screenType = screenType;
     }
 
     @Override
@@ -177,6 +168,31 @@ class SkillListViewAdapter extends BaseAdapter {
             ((CardView) itemView.findViewById(R.id.skill_item)).setRadius(radius);
         }
 
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (screenType == SCREEN_TYPE.SKILL_SCREEN) {
+                    Skill item = getItem(i);
+                    Intent intent = new Intent(itemView.getContext(), SkillEditScreen.class);
+                    intent.putExtra("id", item.getId());
+                    intent.putExtra("name", item.getName());
+                    intent.putExtra("rate", item.getRating());
+                    intent.putExtra("description", item.getDescription());
+                    ((Activity) itemView.getContext()).startActivityForResult(intent, 0);
+                }
+
+                if (screenType == SCREEN_TYPE.ANOTHER) {
+
+                }
+            }
+        });
+
+
         return itemView;
+    }
+
+    public interface SCREEN_TYPE {
+        int SKILL_SCREEN = 0;
+        int ANOTHER = 999;
     }
 }

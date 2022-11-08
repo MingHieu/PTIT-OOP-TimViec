@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -90,17 +89,8 @@ public class HomeFragment extends Utils.BaseFragment {
         });
 
         jobItems = new ArrayList<>();
-        jobListViewAdapter = new JobListViewAdapter(jobItems);
+        jobListViewAdapter = new JobListViewAdapter(jobItems, JobListViewAdapter.SCREEN_TYPE.HOME);
         jobListView.setAdapter(jobListViewAdapter);
-        jobListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Job item = (Job) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(getActivity(), JobDetailScreen.class);
-                intent.putExtra("jobId", item.getId());
-                startActivity(intent);
-            }
-        });
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

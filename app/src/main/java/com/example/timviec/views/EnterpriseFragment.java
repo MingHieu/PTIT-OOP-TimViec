@@ -103,7 +103,7 @@ public class EnterpriseFragment extends Utils.BaseFragment {
 
     private void setJob() {
         jobItems = user.getDetail().getJobs();
-        jobListViewAdapter = new JobListViewAdapter(jobItems, false);
+        jobListViewAdapter = new JobListViewAdapter(jobItems, false, JobListViewAdapter.SCREEN_TYPE.ANOTHER);
         jobListView.setAdapter(jobListViewAdapter);
     }
 

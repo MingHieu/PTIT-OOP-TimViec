@@ -1,11 +1,9 @@
 package com.example.timviec.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -57,17 +55,9 @@ public class HistoryFragment extends Utils.BaseFragment {
         }
 
         if (jobs.size() > 0) {
-            JobListViewAdapter jobListViewAdapter = new JobListViewAdapter(jobs);
+            JobListViewAdapter jobListViewAdapter = new JobListViewAdapter(jobs, JobListViewAdapter.SCREEN_TYPE.HISTORY);
             listView.setAdapter(jobListViewAdapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Job item = (Job) adapterView.getItemAtPosition(i);
-                    Intent intent = new Intent(getActivity(), JobDetailScreen.class);
-                    intent.putExtra("jobId", item.getId());
-                    startActivity(intent);
-                }
-            });
+
             view.findViewById(R.id.fragment_history_empty).setVisibility(View.GONE);
         } else {
             listView.setVisibility(View.GONE);

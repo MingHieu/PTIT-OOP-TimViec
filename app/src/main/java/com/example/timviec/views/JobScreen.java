@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -38,7 +37,7 @@ import retrofit2.Response;
 
 public class JobScreen extends Utils.BaseActivity {
     ArrayList<Job> jobItems;
-    JobListViewAdapter JobListViewAdapter;
+    JobListViewAdapter jobListViewAdapter;
     ListView jobListView;
     private StateManagerService stateManager = App.getContext().getStateManager();
     private User user = stateManager.getUser();
@@ -66,17 +65,8 @@ public class JobScreen extends Utils.BaseActivity {
 
     private void setupView() {
         jobItems = user.getDetail().getJobs();
-        JobListViewAdapter = new JobListViewAdapter(jobItems);
-        jobListView.setAdapter(JobListViewAdapter);
-        jobListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Job item = (Job) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(JobScreen.this, JobEditScreen.class);
-                intent.putExtra("job", new Gson().toJson(item));
-                startActivityForResult(intent, 0);
-            }
-        });
+        jobListViewAdapter = new JobListViewAdapter(jobItems, JobListViewAdapter.SCREEN_TYPE.JOB_SCREEN);
+        jobListView.setAdapter(jobListViewAdapter);
     }
 
     @Override
@@ -122,14 +112,17 @@ public class JobScreen extends Utils.BaseActivity {
 class JobListViewAdapter extends BaseAdapter {
     private final ArrayList<Job> listItems;
     private Boolean radius = true;
+    private int screenType;
 
-    public JobListViewAdapter(ArrayList<Job> listItems) {
+    public JobListViewAdapter(ArrayList<Job> listItems, int screenType) {
         this.listItems = listItems;
+        this.screenType = screenType;
     }
 
-    public JobListViewAdapter(ArrayList<Job> listItems, Boolean radius) {
+    public JobListViewAdapter(ArrayList<Job> listItems, Boolean radius, int screenType) {
         this.listItems = listItems;
         this.radius = radius;
+        this.screenType = screenType;
     }
 
     @Override
@@ -138,7 +131,7 @@ class JobListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public Job getItem(int i) {
         return listItems.get(i);
     }
 
@@ -150,7 +143,7 @@ class JobListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View itemView = view != null ? view : View.inflate(viewGroup.getContext(), R.layout.sample_job_card, null);
-        Job item = (Job) getItem(i);
+        Job item = getItem(i);
 
         if (item.getCompanyAvatar() != null) {
             Utils.setBase64UrlImageView(itemView.findViewById(R.id.job_card_job_avatar), item.getCompanyAvatar());
@@ -176,6 +169,53 @@ class JobListViewAdapter extends BaseAdapter {
             cardView.setElevation(0);
         }
 
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (screenType == SCREEN_TYPE.HOME) {
+                    Job item = getItem(i);
+                    Intent intent = new Intent(itemView.getContext(), JobDetailScreen.class);
+                    intent.putExtra("jobId", item.getId());
+                    itemView.getContext().startActivity(intent);
+                }
+
+                if (screenType == SCREEN_TYPE.HISTORY) {
+                    Job item = getItem(i);
+                    Intent intent = new Intent(itemView.getContext(), JobDetailScreen.class);
+                    intent.putExtra("jobId", item.getId());
+                    itemView.getContext().startActivity(intent);
+                }
+
+                if (screenType == SCREEN_TYPE.JOB_DETAIL) {
+                    Job item = getItem(i);
+                    Intent intent = new Intent(itemView.getContext(), JobDetailScreen.class);
+                    intent.putExtra("jobId", item.getId());
+                    itemView.getContext().startActivity(intent);
+                    ((Activity) itemView.getContext()).finish();
+                }
+
+                if (screenType == SCREEN_TYPE.JOB_SCREEN) {
+                    Job item = getItem(i);
+                    Intent intent = new Intent(itemView.getContext(), JobEditScreen.class);
+                    intent.putExtra("job", new Gson().toJson(item));
+                    ((Activity) itemView.getContext()).startActivityForResult(intent, 0);
+                }
+
+                if (screenType == SCREEN_TYPE.ANOTHER) {
+
+                }
+            }
+        });
+
         return itemView;
+    }
+
+    public interface SCREEN_TYPE {
+        int HOME = 0;
+        int HISTORY = 1;
+        int JOB_DETAIL = 2;
+        int JOB_SCREEN = 3;
+        int ANOTHER = 999;
     }
 }

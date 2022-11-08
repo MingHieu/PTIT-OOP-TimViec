@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.timviec.App;
@@ -55,32 +54,14 @@ public class JobDetailCompany extends Utils.BaseFragment {
 
         if (user.getDetail().equals(enterprise)) {
             ((TextView) view.findViewById(R.id.job_detail_company_list_view_label)).setText("Danh sách ứng tuyển");
-            UserListViewAdapter userListViewAdapter = new UserListViewAdapter(applicants);
+            Intent intent = new Intent(getActivity(), UserPublic.class);
+            intent.putExtra("job", new Gson().toJson(((JobDetailScreen) getActivity()).job));
+            intent.putExtra("enterprise", new Gson().toJson(((JobDetailScreen) getActivity()).enterprise));
+            UserListViewAdapter userListViewAdapter = new UserListViewAdapter(applicants, intent);
             listview.setAdapter(userListViewAdapter);
-            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    API.getPostResponse.Data.Applicant item = (API.getPostResponse.Data.Applicant) adapterView.getItemAtPosition(i);
-                    Intent intent = new Intent(getActivity(), UserPublic.class);
-                    intent.putExtra("userId", item.getDetail().getId());
-                    intent.putExtra("job", new Gson().toJson(((JobDetailScreen) getActivity()).job));
-                    intent.putExtra("enterprise", new Gson().toJson(((JobDetailScreen) getActivity()).enterprise));
-                    startActivity(intent);
-                }
-            });
         } else {
-            JobListViewAdapter jobListViewAdapter = new JobListViewAdapter(relatedJob);
+            JobListViewAdapter jobListViewAdapter = new JobListViewAdapter(relatedJob, JobListViewAdapter.SCREEN_TYPE.JOB_DETAIL);
             listview.setAdapter(jobListViewAdapter);
-            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Job item = (Job) adapterView.getItemAtPosition(i);
-                    Intent intent = new Intent(getActivity(), JobDetailScreen.class);
-                    intent.putExtra("jobId", item.getId());
-                    startActivity(intent);
-                    getActivity().finish();
-                }
-            });
         }
 
         return view;
