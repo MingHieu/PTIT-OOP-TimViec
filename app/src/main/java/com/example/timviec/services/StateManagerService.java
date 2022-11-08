@@ -4,7 +4,6 @@ import com.example.timviec.model.Notification;
 import com.example.timviec.model.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class StateManagerService {
     private User user;

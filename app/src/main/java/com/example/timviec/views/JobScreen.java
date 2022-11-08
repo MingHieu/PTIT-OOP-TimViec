@@ -80,7 +80,7 @@ public class JobScreen extends Utils.BaseActivity {
         LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.show();
 
-        ApiService.apiService.getAllPost(true, 0).enqueue(new Callback<API.getAllPostResponse>() {
+        ApiService.apiService.getAllPost(true, 0, "").enqueue(new Callback<API.getAllPostResponse>() {
             @Override
             public void onResponse(Call<API.getAllPostResponse> call, Response<API.getAllPostResponse> response) {
                 loadingDialog.hide();
@@ -173,14 +173,7 @@ class JobListViewAdapter extends BaseAdapter {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (screenType == SCREEN_TYPE.HOME) {
-                    Job item = getItem(i);
-                    Intent intent = new Intent(itemView.getContext(), JobDetailScreen.class);
-                    intent.putExtra("jobId", item.getId());
-                    itemView.getContext().startActivity(intent);
-                }
-
-                if (screenType == SCREEN_TYPE.HISTORY) {
+                if (screenType == SCREEN_TYPE.HOME || screenType == SCREEN_TYPE.HISTORY || screenType == SCREEN_TYPE.SEARCH_SCREEN) {
                     Job item = getItem(i);
                     Intent intent = new Intent(itemView.getContext(), JobDetailScreen.class);
                     intent.putExtra("jobId", item.getId());
@@ -216,6 +209,7 @@ class JobListViewAdapter extends BaseAdapter {
         int HISTORY = 1;
         int JOB_DETAIL = 2;
         int JOB_SCREEN = 3;
+        int SEARCH_SCREEN = 4;
         int ANOTHER = 999;
     }
 }

@@ -106,10 +106,7 @@ public class HomeFragment extends Utils.BaseFragment {
         detectScrollToEnd = new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                if (!scrollView.canScrollVertically(1) && !loadingMore && !eod) {
-                    if (loadingMore || loadingRefresh || eod) {
-                        return;
-                    }
+                if (!scrollView.canScrollVertically(1) && !loadingMore && !eod && !loadingRefresh) {
                     Log.i(null, "Load more...");
                     getData(false);
                 }
@@ -152,6 +149,7 @@ public class HomeFragment extends Utils.BaseFragment {
     private void getData(Boolean refresh) {
         Log.i("DebugTag", "getData");
         if (refresh) {
+            jobItems = new ArrayList<>();
             page = 0;
             eod = false;
             loadingMore = false;
@@ -161,7 +159,7 @@ public class HomeFragment extends Utils.BaseFragment {
             loadingMore = true;
         }
 
-        ApiService.apiService.getAllPost(false, page).enqueue(new Callback<API.getAllPostResponse>() {
+        ApiService.apiService.getAllPost(false, page, "").enqueue(new Callback<API.getAllPostResponse>() {
             @Override
             public void onResponse(Call<API.getAllPostResponse> call, Response<API.getAllPostResponse> response) {
                 if (refresh) {
@@ -177,11 +175,7 @@ public class HomeFragment extends Utils.BaseFragment {
                         eod = true;
                         return;
                     }
-                    if (refresh) {
-                        jobItems = jobs;
-                    } else {
-                        jobItems.addAll(jobs);
-                    }
+                    jobItems.addAll(jobs);
                     jobListViewAdapter.notifyDataSetChanged();
                     ++page;
                 } else {

@@ -41,16 +41,54 @@
             android:background="@color/gray_400" />
     </LinearLayout>
 
+
     <ScrollView
+        android:id="@+id/search_screen_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="10dp">
 
+            <LinearLayout
+                android:id="@+id/search_screen_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/search_screen_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" việc làm phù hợp"
+                    android:textColor="@color/on_surface"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.example.timviec.components.NonScrollListView
+                android:id="@+id/search_screen_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:divider="@color/transparent"
+                android:dividerHeight="20dp"
+                android:paddingHorizontal="2dp"
+                android:paddingTop="10dp"
+                android:scrollbars="none" />
         </LinearLayout>
     </ScrollView>
 

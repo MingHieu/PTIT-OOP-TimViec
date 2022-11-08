@@ -248,6 +248,10 @@ public class API {
         public ArrayList<Job> getData() {
             return data;
         }
+
+        public int getTotalRecordCount() {
+            return totalRecordCount;
+        }
     }
 
     public static class getPostResponse {

@@ -160,7 +160,7 @@ class UserListViewAdapter extends BaseAdapter {
     private final ArrayList<API.getPostResponse.Data.Applicant> listItems;
     private Intent intent;
 
-    public UserListViewAdapter(ArrayList<API.getPostResponse.Data.Applicant> listItems,Intent intent) {
+    public UserListViewAdapter(ArrayList<API.getPostResponse.Data.Applicant> listItems, Intent intent) {
         this.listItems = listItems;
         this.intent = intent;
     }

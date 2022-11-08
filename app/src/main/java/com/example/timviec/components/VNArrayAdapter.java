@@ -56,19 +56,17 @@ import java.util.List;
  */
 public class VNArrayAdapter<T> extends BaseAdapter implements Filterable {
     /**
-     * Contains the list of objects that represent the data of this ArrayAdapter.
-     * The content of this list is referred to as "the array" in the documentation.
-     */
-    private List<T> mObjects;
-
-    /**
      * Lock used to modify the content of {@link #mObjects}. Any write operation
      * performed on the array should be synchronized on this lock. This lock is also
      * used by the filter (see {@link #getFilter()} to make a synchronized copy of
      * the original array of data.
      */
     private final Object mLock = new Object();
-
+    /**
+     * Contains the list of objects that represent the data of this ArrayAdapter.
+     * The content of this list is referred to as "the array" in the documentation.
+     */
+    private List<T> mObjects;
     /**
      * The resource indicating what views to inflate to display the content of this
      * array adapter.
@@ -172,6 +170,21 @@ public class VNArrayAdapter<T> extends BaseAdapter implements Filterable {
      */
     public VNArrayAdapter(Context context, int resource, int textViewResourceId, List<T> objects) {
         init(context, resource, textViewResourceId, objects);
+    }
+
+    /**
+     * Creates a new ArrayAdapter from external resources. The content of the array is
+     * obtained through {@link android.content.res.Resources#getTextArray(int)}.
+     *
+     * @param context        The application's environment.
+     * @param textArrayResId The identifier of the array to use as the data source.
+     * @param textViewResId  The identifier of the layout used to create views.
+     * @return An ArrayAdapter<CharSequence>.
+     */
+    public static VNArrayAdapter<CharSequence> createFromResource(Context context,
+                                                                  int textArrayResId, int textViewResId) {
+        CharSequence[] strings = context.getResources().getTextArray(textArrayResId);
+        return new VNArrayAdapter<CharSequence>(context, textViewResId, strings);
     }
 
     /**
@@ -379,21 +392,6 @@ public class VNArrayAdapter<T> extends BaseAdapter implements Filterable {
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         return createViewFromResource(position, convertView, parent, mDropDownResource);
-    }
-
-    /**
-     * Creates a new ArrayAdapter from external resources. The content of the array is
-     * obtained through {@link android.content.res.Resources#getTextArray(int)}.
-     *
-     * @param context        The application's environment.
-     * @param textArrayResId The identifier of the array to use as the data source.
-     * @param textViewResId  The identifier of the layout used to create views.
-     * @return An ArrayAdapter<CharSequence>.
-     */
-    public static VNArrayAdapter<CharSequence> createFromResource(Context context,
-                                                                  int textArrayResId, int textViewResId) {
-        CharSequence[] strings = context.getResources().getTextArray(textArrayResId);
-        return new VNArrayAdapter<CharSequence>(context, textViewResId, strings);
     }
 
     /**
