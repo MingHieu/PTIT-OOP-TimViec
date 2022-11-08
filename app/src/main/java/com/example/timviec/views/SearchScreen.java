@@ -40,6 +40,7 @@ public class SearchScreen extends Utils.BaseActivity {
     private JobListViewAdapter jobListViewAdapter;
     private ArrayList<Job> jobItems = new ArrayList<>();
     private int page = 0;
+    private boolean refresh = false;
     private boolean loadingMore = false;
     private boolean eod = true;
     private LoadingDialog loadingDialog;
@@ -81,7 +82,7 @@ public class SearchScreen extends Utils.BaseActivity {
         ViewTreeObserver.OnScrollChangedListener detectScrollToEnd = new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                if (!scrollView.canScrollVertically(1) && !loadingMore && !eod) {
+                if (!scrollView.canScrollVertically(1) && !loadingMore && !eod && !refresh) {
                     Log.i(null, "Load more...");
                     getData(false);
                 }
@@ -92,8 +93,8 @@ public class SearchScreen extends Utils.BaseActivity {
     }
 
     private void getData(Boolean search) {
-
         if (search) {
+            refresh = true;
             loadingDialog.show();
             jobItems = new ArrayList<>();
             quantity.setText("0");
@@ -108,6 +109,7 @@ public class SearchScreen extends Utils.BaseActivity {
             @Override
             public void onResponse(Call<API.getAllPostResponse> call, Response<API.getAllPostResponse> response) {
                 if (search) {
+                    refresh = false;
                     loadingDialog.hide();
                 } else {
                     loadingMore = false;
@@ -145,6 +147,7 @@ public class SearchScreen extends Utils.BaseActivity {
             @Override
             public void onFailure(Call<API.getAllPostResponse> call, Throwable t) {
                 if (search) {
+                    refresh = false;
                     loadingDialog.hide();
                 } else {
                     loadingMore = false;
