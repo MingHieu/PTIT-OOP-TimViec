@@ -199,7 +199,7 @@ public class CustomInput extends FrameLayout {
 
     public void setSuggestList(Activity activity, String[] suggestList, String currentValue) {
         autoComplete = true;
-        mInputAutoComplete.setAdapter(new ArrayAdapter<String>(activity, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, suggestList));
+        mInputAutoComplete.setAdapter(new VNArrayAdapter<String>(activity, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, suggestList));
         mInputAutoComplete.setVisibility(View.VISIBLE);
         mInputAutoComplete.setText(currentValue);
         mInput.setVisibility(View.GONE);

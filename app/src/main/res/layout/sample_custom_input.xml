@@ -86,7 +86,9 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:completionThreshold="1"
-                        android:hint="Input Placeholder" />
+                        android:hint="Input Placeholder"
+                        android:imeOptions="actionNext"
+                        android:inputType="text" />
                 </LinearLayout>
 
 
