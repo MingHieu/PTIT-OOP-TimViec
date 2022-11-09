@@ -39,8 +39,8 @@
                     android:id="@+id/logout_dialog_btn_cancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
-                    android:paddingHorizontal="20dp"
                     app:custom_button_color="@color/error"
                     app:custom_button_round="true"
                     app:custom_button_text="Hủy"
@@ -50,8 +50,8 @@
                     android:id="@+id/logout_dialog_btn_approve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
-                    android:paddingHorizontal="20dp"
                     app:custom_button_round="true"
                     app:custom_button_text="Đăng xuất" />
             </LinearLayout>

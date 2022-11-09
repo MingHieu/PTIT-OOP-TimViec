@@ -41,7 +41,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="50dp"
                         android:background="@color/white"
-                        app:cardCornerRadius="100dp"
+                        app:cardCornerRadius="50dp"
                         app:cardElevation="0dp">
 
 
@@ -49,7 +49,7 @@
                             android:layout_width="90dp"
                             android:layout_height="90dp"
                             android:layout_gravity="center"
-                            app:cardCornerRadius="100dp"
+                            app:cardCornerRadius="45dp"
                             app:cardElevation="0dp">
 
                             <ImageView
@@ -68,7 +68,7 @@
                         android:layout_gravity="center_horizontal|bottom"
                         android:layout_marginLeft="40dp"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="100dp"
+                        app:cardCornerRadius="15dp"
                         app:cardElevation="0dp">
 
                         <LinearLayout
