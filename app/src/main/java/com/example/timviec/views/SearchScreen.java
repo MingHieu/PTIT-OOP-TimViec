@@ -97,6 +97,8 @@ public class SearchScreen extends Utils.BaseActivity {
             refresh = true;
             loadingDialog.show();
             jobItems = new ArrayList<>();
+            jobListViewAdapter = new JobListViewAdapter(jobItems, JobListViewAdapter.SCREEN_TYPE.SEARCH_SCREEN);
+            listView.setAdapter(jobListViewAdapter);
             quantity.setText("0");
             loadingMore = false;
             eod = false;

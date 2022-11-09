@@ -3,10 +3,12 @@ package com.example.timviec.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.example.timviec.App;
+import com.example.timviec.BuildConfig;
 import com.example.timviec.Constant;
 import com.example.timviec.R;
 import com.example.timviec.Utils;
@@ -46,6 +48,8 @@ public class MainActivity extends Utils.BaseActivity {
             return;
         }
         setContentView(R.layout.activity_main);
+        String versionName = BuildConfig.VERSION_NAME;
+        ((TextView) findViewById(R.id.main_activity_version)).setText("Phiên bản " + versionName);
 
         loadingDialog = new LoadingDialog(MainActivity.this);
 
