@@ -1,5 +1,6 @@
 package com.example.timviec.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -67,19 +68,15 @@ public class SignupUserScreen extends Utils.BaseActivity {
                     public void onResponse(Call<API.SignupUserResponse> call, Response<API.SignupUserResponse> response) {
                         loadingDialog.hide();
                         if (response.isSuccessful()) {
-//                            API.SignupUserResponse res = response.body();
-//
-//                            String authToken = res.getToken();
-//                            stateManager.setAuthToken(authToken);
-//                            storageService.setString("authToken", authToken);
-//
-//                            User user = new User();
-//                            user.setRoleId(res.getRole());
-//                            stateManager.setUser(user);
                             Log.i("DebugTag", response.body().toString());
-
-//                            Intent i = new Intent(SignupUserScreen.this, BottomTab.class);
-//                            startActivity(i);
+                            CustomDialog dialog = new CustomDialog(SignupUserScreen.this, "Đăng kí thành công", "Đăng nhập", CustomDialog.DialogType.SUCCESS);
+                            dialog.onConfirm(new Runnable() {
+                                @Override
+                                public void run() {
+                                    onBackPressed();
+                                }
+                            });
+                            dialog.show();
                         } else {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());

@@ -68,19 +68,16 @@ public class SignupEnterpriseScreen extends Utils.BaseActivity {
                     public void onResponse(Call<API.SignupEnterpriseResponse> call, Response<API.SignupEnterpriseResponse> response) {
                         loadingDialog.hide();
                         if (response.isSuccessful()) {
-//                            API.SignupUserResponse res = response.body();
-//
-//                            String authToken = res.getToken();
-//                            stateManager.setAuthToken(authToken);
-//                            storageService.setString("authToken", authToken);
-//
-//                            User user = new User();
-//                            user.setRoleId(res.getRole());
-//                            stateManager.setUser(user);
-                            Log.i("DebugTag", response.body().toString());
 
-//                            Intent i = new Intent(SignupUserScreen.this, BottomTab.class);
-//                            startActivity(i);
+                            Log.i("DebugTag", response.body().toString());
+                            CustomDialog dialog = new CustomDialog(SignupEnterpriseScreen.this, "Đăng kí thành công", "Đăng nhập", CustomDialog.DialogType.SUCCESS);
+                            dialog.onConfirm(new Runnable() {
+                                @Override
+                                public void run() {
+                                    onBackPressed();
+                                }
+                            });
+                            dialog.show();
                         } else {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());
