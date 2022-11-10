@@ -60,6 +60,7 @@ public class EnterpriseEditScreen extends Utils.BaseActivity {
                 ImagePicker.with(EnterpriseEditScreen.this)
                         .compress(1024)
                         .cropSquare()
+                        .maxResultSize(200, 200)
                         .start();
             }
         });

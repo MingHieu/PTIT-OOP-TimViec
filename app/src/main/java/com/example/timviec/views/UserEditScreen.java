@@ -63,6 +63,7 @@ public class UserEditScreen extends Utils.BaseActivity {
                 ImagePicker.with(UserEditScreen.this)
                         .compress(1024)
                         .cropSquare()
+                        .maxResultSize(200, 200)
                         .start();
             }
         });
