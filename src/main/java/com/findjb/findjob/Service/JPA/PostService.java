@@ -66,7 +66,7 @@ public class PostService implements PostServiceInterface {
         Integer size = pageSize != null ? pageSize : 15;
         Pageable paginate = PageRequest.of(pageNo, size);
         Page<Post> listPosts;
-        if (isEnterprise == "true") {
+        if (isEnterprise.compareTo("true") == 0) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             UserDetailsImplement userDetails = (UserDetailsImplement) authentication.getPrincipal();
             Enterprise enterprise = enterpriseRepository.findById(userDetails.getId()).get();
