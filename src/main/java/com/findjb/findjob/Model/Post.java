@@ -42,9 +42,9 @@ public class Post {
     private String salary;
     @Column(name = "quantity")
     private Integer quantity;
-    @Column(name = "description", length = 10000)
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
-    @Column(name = "requirement",length = 100000)
+    @Column(name = "requirement",columnDefinition = "TEXT")
     private String requirement;
     @Column(name = "gender")
     private String gender;
@@ -54,7 +54,7 @@ public class Post {
     private String experience;
     @Column(name = "type")
     private String type;
-    @Column(name = "benefit",length = 100000)
+    @Column(name = "benefit",columnDefinition = "TEXT")
     private String benefit;
     @CreationTimestamp
     private Date created_at;
