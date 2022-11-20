@@ -43,6 +43,7 @@ public class HistoryFragment extends Utils.BaseFragment {
         setUpScreen(view, "Lịch sử");
 
         ListView listView = view.findViewById(R.id.fragment_history_list);
+        TextView emptyTitle = view.findViewById(R.id.fragment_history_empty_title);
         TextView emptyDescription = view.findViewById(R.id.fragment_history_empty_description);
         CustomButton button = view.findViewById(R.id.fragment_history_button);
         ArrayList<Job> jobs = new ArrayList<>();
@@ -62,6 +63,7 @@ public class HistoryFragment extends Utils.BaseFragment {
         } else {
             listView.setVisibility(View.GONE);
             if (user.getRoleId() == 1) {
+                emptyTitle.setText("Lịch sử ứng tuyển");
                 emptyDescription.setText("Hàng ngàn cơ hội việc làm đang chào đón.\nBạn hãy ứng tuyển để tìm kiếm cơ hội việc làm ngay nhé.");
                 button.setButtonText("Tìm việc ngay");
                 button.setHandleOnClick(new Runnable() {
@@ -75,6 +77,7 @@ public class HistoryFragment extends Utils.BaseFragment {
                 });
             }
             if (user.getRoleId() == 2) {
+                emptyTitle.setText("Lịch sử tuyển dụng");
                 emptyDescription.setText("Vẫn chưa có bài tuyển dụng nào.\nBạn hãy đăng các bài tuyển dụng mới để tìm kiếm nhân sự nhé.");
                 button.setButtonText("Tạo bài tuyển dụng");
                 button.setHandleOnClick(new Runnable() {

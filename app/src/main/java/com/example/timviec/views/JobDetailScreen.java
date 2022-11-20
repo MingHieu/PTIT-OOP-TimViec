@@ -97,6 +97,8 @@ public class JobDetailScreen extends Utils.BaseActivity {
                     job = res.getData().getJob();
                     enterprise = res.getData().getEnterprise();
                     relatedJob = res.getData().getRelatedJob();
+                    job.setCompanyName(enterprise.getName());
+                    job.setCompanyAvatar(enterprise.getAvatar());
                     for (Job x : relatedJob) {
                         x.setCompanyName(enterprise.getName());
                         x.setCompanyAvatar(enterprise.getAvatar());
