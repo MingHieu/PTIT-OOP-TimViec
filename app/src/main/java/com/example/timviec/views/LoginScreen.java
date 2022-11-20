@@ -98,7 +98,17 @@ public class LoginScreen extends Utils.BaseActivity {
                                 }
                             }
 
-                            ApiService.apiService.updateFCM(new API.UpdateFCMBody(stateManager.getFCMToken()));
+                            ApiService.apiService.updateFCM(new API.UpdateFCMBody(stateManager.getFCMToken())).enqueue(new Callback<API.Response>() {
+                                @Override
+                                public void onResponse(Call<API.Response> call, Response<API.Response> response) {
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<API.Response> call, Throwable t) {
+
+                                }
+                            });
                             goToHome();
                         } else {
                             mLoginButton.setLoading(false);

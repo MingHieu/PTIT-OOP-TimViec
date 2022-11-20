@@ -164,6 +164,7 @@ public class API {
     }
 
     public static class UpdateFCMBody {
+        @SerializedName("fcmToken")
         private String fcm;
 
         public UpdateFCMBody(String fcm) {
