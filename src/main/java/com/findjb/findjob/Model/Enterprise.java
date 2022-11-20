@@ -41,7 +41,7 @@ public class Enterprise {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "introduction")
+    @Column(name = "introduction",columnDefinition = "TEXT")
     private String introduction;
 
     @Column(name = "phone_number")

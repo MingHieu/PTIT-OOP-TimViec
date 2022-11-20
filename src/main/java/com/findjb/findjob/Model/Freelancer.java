@@ -51,7 +51,7 @@ public class Freelancer {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "introduction")
+    @Column(name = "introduction",columnDefinition = "TEXT")
     private String introduction;
 
     @Column(name = "level")
