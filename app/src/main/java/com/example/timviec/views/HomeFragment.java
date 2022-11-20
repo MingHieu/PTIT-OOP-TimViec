@@ -150,6 +150,8 @@ public class HomeFragment extends Utils.BaseFragment {
         Log.i("DebugTag", "getData");
         if (refresh) {
             jobItems = new ArrayList<>();
+            jobListViewAdapter = new JobListViewAdapter(jobItems, JobListViewAdapter.SCREEN_TYPE.HOME);
+            jobListView.setAdapter(jobListViewAdapter);
             page = 0;
             eod = false;
             loadingMore = false;
