@@ -1,5 +1,5 @@
 # TimViec
-Cách cài đặt server TimViec local
+##Cách cài đặt server TimViec local
 
   1. Cài đặt VSCode, Docker.
   2. Cài đặt Java Package Extension, Spring Initializr Java Support trong VSCode
