@@ -3,10 +3,9 @@
     android:id="@+id/job_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
     app:cardBackgroundColor="@color/surface"
     app:cardCornerRadius="8dp"
-    app:cardElevation="1dp">
+    app:cardElevation="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,8 +62,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="15dp"
@@ -76,6 +74,7 @@
                     android:id="@+id/job_card_job_money"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:text="Mức lương"
                     android:textColor="@color/on_surface" />
 
@@ -84,8 +83,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:layout_weight="1">
 
                 <ImageView
                     android:layout_width="15dp"
@@ -97,6 +95,7 @@
                     android:id="@+id/job_card_job_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:text="Nơi làm việc"
                     android:textColor="@color/on_surface" />
             </LinearLayout>
